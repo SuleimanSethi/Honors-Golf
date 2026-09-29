@@ -1,0 +1,447 @@
+/* Chuck's admin pages (UI-50 to UI-59), D-62: the Honors app runs inside the Shopify admin, so these pages follow
+   Shopify's admin design (Polaris) rather than the store's look A. The frame (top bar, side navigation, the app's
+   title bar) is drawn here so the pages can be reviewed without a real admin. Values follow Polaris' tokens. */
+
+:root {
+  --p-bg: #F1F1F1;               /* page background */
+  --p-nav-bg: #EBEBEB;           /* side navigation */
+  --p-inverse: #1A1A1A;          /* top bar */
+  --p-surface: #FFFFFF;
+  --p-surface-2: #F7F7F7;        /* table headers, card footers */
+  --p-surface-hover: #F7F7F7;
+  --p-surface-active: #F3F3F3;
+  --p-text: #303030;
+  --p-text-2: #616161;
+  --p-text-3: #8A8A8A;
+  --p-link: #005BD3;
+  --p-border: #E3E3E3;
+  --p-border-2: #EBEBEB;
+  --p-icon: #4A4A4A;
+  --p-icon-2: #8A8A8A;
+  --p-focus: #005BD3;
+  /* Badge tones */
+  --t-info-bg: #E0F0FF;      --t-info: #00527C;
+  --t-success-bg: #CDFEE1;   --t-success: #0C5132;
+  --t-attention-bg: #FFEF9D; --t-attention: #4F4700;
+  --t-warning-bg: #FFD6A4;   --t-warning: #5E4200;
+  --t-critical-bg: #FEDAD9;  --t-critical: #8E1F0B;
+  --t-default-bg: rgba(0, 0, 0, 0.06); --t-default: #616161;
+  --success-icon: #29845A;
+  /* Honors: the app's name and icon only */
+  --honors-forest: #1F4A36;
+  --shadow-card: 0 1px 0 0 rgba(26, 26, 26, 0.07);
+  --bevel: inset 1px 0 0 0 rgba(0, 0, 0, 0.13), inset -1px 0 0 0 rgba(0, 0, 0, 0.13), inset 0 -1px 0 0 rgba(0, 0, 0, 0.17), inset 0 1px 0 0 rgba(204, 204, 204, 0.5);
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+body.admin {
+  background: var(--p-inverse);
+  color: var(--p-text);
+  font: 450 13px/20px var(--font);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11" 1;
+}
+.admin a { color: inherit; }
+.admin svg.ic { flex: none; display: block; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- Top bar ---- */
+.topbar {
+  position: sticky; top: 0; z-index: 30; height: 56px;
+  display: grid; grid-template-columns: 240px 1fr 240px; align-items: center;
+  background: var(--p-inverse); color: #E3E3E3;
+}
+.topbar-logo { display: flex; align-items: center; gap: 7px; padding-left: 20px; color: #fff; text-decoration: none; }
+.topbar-logo svg { width: 22px; height: 24px; }
+.topbar-logo span { font: 700 17px/1 var(--font); letter-spacing: -0.02em; }
+.topbar-search {
+  justify-self: center; width: min(600px, 100%); height: 36px;
+  display: flex; align-items: center; gap: 8px; padding: 0 8px 0 12px;
+  background: #303030; border: 1px solid #4A4A4A; border-radius: 10px; color: #B5B5B5;
+}
+.topbar-search input { flex: 1; min-width: 0; border: 0; background: none; color: #fff; outline: none; font: 450 13px/20px var(--font); }
+.topbar-search input::placeholder { color: #B5B5B5; }
+.topbar-search kbd { display: flex; gap: 2px; }
+.topbar-search kbd span { min-width: 20px; height: 20px; padding: 0 5px; display: grid; place-items: center; border-radius: 6px; background: #4A4A4A; color: #E3E3E3; font: 550 11px/1 var(--font); }
+.topbar-end { justify-self: end; display: flex; align-items: center; gap: 8px; padding-right: 12px; }
+.topbar-icon { width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: 8px; background: none; color: #E3E3E3; }
+.topbar-icon:hover { background: #303030; }
+.topbar-store { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 4px; border: 0; border-radius: 8px; background: none; color: #fff; font: 550 13px/1 var(--font); }
+.topbar-store:hover { background: #303030; }
+.avatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; font: 650 11px/1 var(--font); }
+.avatar-store { background: #36FBA1; color: #0C5132; }
+
+/* ---- Frame: side navigation and main area, on a sheet with rounded top corners ---- */
+.frame { display: flex; min-height: calc(100vh - 56px); background: var(--p-bg); border-radius: 12px 12px 0 0; overflow: clip; }
+.sidenav {
+  position: sticky; top: 56px; align-self: flex-start; height: calc(100vh - 56px); width: 240px; flex: none;
+  display: flex; flex-direction: column; padding: 12px 8px 12px 12px; background: var(--p-nav-bg); overflow-y: auto;
+}
+.nav-list { display: flex; flex-direction: column; gap: 1px; margin: 0; padding: 0; list-style: none; }
+.nav-item { display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 8px; border-radius: 8px; color: var(--p-text); text-decoration: none; font-weight: 650; }
+.nav-item .ic { color: var(--p-icon); width: 20px; height: 20px; }
+.nav-item:hover { background: rgba(255, 255, 255, 0.55); }
+.nav-item[aria-current="page"] { background: #FAFAFA; box-shadow: 0 1px 0 0 rgba(26, 26, 26, 0.07); }
+.nav-item[aria-current="page"] .ic { color: var(--p-text); }
+.nav-count { margin-left: auto; min-width: 20px; padding: 0 6px; border-radius: 8px; background: rgba(0, 0, 0, 0.08); color: var(--p-text); font: 550 12px/20px var(--font); text-align: center; }
+.nav-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 8px 4px; color: var(--p-text-2); font: 550 12px/16px var(--font); }
+.nav-head .ic { width: 16px; height: 16px; color: var(--p-icon-2); }
+.nav-sub { margin: 1px 0 0; padding: 0; list-style: none; }
+.nav-sub a { display: block; padding: 5px 8px 5px 36px; border-radius: 8px; color: var(--p-text-2); text-decoration: none; font-weight: 550; }
+.nav-sub a:hover { background: rgba(255, 255, 255, 0.55); color: var(--p-text); }
+.nav-sub a[aria-current="page"] { background: #FAFAFA; color: var(--p-text); font-weight: 650; }
+.app-icon { width: 20px; height: 20px; flex: none; display: grid; place-items: center; border-radius: 5px; background: var(--honors-forest); color: #fff; font: 700 12px/1 var(--font); letter-spacing: -0.02em; }
+.nav-foot { margin-top: auto; padding-top: 12px; }
+
+.main { flex: 1; min-width: 0; }
+
+/* The app's title bar, drawn by the admin above the app */
+.app-bar { display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--p-border); background: var(--p-bg); }
+.app-bar .app-icon { width: 24px; height: 24px; border-radius: 6px; font-size: 14px; }
+.app-bar-name { font: 650 14px/20px var(--font); }
+.app-bar-end { margin-left: auto; display: flex; gap: 4px; }
+.icon-btn { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 8px; background: none; color: var(--p-icon); }
+.icon-btn:hover { background: rgba(0, 0, 0, 0.06); }
+
+/* ---- Page (Polaris Page, default width) ---- */
+.page { max-width: 998px; margin: 0 auto; padding: 24px 24px 120px; }
+.page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.page-title { font: 700 20px/24px var(--font); letter-spacing: -0.01em; }
+.page-sub { margin-top: 4px; color: var(--p-text-2); }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+
+/* ---- Card ---- */
+.card { position: relative; background: var(--p-surface); border-radius: 12px; box-shadow: var(--shadow-card); }
+.card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: var(--bevel); pointer-events: none; z-index: 2; mix-blend-mode: luminosity; }
+.card-clip { border-radius: inherit; overflow: hidden; }
+.card-head { display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 12px 16px; }
+.card-head.has-sub { align-items: flex-start; }
+.card-title { font: 650 14px/20px var(--font); }
+.card-sub { color: var(--p-text-2); }
+.card-head-end { margin-left: auto; display: flex; align-items: center; gap: 12px; flex: none; }
+.card-foot { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--p-border-2); background: var(--p-surface-2); color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.card-foot .ic { width: 16px; height: 16px; color: var(--p-icon-2); }
+
+/* ---- Text, links, buttons ---- */
+.subdued { color: var(--p-text-2); }
+.strong { font-weight: 650; }
+.admin .link { color: var(--p-link); text-decoration: none; font-weight: 550; }
+.admin .link:hover { text-decoration: underline; }
+.link-arrow { display: inline-flex; align-items: center; gap: 2px; }
+.link-arrow .ic { width: 16px; height: 16px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 28px; padding: 4px 12px;
+  border: 0; border-radius: 8px; background: var(--p-surface); color: var(--p-text); text-decoration: none; white-space: nowrap;
+  font: 550 12px/16px var(--font);
+  box-shadow: inset 0 -1px 0 0 #B5B5B5, inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0.5px 0 1.5px #FFF;
+}
+.btn:hover { background: var(--p-surface-hover); }
+.btn:active { background: var(--p-surface-active); box-shadow: inset 0 2px 1px 0 rgba(26, 26, 26, 0.2); }
+.btn .ic { width: 16px; height: 16px; color: var(--p-icon); }
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(180deg, rgba(48, 48, 48, 0) 63.53%, rgba(255, 255, 255, 0.15) 100%), #303030;
+  box-shadow: inset 0 -1px 0 1px rgba(0, 0, 0, 0.8), inset 0 0 0 1px #303030, inset 0 0.5px 0 1.5px rgba(255, 255, 255, 0.25);
+}
+.btn-primary:hover { background: linear-gradient(180deg, rgba(48, 48, 48, 0) 63.53%, rgba(255, 255, 255, 0.15) 100%), #1A1A1A; }
+.btn-plain { display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px; margin: -2px -4px; border: 0; border-radius: 6px; background: none; color: var(--p-link); font: 550 13px/20px var(--font); }
+.btn-plain:hover { text-decoration: underline; }
+.btn-plain .ic { width: 16px; height: 16px; }
+.admin :focus-visible { outline: 2px solid var(--p-focus); outline-offset: 1px; }
+
+/* ---- Badges ---- */
+.badge { display: inline-flex; align-items: center; gap: 2px; padding: 2px 8px; border-radius: 8px; background: var(--t-default-bg); color: var(--t-default); font: 550 12px/16px var(--font); white-space: nowrap; }
+.badge .ic { width: 14px; height: 14px; margin-left: -3px; }
+.badge.info { background: var(--t-info-bg); color: var(--t-info); }
+.badge.success { background: var(--t-success-bg); color: var(--t-success); }
+.badge.attention { background: var(--t-attention-bg); color: var(--t-attention); }
+.badge.warning { background: var(--t-warning-bg); color: var(--t-warning); }
+.badge.critical { background: var(--t-critical-bg); color: var(--t-critical); }
+.badges { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* ---- Thumbnails: the real product with the design on it ---- */
+.thumb { width: 48px; height: 48px; flex: none; display: block; border-radius: 8px; background: #F2F2F5; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); overflow: hidden; }
+.thumb svg { display: block; width: 100%; height: 100%; }
+.thumb-stack { display: flex; }
+.thumb-stack .thumb + .thumb { margin-left: -12px; box-shadow: 0 0 0 2px var(--p-surface), inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+
+/* ---- Index table ---- */
+.table { width: 100%; border-collapse: collapse; }
+.table th { padding: 6px 12px; background: var(--p-surface-2); border-top: 1px solid var(--p-border-2); border-bottom: 1px solid var(--p-border); color: var(--p-text-2); font: 550 12px/16px var(--font); text-align: left; white-space: nowrap; }
+.table td { padding: 8px 12px; border-top: 1px solid var(--p-border-2); vertical-align: middle; }
+.table tr:first-child td { border-top: 0; }
+.table th:first-child, .table td:first-child { padding-left: 16px; }
+.table th:last-child, .table td:last-child { padding-right: 16px; }
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.table tbody tr[data-href] { cursor: pointer; }
+.table tbody tr[data-href]:hover td { background: var(--p-surface-hover); }
+.cell-2 { display: flex; flex-direction: column; }
+.cell-2 .subdued { font-size: 12px; line-height: 16px; }
+.cell-thumb { display: flex; align-items: center; gap: 12px; }
+.clip { max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-link { color: var(--p-text); font-weight: 650; text-decoration: none; }
+.row-link:hover { text-decoration: underline; }
+.nowrap { white-space: nowrap; }
+
+/* ---- Review-only labels and the review bar (buyers and Chuck would never see them) ---- */
+.review-note { display: inline-flex; align-items: center; flex: none; padding: 5px 10px; border-radius: 999px; background: rgba(18, 18, 20, 0.9); color: #fff; font: 600 12px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; white-space: nowrap; }
+.review-switch .review-all { color: #fff; padding: 8px 10px; opacity: 0.7; }
+
+/* ================= UI-50 Overview ================= */
+
+/* Orders by stage */
+.stages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--p-border-2); }
+.stage { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px 14px; color: var(--p-text); text-decoration: none; }
+.stage + .stage { border-left: 1px solid var(--p-border-2); }
+.stage:hover { background: var(--p-surface-hover); }
+.stage-name { display: flex; align-items: center; gap: 6px; color: var(--p-text-2); font-weight: 550; }
+.dot { width: 8px; height: 8px; flex: none; border-radius: 50%; }
+.dot.info { background: #4BA3EE; }
+.dot.default { background: #8A8A8A; }
+.dot.attention { background: #E8C21A; }
+.dot.warning { background: #F49342; }
+.dot.success { background: #29845A; }
+.stage-count { font: 700 24px/32px var(--font); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.stage-note { color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.stage-bottom { border-radius: 0 0 12px 12px; }
+
+/* Warm leads */
+.lead-email { color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.admin .lead-buyer { color: var(--p-text); font-weight: 550; text-decoration: none; }
+.admin .lead-buyer:hover { text-decoration: underline; }
+
+/* ---- Menus (Polaris popover with an action list) and toasts, shared by the admin pages ---- */
+.menu { position: absolute; z-index: 25; width: 232px; padding: 6px; border-radius: 12px; background: var(--p-surface); box-shadow: 0 4px 6px -2px rgba(26, 26, 26, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08); cursor: default; }
+.menu-label { padding: 6px 8px 2px; color: var(--p-text-2); font: 550 12px/16px var(--font); }
+.menu-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px 8px; border: 0; border-radius: 8px; background: none; color: var(--p-text); text-align: left; text-decoration: none; font: 450 13px/20px var(--font); }
+.menu-item:hover { background: var(--p-surface-active); }
+.menu-item .dot { margin: 0 2px; }
+.menu-sep { height: 1px; margin: 6px -6px; background: var(--p-border-2); }
+.menu-note { padding: 4px 8px 4px; color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.admin-toast {
+  position: fixed; left: calc(50% + 120px); bottom: 24px; z-index: 70; transform: translateX(-50%);   /* above the review bar (60) */
+  display: flex; align-items: center; gap: 16px; padding: 10px 10px 10px 16px; border-radius: 12px;
+  background: #1A1A1A; color: #fff; font: 550 13px/20px var(--font); box-shadow: 0 8px 16px -4px rgba(26, 26, 26, 0.3);
+}
+.admin-toast button { border: 0; background: none; color: #fff; font: 550 13px/20px var(--font); padding: 2px 6px; border-radius: 6px; }
+.admin-toast [data-undo] { text-decoration: underline; }
+.admin-toast button:hover { background: rgba(255, 255, 255, 0.12); }
+.admin-toast .ic { width: 16px; height: 16px; }
+
+/* ================= UI-51 Production board: Kanban and List views of the same orders =================
+   Calm and airy inside the admin: three working columns wide enough to breathe, Shipped as a narrow column of compact
+   cards, On hold as a marker on the card where it paused. Each card leads with the club's product on the store's stage
+   grey and keeps only what Chuck decides with; the buyer, email and design codes live in the ⋯ menu. */
+.page.is-wide { max-width: none; }
+.page-head-end { display: flex; align-items: center; gap: 12px; }
+.admin { --forest: #1F4A36; --fairway: #EAF1EC; --stage-grey: #F2F2F5; }
+
+/* The view switch: a segmented control */
+.segmented { display: inline-flex; padding: 2px; border-radius: 10px; background: #E3E3E3; }
+.segmented button { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 4px 12px; border: 0; border-radius: 8px; background: none; color: var(--p-text-2); font: 550 12px/16px var(--font); }
+.segmented button .ic { width: 16px; height: 16px; }
+.segmented button:hover { color: var(--p-text); }
+.segmented button[aria-pressed="true"] { background: var(--p-surface); color: var(--p-text); box-shadow: 0 1px 2px rgba(26, 26, 26, 0.12), 0 0 0 0.5px rgba(26, 26, 26, 0.08); }
+
+/* Small buttons (Polaris micro) */
+.btn-sm { min-height: 26px; padding: 3px 10px; }
+
+/* ---- Kanban ---- */
+.kanban { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 216px; gap: 24px; align-items: start; }
+.kcol { display: flex; flex-direction: column; gap: 12px; min-width: 0; border-radius: 16px; }
+.kcol.is-picked { margin: -10px; padding: 10px; background: var(--fairway); box-shadow: inset 0 0 0 1px rgba(31, 74, 54, 0.14); }
+.kcol-head { display: flex; align-items: center; gap: 8px; min-height: 28px; padding: 0 4px; }
+.kcol-head h2 { font: 650 14px/20px var(--font); }
+.kcol-head .n { color: var(--p-text-2); font-variant-numeric: tabular-nums; }
+.kcol-head .badge { margin-left: 2px; }
+.kcol-note { margin: -8px 0 0; padding: 0 4px; color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.kcard { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 12px; background: var(--p-surface); box-shadow: var(--shadow-card); cursor: pointer; }
+.kcard::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: var(--bevel); pointer-events: none; mix-blend-mode: luminosity; }
+.kcard:hover { box-shadow: 0 1px 0 0 rgba(26, 26, 26, 0.07), 0 6px 14px -8px rgba(26, 26, 26, 0.25); }
+.kcard.is-hold { background: #FFFBF4; }
+.kcard.is-marked { box-shadow: 0 0 0 2px #F49342; }
+.kcard.is-moved { animation: kcard-moved 1.8s ease-out; }
+@keyframes kcard-moved { 0%, 35% { box-shadow: 0 0 0 2px var(--forest), 0 6px 14px -8px rgba(26, 26, 26, 0.25); } 100% { box-shadow: var(--shadow-card); } }
+.kcard-main { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: start; }
+.goods { position: relative; }
+.goods .thumb { width: 72px; height: 72px; border-radius: 10px; background: var(--stage-grey); box-shadow: none; }
+.goods .thumb + .thumb { position: absolute; right: -8px; bottom: -8px; width: 36px; height: 36px; border-radius: 8px; box-shadow: 0 0 0 2px var(--p-surface); }
+.kcard-text { min-width: 0; padding-top: 2px; }
+.kcard-club { overflow: hidden; font: 650 15px/20px var(--font); text-overflow: ellipsis; white-space: nowrap; }
+.admin .kcard-no { color: var(--p-text-2); font-size: 12px; line-height: 16px; font-variant-numeric: tabular-nums; text-decoration: none; }
+.admin .kcard-no:hover { color: var(--p-text); text-decoration: underline; }
+.kcard-items { margin-top: 6px; }
+.kcard-actions { display: flex; align-items: center; gap: 2px; margin-right: -6px; }
+.kcard-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.kcard-time { display: inline-flex; align-items: center; gap: 5px; color: var(--p-text-2); font-size: 12px; line-height: 16px; white-space: nowrap; }
+.kcard-time .ic { width: 16px; height: 16px; color: var(--p-icon-2); }
+.kcard .menu { top: calc(100% - 10px); right: 8px; }
+/* Shipped: compact cards, no actions */
+.kcard.is-shipped { flex-direction: row; align-items: center; gap: 12px; padding: 12px; }
+.kcard.is-shipped .thumb { width: 48px; height: 48px; border-radius: 8px; background: var(--stage-grey); box-shadow: none; }
+.kcard.is-shipped .kcard-club { font-size: 13px; }
+
+/* Menu header: who the order is for */
+.menu-who { padding: 8px 8px 6px; }
+.menu-who strong { display: block; font: 650 13px/20px var(--font); }
+.menu-who span { display: block; overflow: hidden; color: var(--p-text-2); font-size: 12px; line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- List ---- */
+.tabs { display: flex; gap: 4px; padding: 8px; border-bottom: 1px solid var(--p-border-2); }
+.tabs button { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 4px 12px; border: 0; border-radius: 8px; background: none; color: var(--p-text-2); font: 550 13px/20px var(--font); }
+.tabs button:hover { background: var(--p-surface-active); color: var(--p-text); }
+.tabs button[aria-selected="true"] { background: #EBEBEB; color: var(--p-text); font-weight: 650; }
+.tabs .n { color: var(--p-text-2); font-weight: 450; font-variant-numeric: tabular-nums; }
+.ltable th { padding-top: 8px; padding-bottom: 8px; border-top: 0; }
+.ltable td { padding-top: 12px; padding-bottom: 12px; }
+.ltable .thumb { width: 56px; height: 56px; border-radius: 10px; background: var(--stage-grey); box-shadow: none; }
+.ltable .goods .thumb + .thumb { right: -6px; bottom: -6px; width: 28px; height: 28px; border-radius: 7px; }
+.ltable .col-goods { width: 88px; padding-right: 8px; }
+.ltable .col-act { position: relative; width: 1%; white-space: nowrap; text-align: right; }
+.ltable .col-act .btn { margin-right: 4px; }
+.ltable .col-act .icon-btn { display: inline-grid; vertical-align: middle; }
+.ltable .menu { top: 48px; right: 12px; text-align: left; }
+.ltable tr.is-moved td { animation: row-moved 1.6s ease-out; }
+@keyframes row-moved { 0%, 30% { background: var(--fairway); } 100% { background: transparent; } }
+
+/* ================= UI-52 Order page =================
+   One order: each design as a plate (a large picture of the club's product beside its full spec in words), the history
+   of stage moves and notes as one timeline, and the buyer and order facts in a narrow side column. */
+.page.is-order { max-width: 1100px; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; margin: -4px 0 12px -6px; padding: 4px 6px; border-radius: 8px; color: var(--p-text-2); font-weight: 550; text-decoration: none; }
+.admin .back-link { color: var(--p-text-2); }
+.back-link:hover { background: rgba(0, 0, 0, 0.05); color: var(--p-text); }
+.back-link .ic { width: 16px; height: 16px; }
+.order-title { display: flex; align-items: center; gap: 10px; }
+.order-title .badge { font-size: 12px; }
+.order-actions { position: relative; display: flex; align-items: center; gap: 8px; }
+.pager { display: inline-flex; }
+.pager .btn { min-width: 28px; padding: 4px 6px; }
+.pager .btn:first-child { border-radius: 8px 0 0 8px; }
+.pager .btn:last-child { border-radius: 0 8px 8px 0; margin-left: -1px; }
+.pager .btn[aria-disabled="true"] { color: #B5B5B5; pointer-events: none; }
+.pager .btn[aria-disabled="true"] .ic { color: #B5B5B5; }
+.order-actions .menu { top: 36px; right: 0; }
+.order-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+.order-side { display: flex; flex-direction: column; gap: 16px; }
+
+/* The design plate */
+.plate { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 28px; padding: 20px 20px 24px; }
+.plate + .plate { border-top: 1px solid var(--p-border-2); }
+.plate-pic { width: 264px; height: 264px; border-radius: 16px; background: #F2F2F5; overflow: hidden; }
+.plate-pic .picture { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; background: none; box-shadow: none; }
+.plate-pic img.picture { transform: scale(1.14) translate(-3%, -2%); }
+.plate-body { display: flex; flex-direction: column; min-width: 0; padding-top: 4px; }
+.plate-code { font: 650 17px/24px var(--font); font-variant-numeric: tabular-nums; }
+.plate-qty { margin-top: 2px; color: var(--p-text-2); }
+.spec { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 10px 16px; margin: 20px 0 0; }
+.spec dt { color: var(--p-text-2); }
+.spec dd { margin: 0; overflow-wrap: anywhere; }
+.plate-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 24px; }
+.plate-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.plate-none { color: var(--p-text-2); font-size: 12px; line-height: 16px; max-width: 220px; }
+.plate-price { text-align: right; white-space: nowrap; }
+.plate-price strong { display: block; font: 650 15px/20px var(--font); font-variant-numeric: tabular-nums; }
+.plate-price span { color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+
+/* History: stage moves and notes, newest first */
+.note-box { display: flex; gap: 12px; align-items: flex-start; padding: 0 20px 16px; }
+.note-box .avatar { flex: none; margin-top: 4px; }
+.note-field { flex: 1; min-width: 0; }
+.note-field textarea { display: block; width: 100%; min-height: 64px; padding: 10px 12px; border: 1px solid #8A8A8A; border-radius: 8px; resize: vertical; background: var(--p-surface); color: var(--p-text); font: 450 13px/20px var(--font); }
+.note-field textarea::placeholder { color: #8A8A8A; }
+.note-field textarea:focus { outline: 2px solid var(--p-focus); outline-offset: 1px; border-color: transparent; }
+.note-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.btn:disabled { color: #B5B5B5; cursor: default; background: var(--p-surface); }
+.avatar-chuck { background: var(--forest); color: #fff; }
+.avatar-shopify { background: #E3E3E3; color: var(--p-text-2); }
+.timeline { position: relative; margin: 0; padding: 4px 20px 20px; list-style: none; }
+.timeline::before { content: ""; position: absolute; left: 33px; top: 12px; bottom: 32px; width: 2px; background: var(--p-border-2); }
+.tl { position: relative; display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 10px 0; }
+.tl-dot { position: relative; z-index: 1; width: 10px; height: 10px; margin: 5px 0 0 9px; border-radius: 50%; background: #B5B5B5; box-shadow: 0 0 0 4px var(--p-surface); }
+.tl:first-child .tl-dot { background: var(--forest); }
+.tl-time { color: var(--p-text-2); font-size: 12px; line-height: 20px; white-space: nowrap; }
+.tl-note .avatar { position: relative; z-index: 1; width: 28px; height: 28px; box-shadow: 0 0 0 4px var(--p-surface); }
+.tl-bubble { padding: 10px 12px; border-radius: 10px; background: var(--p-surface-2); }
+.tl-bubble strong { font-weight: 650; }
+.tl.is-new .tl-bubble, .tl.is-new .tl-text { animation: row-moved 1.6s ease-out; border-radius: 8px; }
+
+/* Side cards */
+.side-card { padding: 16px 20px 18px; }
+.side-card h2 { margin-bottom: 10px; font: 650 14px/20px var(--font); }
+.side-card p + p { margin-top: 2px; }
+.side-links { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+.facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; margin: 0; }
+.facts dt { color: var(--p-text-2); }
+.facts dd { margin: 0; text-align: right; }
+.facts .total { font-weight: 650; font-variant-numeric: tabular-nums; }
+
+/* ================= UI-54 Order-page panel, on Shopify's own order page (SH-6, mocked for review) =================
+   Only the Honors block is ours; the rest mirrors Shopify's order details page so the panel can be judged in place. */
+.page.is-shopify { max-width: 1000px; }
+.sh-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 20px; }
+.sh-back { width: 28px; height: 28px; display: grid; place-items: center; margin-top: -2px; border-radius: 8px; color: var(--p-icon); }
+.sh-back:hover { background: rgba(0, 0, 0, 0.06); }
+.sh-back .ic { width: 20px; height: 20px; }
+.sh-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.sh-title h1 { font: 700 20px/24px var(--font); }
+.sh-sub { margin-top: 2px; color: var(--p-text-2); font-size: 13px; }
+.sh-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.sh-actions .btn .ic { width: 16px; height: 16px; }
+.sh-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+.sh-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.sh-card { padding: 16px; }
+.sh-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.sh-card-head h2 { font: 650 13px/20px var(--font); }
+.sh-card-head .n { color: var(--p-text-2); }
+.sh-card-head .icon-btn { margin-left: auto; width: 24px; height: 24px; }
+.sh-card-head .icon-btn .ic { width: 16px; height: 16px; }
+.sh-box { border: 1px solid var(--p-border); border-radius: 12px; }
+.sh-line { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto auto; gap: 12px; align-items: start; padding: 12px; }
+.sh-line + .sh-line { border-top: 1px solid var(--p-border-2); }
+.sh-line .thumb { width: 40px; height: 40px; border-radius: 8px; }
+.sh-line .sh-name { color: var(--p-link); font-weight: 550; text-decoration: none; }
+.sh-line .sh-name:hover { text-decoration: underline; }
+.admin a.btn-primary { color: #fff; }
+.sh-line .sh-meta { color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.sh-line .sh-each { color: var(--p-text-2); white-space: nowrap; }
+.sh-line .sh-total { min-width: 72px; text-align: right; font-variant-numeric: tabular-nums; }
+.sh-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.sh-sum { display: grid; grid-template-columns: 1fr auto auto; gap: 8px 24px; padding: 12px; font-variant-numeric: tabular-nums; }
+.sh-sum .sub { color: var(--p-text-2); }
+.sh-sum .strong { font-weight: 650; }
+.sh-sum hr { grid-column: 1 / -1; width: 100%; margin: 4px 0; border: 0; border-top: 1px solid var(--p-border-2); }
+.badge .prog { width: 12px; height: 12px; margin: 0 2px 0 -2px; }
+.sh-side-block + .sh-side-block { margin-top: 16px; }
+.sh-side-block h3 { font: 650 13px/20px var(--font); margin-bottom: 4px; }
+.sh-side p { color: var(--p-text); }
+.sh-muted { color: var(--p-text-2); }
+.sh-comment { display: flex; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--p-border); border-radius: 12px; }
+.sh-comment input { flex: 1; min-width: 0; border: 0; outline: none; background: none; font: 450 13px/20px var(--font); }
+.sh-comment input::placeholder { color: #8A8A8A; }
+.sh-tl-day { margin: 16px 0 6px 44px; color: var(--p-text-2); font-size: 12px; font-weight: 550; }
+.sh-tl { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 6px 0 6px 10px; }
+.sh-tl-dot { width: 10px; height: 10px; margin: 5px 0 0 5px; border-radius: 50%; background: #B5B5B5; box-shadow: 0 0 0 3px var(--p-surface); }
+.sh-tl .sh-muted { font-size: 12px; white-space: nowrap; }
+.review-row { display: flex; justify-content: flex-end; margin: -6px 0 -8px; }
+
+/* The Honors panel: an admin block (Shopify draws the card, the heading row and the collapse control) */
+.hblock-head { display: flex; align-items: center; gap: 8px; padding: 12px 12px 12px 16px; }
+.hblock-head h2 { font: 650 13px/20px var(--font); }
+.hblock-summary { margin-left: auto; color: var(--p-text-2); font-size: 12px; }
+.hblock-toggle { margin-left: auto; width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 8px; background: none; color: var(--p-icon); }
+.hblock-summary:not([hidden]) + .hblock-toggle { margin-left: 4px; }
+.hblock-toggle:hover { background: rgba(0, 0, 0, 0.06); }
+.hblock-toggle .ic { width: 16px; height: 16px; transform: rotate(-90deg); transition: transform 0.15s; }
+.hblock.is-collapsed .hblock-toggle .ic { transform: rotate(90deg); }
+.hblock.is-collapsed .hblock-body { display: none; }
+.hblock-body { padding: 0 16px 16px; }
+.hblock-stage { display: flex; align-items: center; gap: 10px; padding-bottom: 14px; }
+.hblock-stage .sh-muted { font-size: 12px; line-height: 16px; }
+.hblock-designs { border-top: 1px solid var(--p-border-2); }
+.hdesign { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 0; }
+.hdesign:first-child { padding-top: 16px; }
+.hdesign:last-child { padding-bottom: 16px; }
+.hdesign .thumb { width: 64px; height: 64px; border-radius: 10px; background: #F2F2F5; box-shadow: none; }
+.hdesign-code { font: 650 14px/20px var(--font); font-variant-numeric: tabular-nums; }
+.hdesign-what { color: var(--p-text-2); }
+.hblock-foot { display: flex; align-items: center; gap: 16px; padding-top: 14px; border-top: 1px solid var(--p-border-2); }

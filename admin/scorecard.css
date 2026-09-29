@@ -1,0 +1,80 @@
+/* UI-59 Scorecard (D-93): one card read top to bottom, three rows. Each row gives the number and one plain sentence on
+   the left and that number's own honest chart on the right: dots are things you can count (buyers, orders), bars are
+   money. Forest is the only data color; everything else stays in the admin's neutrals. No targets (D-32). */
+
+.admin { --sc-ink-off: #8A8A8A; --sc-grid: #EBEBEB; --sc-warn-bg: #FFF1E3; --sc-warn: #5E4200; --sc-warn-icon: #B28400; }
+
+/* ---- Page head: the period switch and the dates it covers, left-aligned under the title ---- */
+.sc-range { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.sc-dates { color: var(--p-text-2); font-variant-numeric: tabular-nums; }
+
+/* ---- Setup warning: a Polaris warning banner, only when Shopify drifts from our price breaks ---- */
+.sc-setup {
+  position: relative; display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px;
+  margin-bottom: 20px; padding: 16px 20px 16px 16px; border-radius: 12px;
+  background: var(--sc-warn-bg); box-shadow: inset 0 0 0 1px rgba(94, 66, 0, 0.1);
+}
+.sc-setup > .review-note { position: absolute; top: -12px; right: 16px; }
+.sc-setup-icon { color: var(--sc-warn-icon); padding-top: 1px; }
+.sc-setup h2 { font: 650 13px/20px var(--font); }
+.sc-setup p { max-width: 80ch; margin-top: 2px; }
+.sc-setup p strong { font-weight: 650; }
+.sc-setup-foot { display: flex; align-items: center; gap: 12px; margin-top: 12px; color: var(--sc-warn); }
+
+/* ---- The card and its rows ---- */
+.sc-row { display: grid; grid-template-columns: 272px minmax(0, 1fr); gap: 48px; padding: 28px 28px 30px; }
+.sc-row + .sc-row { border-top: 1px solid var(--p-border-2); }
+.sc-fig { display: flex; flex-direction: column; }
+.sc-name { font: 650 14px/20px var(--font); }
+.sc-num { margin-top: 10px; font: 650 40px/44px var(--font); letter-spacing: -0.025em; color: var(--p-text); }
+.sc-says { margin-top: 10px; max-width: 34ch; color: var(--p-text-2); }
+.sc-viz { margin: 0; min-width: 0; padding-top: 2px; }
+.sc-cap { margin-bottom: 14px; color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.sc-note { margin-top: 12px; color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+
+/* 1. Buyers as dots: filled Forest = ordered, a grey ring = hasn't ordered yet (shape, not color alone) */
+.sc-units { display: flex; flex-wrap: wrap; gap: 6px; }
+.sc-units i, .sc-key i { width: 12px; height: 12px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--sc-ink-off); }
+.sc-units i.is-on, .sc-key i.is-on { background: var(--forest); box-shadow: none; }
+.sc-key { display: flex; gap: 20px; margin-top: 14px; color: var(--p-text); font-size: 12px; line-height: 16px; }
+.sc-key span { display: inline-flex; align-items: center; gap: 6px; }
+.sc-key i { width: 10px; height: 10px; }
+
+/* 2. Revenue bars: from zero, hairline gridlines, 4px rounded tops, capped at 24px wide */
+.sc-bars { position: relative; height: 150px; margin-left: 52px; }
+.sc-grid { position: absolute; inset: 0 0 24px; }
+.sc-grid span { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--sc-grid); }
+.sc-grid span:first-child { border-top-color: #D4D4D4; }
+.sc-grid b { position: absolute; right: calc(100% + 10px); top: -8px; color: var(--p-text-3); font: 450 11px/16px var(--font); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sc-cols { position: absolute; inset: 0 0 24px; display: flex; align-items: flex-end; border-radius: 4px; }
+.sc-col { flex: 1; height: 100%; display: flex; align-items: flex-end; justify-content: center; padding: 0 1px; cursor: default; }
+.sc-col i { display: block; width: min(24px, 72%); min-height: 2px; border-radius: 4px 4px 0 0; background: var(--forest); }
+.sc-col:hover i, .sc-col.is-hot i { background: #2E6B4F; }
+.sc-col.is-hot { background: rgba(31, 74, 54, 0.05); }
+.sc-x { position: absolute; left: 0; right: 0; bottom: 0; height: 16px; }
+.sc-x span { position: absolute; top: 0; transform: translateX(-50%); color: var(--p-text-3); font-size: 11px; line-height: 16px; white-space: nowrap; }
+
+/* 3. Orders as dots on a minutes scale, stacked where they share a minute; the median as one hairline */
+.sc-strip { position: relative; margin: 0 12px; padding-top: 26px; }
+.sc-plot { position: relative; z-index: 2; height: calc(var(--rows) * 14px); border-bottom: 1px solid #D4D4D4; border-radius: 2px; }
+.sc-dot { position: absolute; width: 24px; height: 14px; margin-left: -12px; display: grid; place-items: center; cursor: default; }
+.sc-dot::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--forest); box-shadow: 0 0 0 2px var(--p-surface); }
+.sc-dot:hover::before, .sc-dot.is-hot::before { background: #2E6B4F; box-shadow: 0 0 0 2px var(--p-surface), 0 0 0 4px rgba(31, 74, 54, 0.25); }
+.sc-median { position: absolute; top: 0; bottom: 22px; width: 0; border-left: 1px solid var(--p-text); z-index: 1; pointer-events: none; }
+.sc-median b { position: absolute; top: 0; left: 6px; color: var(--p-text); font: 550 12px/16px var(--font); white-space: nowrap; }
+.sc-axis { position: relative; height: 22px; }
+.sc-axis span { position: absolute; top: 6px; transform: translateX(-50%); color: var(--p-text-3); font-size: 11px; line-height: 16px; white-space: nowrap; }
+.sc-axis span:last-child { transform: translateX(-70%); }
+
+.sc-cols:focus-visible, .sc-plot:focus-visible { outline: 2px solid var(--p-focus); outline-offset: 4px; }
+
+/* The readout for a bar or dot: the value first, then what it is */
+.sc-tip {
+  position: fixed; z-index: 40; display: flex; flex-direction: column; min-width: 120px; padding: 8px 12px;
+  border-radius: 10px; background: var(--p-surface); color: var(--p-text-2); font-size: 12px; line-height: 16px;
+  box-shadow: 0 4px 12px -2px rgba(26, 26, 26, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.08); pointer-events: none;
+}
+.sc-tip strong { color: var(--p-text); font: 650 14px/20px var(--font); }
+
+/* Review bar: this page's own review states after the Pages group */
+.admin .review-switch .review-sep { width: 1px; margin: 6px 4px; background: rgba(255, 255, 255, 0.28); }

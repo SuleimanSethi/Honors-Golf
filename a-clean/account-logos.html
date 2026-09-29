@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My logos | Honors Golf Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="account.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="look-a acct">
+<a class="skip-link" href="#main">Skip to your logos</a>
+<header class="top">
+  <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="home.html">Honors</a>
+  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=accessories">Accessories</a><a href="shop.html?c=apparel">Apparel</a></nav>
+  <div class="top-actions">
+    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a class="cart-link" href="cart.html" data-cart-link aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
+  </div>
+</header>
+
+<!-- My logos (UI-43), in the buyer account layout (UI-40): the same masthead and side menu on every account page (D-77). -->
+<main class="wrap acct-page" id="main">
+  <div class="acct-top">
+    <div class="club">
+      <span class="club-mark" data-club-mark></span>
+      <div class="club-text">
+        <p class="club-name">Pinecrest Golf Club</p>
+        <p class="club-who">Signed in as <strong>Alex Morgan</strong> (alex@pinecrestgolf.example)</p>
+      </div>
+      <a class="btn btn-primary" href="shop.html">Start a new design</a>
+    </div>
+  </div>
+
+  <div class="acct-body">
+    <aside class="side" aria-label="Your account">
+      <nav class="side-nav" aria-label="Account"><a href="account.html"><span>Overview</span></a><a href="account-designs.html"><span>Designs</span><span class="side-count" data-count="designs">5</span></a><a href="account-logos.html" aria-current="page"><span>Logos</span><span class="side-count" data-count="logos">3</span></a><a href="account-orders.html"><span>Orders</span><span class="side-count" data-count="orders">3</span></a></nav>
+      <button type="button" class="side-out" id="sign-out">Sign out</button>
+    </aside>
+    <div class="acct-content">
+    <section class="acct-section" aria-labelledby="logos-title">
+      <div class="sec-head">
+        <h1 id="logos-title">Logos</h1>
+        <div class="sec-links"><label class="btn btn-primary" for="lg-file" id="lg-upload-btn" tabindex="0">Upload a logo</label></div>
+      </div>
+      <input class="visually-hidden" type="file" id="lg-file" accept=".png,.jpg,.jpeg,.svg,.pdf,image/png,image/jpeg,image/svg+xml,application/pdf" tabindex="-1">
+      <p class="gallery-lede">Newest first. Each logo is shown on a golf ball and a hat; choose one to start a design with it. Upload a PNG, JPG, SVG or PDF, up to 25&nbsp;MB.</p>
+      <div class="lg-new" id="lg-new" role="region" aria-label="New logo" hidden></div>
+      <ul class="lg-list" data-list="logo-rows" aria-label="Your logos"></ul>
+    </section>
+    </div>
+  </div>
+</main>
+
+<!-- Footer (UI-01) -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="home.html">Honors</a>
+      <p>Golf supply for clubs, courses and teams.</p>
+      <p class="placeholder">[Contact email and phone from Chuck]</p>
+    </div>
+    <nav aria-label="Shop"><h2>Shop</h2><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=apparel">Apparel</a><a href="shop.html?c=accessories">Accessories</a></nav>
+    <nav aria-label="Custom orders"><h2>Custom orders</h2><a href="home.html#custom">How it works</a><a href="home.html#custom">Try your logo</a><a href="./">Price breaks</a></nav>
+    <nav aria-label="Help"><h2>Help</h2><a href="shipping.html">Shipping and Returns</a><a href="contact.html">Contact</a><a href="home.html#faq-title">Common questions</a></nav>
+    <nav aria-label="Company"><h2>Company</h2><a href="about.html">About</a><a href="#">Privacy policy</a><a href="#">Terms</a></nav>
+  </div>
+  <div class="wrap"><div class="footer-base"><span>&copy; 2026 Honors Golf Supply</span><span>Prices shown are examples.</span></div></div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="../shared/cart.js"></script>
+<script src="account.js"></script>
+</body>
+</html>

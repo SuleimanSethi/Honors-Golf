@@ -1,0 +1,359 @@
+/* A. Clean: calm, bright and product-first (Apple-style), in the Honors palette: Forest and Pine on white. */
+.look-a {
+  --bg: #FFFFFF;              /* White: the light ground (D-41) */
+  --surface: #FFFFFF;         /* fields and cards: white, set off by their edges */
+  --fill: #F3F5F4;            /* tracks and quiet fills */
+  --field-line: #D0D7D5;      /* card edges (decorative) */
+  --control-line: #7F918C;    /* field and stepper edges: 3.3:1 on white, 3.0:1 on the fill */
+  --ink: #12342A;             /* Pine: type on light grounds */
+  --muted: #4B655D;           /* secondary type, 5.6:1 or better */
+  --line: rgba(18, 52, 42, 0.12);
+  --accent: #1F4A36;          /* Forest: the primary ground, buttons, selection */
+  --stage: #F2F2F5;           /* light grey behind the product (D-44, from the owner's reference) */
+  --on-dark: #FFFFFF;         /* White: type on dark grounds */
+  --accent-soft: #EFF2F1;
+  --ok: #1F9D55;
+  --focus: #1F4A36;
+  --caution-bg: #F7E6BE;
+  --caution-fg: #6B4700;
+  --radius-l: 28px;
+  --radius-m: 16px;
+  --radius-s: 12px;
+
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.look-a a { color: var(--ink); }
+.look-a :focus-visible { outline: 3px solid color-mix(in srgb, var(--focus) 55%, transparent); outline-offset: 2px; }
+.look-a .hint { font-size: 13px; color: var(--muted); }
+.look-a .tick a, .look-a .panel a { color: var(--accent); }
+.look-a .label, .look-a .field label { font-size: 14px; font-weight: 600; }
+
+/* Header */
+.look-a .top {
+  position: sticky; top: 0; z-index: 30;
+  height: 52px; display: flex; align-items: center; gap: 32px;
+  padding: 0 max(24px, calc((100vw - 1280px) / 2 + 32px));
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.look-a .brand { font-size: 20px; font-weight: 800; letter-spacing: -0.03em; text-decoration: none; }
+.look-a .nav { display: flex; gap: 28px; margin: 0 auto; font-size: 13px; }
+.look-a .nav a { color: var(--muted); text-decoration: none; }
+.look-a .nav a:hover, .look-a .nav a[aria-current="page"] { color: var(--ink); }
+.look-a .nav a[aria-current="page"] { font-weight: 600; }
+.look-a .top-actions { display: flex; align-items: center; gap: 4px; }
+.look-a .icon-btn, .look-a .cart-link {
+  position: relative; width: 44px; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; border-radius: 999px; color: var(--ink);
+}
+.look-a .icon-btn:hover, .look-a .cart-link:hover { background: var(--fill); }
+.look-a .cart-count {
+  position: absolute; top: 4px; right: 2px; min-width: 16px; height: 16px; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: var(--on-dark); background: var(--accent); border-radius: 999px;
+}
+
+/* Page */
+.look-a .page { max-width: 1280px; margin: 0 auto; padding: 32px 32px 160px; }
+.look-a .intro { padding: 56px 0 40px; }
+.look-a .intro h1 { font-size: clamp(40px, 5vw, 64px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.02; }
+.look-a .intro p { margin-top: 12px; font-size: 21px; color: var(--muted); letter-spacing: -0.01em; }
+.look-a .layout { display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 72px; align-items: start; }
+
+.look-a .studio-col { position: sticky; top: 76px; }
+.look-a .studio {
+  position: relative; aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--stage); border-radius: var(--radius-l);
+}
+.look-a .studio .ball { width: 70%; }
+.look-a .studio-status {
+  position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  padding: 8px 14px; background: var(--surface); border-radius: 999px;
+  font-size: 13px; font-weight: 600; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.look-a .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #A6B7AF; }
+.look-a .status-dot[data-saved="true"] { background: var(--ok); }
+.look-a .studio-note { margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.look-a .studio-note svg { flex-shrink: 0; }
+/* Desktop: the whole preview fits between the header and the bottom bar. 215px = header 52 + top padding 32
+   + bar 81 + the note under the preview 34 + 16 of air. The ball sizes to the preview's shorter side. */
+@media (min-width: 761px) {
+  .look-a .studio { aspect-ratio: auto; height: clamp(360px, calc(100svh - 215px), 640px); container-type: size; }
+  .look-a .studio .ball { width: min(62cqw, 74cqh); }
+}
+
+/* Configurator */
+.look-a .panel { display: flex; flex-direction: column; gap: 48px; }
+.look-a .panel-head { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; }
+.look-a .panel-head h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+.look-a .panel-head .lede { font-size: 17px; color: var(--muted); }
+.look-a .block { display: flex; flex-direction: column; gap: 18px; }
+.look-a .block h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+.look-a .block h2 span { color: var(--muted); font-weight: 600; }
+
+.look-a .seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 4px; background: var(--fill); border-radius: 999px; }
+.look-a .seg button { height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 15px; font-weight: 600; transition: background 0.2s, color 0.2s; }
+.look-a .seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04); }
+
+.look-a .pane { display: flex; flex-direction: column; gap: 16px; }
+.look-a .field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.look-a .field-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.look-a .field input[type="text"], .look-a .field select {
+  width: 100%; height: 52px; padding: 0 16px; font-size: 16px;
+  background: var(--surface); border: 1px solid var(--control-line); border-radius: var(--radius-s);
+}
+.look-a .field input[type="text"]:focus, .look-a .field select:focus { border-color: var(--focus); outline: 3px solid color-mix(in srgb, var(--focus) 25%, transparent); outline-offset: 0; }
+.look-a .count { font-size: 13px; }
+.look-a .mono-input { max-width: 180px; font-size: 20px !important; letter-spacing: 0.25em; text-transform: uppercase; }
+
+.look-a .notice { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; background: var(--caution-bg); color: var(--caution-fg); border-radius: var(--radius-s); font-size: 14px; line-height: 1.45; }
+.look-a .notice .ic { flex-shrink: 0; margin-top: 1px; }
+.look-a .field-error { color: #A3261B; font-size: 14px; font-weight: 600; }
+/* Error states (UI-26): each error sits beside what failed (under the upload button, or in the bar beside the button
+   that became Try again), in the red of the other field errors, with no box: what happened, then what to do. */
+.look-a .upload-error, .look-a .bar-error { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; }
+.look-a .upload-error .ic, .look-a .bar-error .ic { flex-shrink: 0; margin-top: 1px; color: #A3261B; }
+.look-a .upload-error strong, .look-a .bar-error strong { display: block; color: #A3261B; font-weight: 600; }
+.look-a .bar-error { max-width: 420px; margin-left: auto; }
+.look-a .bar-error span { color: var(--muted); }
+
+.look-a .file-row { display: flex; align-items: center; gap: 14px; padding: 12px; background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius-m); }
+.look-a .file-thumb { width: 56px; height: 56px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--fill); border-radius: var(--radius-s); overflow: hidden; }
+.look-a .file-thumb img { max-width: 48px; max-height: 48px; }
+.look-a .file-meta { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; }
+.look-a .file-name { font-weight: 600; overflow-wrap: anywhere; }
+.look-a .text-btn { min-height: 44px; padding: 0 8px; background: transparent; border: 0; color: var(--accent); font-size: 15px; font-weight: 600; }
+.look-a .upload-btn { height: 52px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--fill); border-radius: var(--radius-s); font-weight: 600; cursor: pointer; }
+.look-a .upload-btn:hover { background: #E4E8E7; }
+.look-a .tick { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; cursor: pointer; }
+.look-a .tick input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); flex-shrink: 0; }
+/* Saved-logo picker (UI-22): a signed-in buyer's logos as file cards, most recent first. The chosen one has the
+   Forest edge of a chosen chip (drawn inside, so nothing shifts) and carries the background note and Undo. */
+.look-a .saved { display: flex; flex-direction: column; gap: 10px; }
+.look-a .saved-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.look-a .saved-list { display: flex; flex-direction: column; gap: 10px; }
+.look-a .saved-logo { display: flex; align-items: center; padding-right: 12px; background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius-m); }
+.look-a .saved-logo:hover { border-color: #98A7A2; }
+.look-a .saved-logo.is-selected { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.look-a .saved-logo:has(input:focus-visible) { outline: 3px solid color-mix(in srgb, var(--focus) 55%, transparent); outline-offset: 2px; }
+.look-a .saved-pick { position: relative; flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 12px 0 12px 12px; cursor: pointer; }
+/* Your recent designs (UI-27): a guest's designs saved on this browser, below the designer. They stand side by side
+   on one shelf in the stage grey, like a product lineup, each with its code and when it was saved underneath.
+   The one open now has a Forest dot, like the saved dot on the stage. */
+.look-a .recent { display: flex; flex-direction: column; gap: 10px; margin-top: 120px; }
+.look-a .recent h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+.look-a .recent-lede { max-width: 62ch; font-size: 17px; color: var(--muted); }
+/* The shelf is as wide as the designs on it (four fill the page), so two designs don't float in an empty slab. */
+.look-a .recent-list { --n: 4; display: grid; grid-template-columns: repeat(var(--n), 292px); row-gap: 36px; width: fit-content; max-width: 100%; margin: 18px 0 0; padding: 36px 24px 32px; list-style: none; background: var(--stage); border-radius: var(--radius-l); }
+.look-a .recent-link { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 0 8px 6px; text-align: center; color: var(--ink); text-decoration: none; border-radius: var(--radius-m); }
+.look-a .recent-img { display: flex; align-items: center; justify-content: center; width: 100%; height: 200px; margin-bottom: 14px; }
+.look-a .recent-img .ball { width: 168px; }
+.look-a .recent-hat { width: 216px; max-width: 100%; }
+.look-a .recent-missing { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.look-a .recent-code { font-size: 15px; font-weight: 600; }
+.look-a .recent-status { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.look-a .recent-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.look-a .recent-item.is-open .recent-status { color: var(--accent); font-weight: 600; }
+.look-a .recent-link:hover .recent-code { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+@media (max-width: 760px) { .look-a .recent { display: none; } }   /* desktop only for now (D-42) */
+
+
+.look-a .lettering { display: flex; flex-direction: column; gap: 20px; }
+.look-a .chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.look-a .chip { height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius-m); }
+.look-a .chip:hover { border-color: #98A7A2; }
+.look-a .chip[aria-pressed="true"] { border: 2px solid var(--accent); }
+.look-a .chip-sample { font-size: 24px; line-height: 1.1; }
+.look-a .chip-name { font-size: 13px; color: var(--muted); }
+.look-a .swatches { display: flex; flex-wrap: wrap; gap: 12px; }
+.look-a .swatch { width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 50%; }
+.look-a .swatch span { width: 34px; height: 34px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.look-a .swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
+
+.look-a .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.look-a .tier { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 16px; text-align: left; background: var(--surface); border: 1px solid var(--field-line); border-radius: var(--radius-m); }
+.look-a .tier:hover { border-color: #98A7A2; }
+.look-a .tier[aria-pressed="true"] { border: 2px solid var(--accent); background: var(--accent-soft); }
+.look-a .tier-range, .look-a .tier-unit { font-size: 13px; color: var(--muted); }
+.look-a .tier-price { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.look-a .tier-hint { font-size: 14px; font-weight: 600; color: var(--accent); }
+.look-a .total { display: none !important; }
+.look-a .qty-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.look-a .qty-left { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 12px; }
+.look-a .qty-left .hint { max-width: 30ch; }
+.look-a .stepper { display: flex; align-items: center; gap: 4px; padding: 3px; background: var(--fill); border: 1px solid var(--control-line); border-radius: 999px; }
+.look-a .stepper button { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--surface); font-size: 20px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+.look-a .stepper button:disabled { color: #BEC7C5; box-shadow: none; }
+.look-a .stepper output { min-width: 36px; text-align: center; font-size: 17px; font-weight: 700; }
+.look-a .total { display: flex; flex-direction: column; align-items: flex-end; }
+.look-a .total-value { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+
+/* Floating summary bar */
+.look-a .bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--line);
+}
+.look-a .bar-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.look-a .bar-summary { display: flex; flex-direction: column; }
+.look-a .bar-total { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.look-a .bar-sub { font-size: 13px; color: var(--muted); }
+.look-a .actions { display: flex; gap: 10px; }
+.look-a .btn { height: 48px; padding: 0 28px; border-radius: 999px; font-size: 16px; font-weight: 600; transition: filter 0.15s, background 0.15s; }
+.look-a .btn-primary { background: var(--accent); color: var(--on-dark); border: 0; }
+.look-a .btn-primary:hover { filter: brightness(1.12); }
+.look-a .btn-secondary, .look-a .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--field-line); }
+.look-a .btn-secondary:hover, .look-a .btn-ghost:hover { background: var(--fill); }
+.look-a .btn:disabled { opacity: 0.5; }
+.look-a .toast { padding: 12px 20px; background: var(--ink); color: var(--on-dark); border-radius: 999px; font-size: 14px; font-weight: 500; }
+
+/* Cart page (UI-31) */
+.look-a .cart-page { max-width: 1280px; margin: 0 auto; padding: 48px 32px 120px; }
+.look-a .cart-head { display: flex; flex-direction: column; gap: 6px; margin-bottom: 36px; }
+.look-a .cart-head h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+.look-a .cart-head p { font-size: 17px; color: var(--muted); }
+.look-a .cart-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 64px; align-items: start; }
+.look-a .cart-main { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.look-a .reprice-notice { align-items: center; }
+.look-a .reprice-notice span { flex: 1 1 auto; }
+.look-a .btn-small { height: 40px; padding: 0 18px; font-size: 14px; }
+.look-a .cart-lines { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.look-a .cart-line { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--line); }
+.look-a .line-thumb {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; aspect-ratio: 1;
+  background: var(--stage); border-radius: var(--radius-m); color: var(--muted); text-decoration: none;
+}
+.look-a .line-thumb .ball { width: 86%; }
+.look-a .line-thumb .hat-thumb { width: 100%; height: 100%; object-fit: contain; }
+.look-a .thumb-missing-label { font-size: 13px; }
+.look-a .line-body { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; min-width: 0; }
+.look-a .line-top { align-self: stretch; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.look-a .line-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.look-a .line-code { margin-top: 2px; font-size: 14px; color: var(--muted); }
+.look-a .line-total { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+.look-a .line-desc { font-size: 15px; }
+.look-a .line-qty { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.look-a .line-unit { font-size: 15px; color: var(--muted); }
+.look-a .line-min { margin-top: -6px; }
+.look-a .line-actions { display: flex; gap: 4px; margin-left: -8px; }
+.look-a .line-actions .text-btn { display: inline-flex; align-items: center; text-decoration: none; }
+.look-a .summary {
+  position: sticky; top: 84px; display: flex; flex-direction: column; gap: 12px;
+  padding: 28px; border: 1px solid var(--field-line); border-radius: var(--radius-l);
+}
+.look-a .sum-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.look-a .sum-label { font-size: 17px; font-weight: 600; }
+.look-a .sum-value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.look-a .btn-block { width: 100%; height: 52px; margin-top: 8px; }
+.look-a .checkout-note { font-size: 14px; font-weight: 600; color: var(--caution-fg); }
+.look-a .pay-note { padding-top: 12px; border-top: 1px solid var(--line); }
+.look-a .cart-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 56px 0; border-top: 1px solid var(--line); }
+.look-a .cart-empty h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.025em; }
+.look-a .cart-empty p { font-size: 17px; color: var(--muted); }
+.look-a .cart-empty .btn { display: inline-flex; align-items: center; margin-top: 8px; text-decoration: none; }
+
+/* Cart drawer (UI-30): slides in from the right when a design is added */
+.look-a .drawer-scrim { position: fixed; inset: 0; z-index: 49; background: rgba(18, 52, 42, 0.28); opacity: 0; visibility: hidden; transition: opacity 0.25s, visibility 0s linear 0.25s; }
+.look-a .drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 50; width: min(460px, 100vw);
+  display: flex; flex-direction: column; background: var(--bg); box-shadow: -24px 0 60px rgba(0, 0, 0, 0.14);
+  transform: translateX(100%); visibility: hidden; transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.32s;
+}
+/* Visible at once when opening (so focus can move in), hidden only after sliding out. */
+.look-a.drawer-open .drawer { transform: none; visibility: visible; transition-delay: 0s; }
+.look-a.drawer-open .drawer-scrim { opacity: 1; visibility: visible; transition-delay: 0s; }
+.look-a.drawer-open { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .look-a .drawer, .look-a .drawer-scrim { transition: none; } }
+.look-a .drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 16px 4px 24px; }
+.look-a .drawer-head h2 { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); outline: none; }
+.look-a .drawer-head h2 svg { flex-shrink: 0; color: var(--accent); }
+.look-a .drawer-msg { padding: 0 24px 16px 60px; font-size: 15px; color: var(--muted); }
+.look-a .drawer-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 24px; border-top: 1px solid var(--line); }
+.look-a .drawer-lines { border-top: 0; }
+.look-a .drawer-lines .cart-line:last-child { border-bottom: 0; }
+.look-a .cart-line.is-compact { grid-template-columns: 80px minmax(0, 1fr); gap: 16px; padding: 18px 0; }
+.look-a .cart-line.is-new .line-thumb { box-shadow: 0 0 0 2px var(--accent); }
+.look-a .is-compact .line-thumb { border-radius: var(--radius-s); }
+/* Compact lines: name and price, then the stepper, price per dozen and Remove on one row. */
+.look-a .is-compact .line-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "top top" "qty act" "min min" "below below"; align-items: center; gap: 8px; }
+.look-a .is-compact .line-top { grid-area: top; }
+.look-a .is-compact .line-qty { grid-area: qty; }
+.look-a .is-compact .line-actions { grid-area: act; margin: 0 -8px 0 0; }
+.look-a .is-compact .line-min { grid-area: min; margin-top: -2px; }
+.look-a .is-compact [data-f="below"] { grid-area: below; }
+.look-a .is-compact .line-name, .look-a .is-compact .line-total { font-size: 16px; }
+.look-a .is-compact .line-code { font-size: 13px; }
+.look-a .is-compact .line-unit { font-size: 14px; }
+.look-a .is-compact .line-qty { gap: 10px; }
+.look-a .drawer-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 28px 0; font-size: 17px; color: var(--muted); }
+.look-a .drawer-empty .text-btn { margin-left: -8px; }
+.look-a .drawer-foot { display: flex; flex-direction: column; gap: 10px; padding: 18px 24px 24px; border-top: 1px solid var(--line); background: var(--bg); }
+.look-a .drawer-foot .btn-block { margin-top: 0; }
+.look-a .drawer-foot .pay-note { padding-top: 10px; }
+.look-a a.btn-block { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.look-a .toast { z-index: 55; }
+
+@media (max-width: 1100px) {
+  .look-a .layout { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .look-a .studio-col { position: relative; top: 0; max-width: 560px; width: 100%; margin: 0 auto; }
+}
+
+@media (max-width: 760px) {
+  .look-a .top { padding: 0 8px; gap: 0; justify-content: space-between; }
+  .look-a .nav { display: none; }
+  .look-a .page { padding: 8px 16px 150px; }
+  .look-a .intro { display: none; }
+  .look-a .layout { gap: 20px; }
+  .look-a .studio { aspect-ratio: 1 / 0.62; border-radius: 24px; }
+  .look-a .studio .ball { width: 44%; }
+  .look-a .panel-head { display: none; }
+  .look-a .studio-status { bottom: 10px; padding: 6px 12px; font-size: 12px; }
+  .look-a .studio-note { display: none; }
+  .look-a .panel { gap: 24px; }
+  .look-a .steps li { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted); }
+  .look-a .step-bar { height: 4px; border-radius: 999px; background: #E2E6E5; }
+  .look-a .steps li.is-current .step-bar, .look-a .steps li.is-done .step-bar { background: var(--accent); }
+  .look-a .steps li.is-current { color: var(--ink); font-weight: 600; }
+  .look-a .block h2 { font-size: 24px; }
+  .look-a .field-pair { grid-template-columns: minmax(0, 1fr); }
+  .look-a .tiers { grid-template-columns: minmax(0, 1fr); }
+  .look-a .tier { flex-direction: row; align-items: baseline; gap: 8px; }
+  .look-a .tier-range { flex-grow: 1; font-size: 14px; }
+  .look-a .bar-inner { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "sum sum save" "back main main"; align-items: center; gap: 8px 10px; padding: 10px 16px 14px; }
+  body.look-a[data-step="1"] .bar-inner { grid-template-areas: "sum sum save" "main main main"; }
+  .look-a #step-back { padding: 0 22px; }
+  .look-a .actions { display: contents; }
+  .look-a .bar-summary { grid-area: sum; flex-direction: row; align-items: baseline; gap: 8px; }
+  .look-a .bar-total { font-size: 20px; }
+  .look-a #step-back { grid-area: back; }
+  .look-a #step-next, .look-a #add-to-cart { grid-area: main; }
+  .look-a #save-design { grid-area: save; justify-self: end; height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--accent); }
+}
+
+/* Shared by the store pages (home, shop): page width, links, review-only marks and the site footer (UI-01) */
+.look-a .wrap { max-width: 1280px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+.look-a .text-link { color: var(--accent); font-size: 16px; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.look-a .text-link:hover { text-decoration-thickness: 2px; }
+.look-a a.btn, .look-a label.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+.look-a .placeholder { color: var(--muted); }
+/* Review-only marks (buyers would never see these), in the same dark style as the review bar */
+.look-a .review-note { display: inline-flex; align-self: flex-start; padding: 5px 10px; border-radius: 999px; background: rgba(18, 18, 20, 0.9); color: #fff; font: 600 12px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.look-a .review-switch .review-all { color: #fff; padding: 8px 10px; }
+/* Footer (UI-01) */
+.look-a .footer { margin-top: 96px; padding: 56px 0 28px; border-top: 1px solid var(--line); }
+.look-a .footer-grid { display: grid; grid-template-columns: 2fr repeat(4, minmax(0, 1fr)); gap: 32px; }
+.look-a .footer-brand p { max-width: 22em; margin-top: 10px; font-size: 14px; color: var(--muted); }
+.look-a .footer nav { display: flex; flex-direction: column; gap: 10px; }
+.look-a .footer nav h2 { margin-bottom: 4px; font-size: 14px; font-weight: 700; }
+.look-a .footer nav a { font-size: 14px; color: var(--muted); text-decoration: none; }
+.look-a .footer nav a:hover { color: var(--ink); text-decoration: underline; }
+.look-a .footer-base { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }

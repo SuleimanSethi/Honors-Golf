@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom golf balls | Honors (A. Clean)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="style.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="look-a" data-cart-drawer>
+<a class="skip-link" href="#panel">Skip to the designer</a>
+<header class="top">
+  <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="home.html">Honors</a>
+  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls" aria-current="page">Golf balls</a><a href="shop.html?c=accessories">Accessories</a><a href="shop.html?c=apparel">Apparel</a></nav>
+  <div class="top-actions">
+    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a class="cart-link" href="cart.html" data-cart-link aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
+  </div>
+</header>
+<main class="page">
+  <div class="layout">
+    <div class="studio-col">
+      <div class="studio">
+        <div class="ball" data-ball></div>
+        <div class="studio-status"><span class="status-dot" data-out="status-dot"></span><span data-out="status-main">Not saved yet</span></div>
+      </div>
+      <p class="studio-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Your design number stays the same as you make changes, until you order.</span></p>
+    </div>
+    <form class="panel" id="panel" novalidate>
+      <div class="panel-head">
+        <h1>Custom golf balls</h1>
+        <p class="lede">Printed with your logo, text or monogram.</p>
+      </div>
+      <ol class="steps" aria-label="Steps">
+  <li data-step-marker="1"><span class="step-bar"></span><span class="step-name">1. Artwork</span></li>
+  <li data-step-marker="2"><span class="step-bar"></span><span class="step-name">2. Ball and color</span></li>
+  <li data-step-marker="3"><span class="step-bar"></span><span class="step-name">3. Quantity</span></li>
+</ol>
+      <section class="block" data-block="1" id="block-1" aria-labelledby="h-1">
+<h2 id="h-1">Artwork. <span>What should we print?</span></h2>
+<div class="seg" role="group" aria-label="What to print">
+  <button type="button" data-tab="logo" aria-pressed="false"><svg class="seg-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 16l-5-5L6 19.5"/></svg><span>Logo</span></button>
+  <button type="button" data-tab="text" aria-pressed="true"><svg class="seg-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6.5V5h14v1.5M12 5v14M9 19h6"/></svg><span>Text</span></button>
+  <button type="button" data-tab="monogram" aria-pressed="false"><svg class="seg-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 15V9l3.5 4 3.5-4v6"/></svg><span>Monogram</span></button>
+</div>
+<div class="pane" data-pane="logo" hidden>
+  <div class="saved" id="saved-logos" hidden>
+    <span class="review-note">Sample account: Alex Morgan, Pinecrest Golf Club</span>
+    <div class="saved-head"><span class="label" id="saved-label">Your logos</span><span class="hint">Saved to your account</span></div>
+    <div class="saved-list" role="radiogroup" aria-labelledby="saved-label" data-saved-list></div>
+  </div>
+  <div class="file-row">
+    <div class="file-thumb" aria-hidden="true"><svg id="thumb-sample" width="36" height="36" viewBox="-70 -70 140 140"><circle r="64" fill="none" stroke="#1F2E55" stroke-width="6"/><polygon points="0,-50 20,-18 11,-18 27,6 -27,6 -11,-18 -20,-18" fill="#1F2E55"/><rect x="-5" y="6" width="10" height="11" fill="#1F2E55"/></svg><img id="thumb-upload" alt="" hidden></div>
+    <div class="file-meta"><span class="file-name" id="file-name">pinecrest-logo.jpg</span><span class="hint" id="file-note">White background removed</span></div>
+    <button type="button" class="text-btn" id="bg-toggle">Undo</button>
+  </div>
+  <label class="upload-btn" for="logo-file"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><span>Upload a different logo</span></label>
+  <input class="visually-hidden" type="file" id="logo-file" accept=".png,.jpg,.jpeg,.svg,.pdf,image/png,image/jpeg,image/svg+xml,application/pdf">
+  <span class="hint">PNG, JPG, SVG or PDF, up to 25 MB.</span>
+  <div class="upload-error" id="upload-error" role="alert" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.5"/></svg><p><strong id="upload-error-title"></strong> <span id="upload-error-text"></span></p></div>
+  <div class="notice" id="lowres-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span>This logo is low-resolution for the print size, so edges may look soft. A larger file or a PDF prints sharper. You can still use it.</span></div>
+  <label class="tick"><input type="checkbox" id="rights" checked><span>I own this logo or have permission to use it. <a href="#">Read the terms</a></span></label>
+  <p class="field-error" id="rights-error" hidden>Tick the box to confirm you can use this logo.</p>
+</div>
+<div class="pane" data-pane="text">
+  <div class="field-pair">
+    <div class="field"><label for="line1">Line 1</label><input id="line1" type="text" maxlength="20" autocomplete="off" value="Pinecrest Club"><span class="hint count" id="count1">14 of 20 characters</span></div>
+    <div class="field"><label for="line2">Line 2 (optional)</label><input id="line2" type="text" maxlength="20" autocomplete="off" value="Member-Guest 2026"><span class="hint count" id="count2">17 of 20 characters</span></div>
+  </div>
+  <div class="notice" id="small-text-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span>Long lines print small on a golf ball. Shorter lines are easier to read. You can still order it this way.</span></div>
+</div>
+<div class="pane" data-pane="monogram" hidden>
+  <div class="field"><label for="mono">Letters (1 to 3)</label><input id="mono" class="mono-input" type="text" maxlength="3" autocomplete="off" value="PGC"></div>
+</div>
+</section>
+<section class="block" data-block="2" id="block-2" aria-labelledby="h-2">
+<h2 id="h-2">Ball and color. <span>Choose how it looks.</span></h2>
+<div class="field"><label for="ball-model">Ball</label>
+  <select id="ball-model"><option>[Ball model from Chuck's lineup]</option></select></div>
+<div class="lettering" id="lettering">
+  <div class="field"><span class="label" id="lettering-label">Lettering</span>
+    <div class="chips" role="group" aria-labelledby="lettering-label">
+      <button type="button" class="chip" data-font="classic" aria-pressed="true"><span class="chip-sample" style="font-family:'Marcellus',Georgia,serif">Aa</span><span class="chip-name">Classic</span></button>
+      <button type="button" class="chip" data-font="block" aria-pressed="false"><span class="chip-sample" style="font-family:'Alfa Slab One',Georgia,serif">Aa</span><span class="chip-name">Block</span></button>
+      <button type="button" class="chip" data-font="script" aria-pressed="false"><span class="chip-sample" style="font-family:'Pinyon Script',cursive">Aa</span><span class="chip-name">Script</span></button>
+      <button type="button" class="chip" data-font="clean" aria-pressed="false"><span class="chip-sample" style="font-family:'Figtree',sans-serif">Aa</span><span class="chip-name">Clean</span></button>
+    </div>
+  </div>
+  <div class="field"><span class="label" id="color-label">Print color: <span id="color-name">Navy</span></span>
+    <div class="swatches" role="group" aria-labelledby="color-label">
+      <button type="button" class="swatch" data-color="black" aria-label="Black" aria-pressed="false"><span style="background:#1A1B1F"></span></button>
+      <button type="button" class="swatch" data-color="navy" aria-label="Navy" aria-pressed="true"><span style="background:#1F2E55"></span></button>
+      <button type="button" class="swatch" data-color="oxblood" aria-label="Oxblood" aria-pressed="false"><span style="background:#6B1E2A"></span></button>
+      <button type="button" class="swatch" data-color="red" aria-label="Red" aria-pressed="false"><span style="background:#C8262B"></span></button>
+      <button type="button" class="swatch" data-color="green" aria-label="Green" aria-pressed="false"><span style="background:#1E5B3F"></span></button>
+      <button type="button" class="swatch" data-color="gold" aria-label="Gold" aria-pressed="false"><span style="background:#9A7128"></span></button>
+    </div>
+  </div>
+</div>
+<p class="hint" id="logo-color-note" hidden>Logos print in their own colors.</p>
+</section>
+<section class="block" data-block="3" id="block-3" aria-labelledby="h-3">
+<h2 id="h-3">Quantity. <span>The more you order, the less each dozen costs.</span></h2>
+<div class="tiers" role="group" aria-label="Price breaks">
+  <button type="button" class="tier" data-tier="0" aria-pressed="false"><span class="tier-range">6 to 11 dozen</span><span class="tier-price">$54</span><span class="tier-unit">per dozen</span></button>
+  <button type="button" class="tier" data-tier="1" aria-pressed="true"><span class="tier-range">12 to 23 dozen</span><span class="tier-price">$49</span><span class="tier-unit">per dozen</span></button>
+  <button type="button" class="tier" data-tier="2" aria-pressed="false"><span class="tier-range">24 dozen or more</span><span class="tier-price">$44</span><span class="tier-unit">per dozen</span></button>
+</div>
+<p class="tier-hint" data-out="tier-hint" aria-live="polite">Add 12 more dozen to pay $44 a dozen.</p>
+<div class="qty-row">
+  <div class="qty-left">
+    <div class="stepper" role="group" aria-label="Quantity in dozens">
+      <button type="button" id="qty-dec" aria-label="One dozen fewer">&minus;</button>
+      <output id="qty" aria-live="polite">12</output>
+      <button type="button" id="qty-inc" aria-label="One dozen more">+</button>
+    </div>
+    <span class="hint">dozen. Minimum 6 dozen per design.</span>
+  </div>
+  <div class="total"><span class="hint">Total</span><span class="total-value" id="total">$588.00</span></div>
+</div>
+
+</section>
+    </form>
+  </div>
+  <section class="recent" id="recent-designs" aria-labelledby="recent-h" hidden>
+    <h2 id="recent-h">Your recent designs</h2>
+    <p class="recent-lede">Saved on this browser. Sign in to keep them in your account.</p>
+    <span class="review-note">Sample: the two designs in the sample cart, plus any you save here</span>
+    <ul class="recent-list" data-recent-list></ul>
+  </section>
+</main>
+<div class="bar">
+  <div class="bar-inner">
+    <div class="bar-summary"><span class="bar-total" data-out="total">$588.00</span><span class="bar-sub" data-out="qty-summary">12 dozen at $49 a dozen</span></div>
+    <div class="bar-error" id="add-error" role="alert" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.5"/></svg><p><strong>Couldn&rsquo;t reach the store.</strong> <span>Nothing was added to your cart, and your design is still here.</span></p></div>
+    <div class="actions">
+  <button type="button" class="btn btn-ghost" id="step-back">Back</button>
+  <button type="button" class="btn btn-primary" id="step-next">Next: ball and color</button>
+  <button type="button" class="btn btn-primary" id="add-to-cart">Add to cart</button>
+  <button type="button" class="btn btn-secondary" id="save-design">Save design</button>
+</div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="../shared/cart.js"></script>
+<script src="../shared/designer.js"></script>
+</body>
+</html>

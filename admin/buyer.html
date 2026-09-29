@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buyer · Honors · Honors Golf Supply · Shopify</title>
+<!-- UI-58 Buyer detail (spec C-9; D-35, D-67, D-91): one buyer, opened from the Buyers list (UI-57), the overview's warm
+     leads and the order page with ?buyer=<id> (alex, megan, dana, sam, riley, or guest for designs and orders saved
+     without signing in). Their saved designs (never ordered first, as the follow-up) and logos, their orders in brief
+     and their email. No design pages (D-91), no flags (D-67), no mock of Shopify's customer page (D-88).
+     An unknown id shows "Buyer not found". Sample data only. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Figtree:wght@400;700&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="buyer.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin" data-admin-page="buyers">
+<a class="skip-link" href="#page">Skip to content</a>
+
+<div class="page is-buyer" id="page">
+  <a class="back-link" href="buyers.html"><svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 10h-11M9 5.5 4.5 10 9 14.5"/></svg>Buyers</a>
+  <div data-out="buyer"></div>
+</div>
+<script src="admin.js"></script>
+<script src="buyers.js"></script>
+<script src="buyer.js"></script>
+</body>
+</html>

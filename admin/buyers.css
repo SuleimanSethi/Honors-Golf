@@ -1,0 +1,59 @@
+/* UI-57 Buyers list and (later) UI-58 Buyer detail (spec C-9). Uses admin.css's frame, card, tabs, table and thumbnails;
+   only what these two pages add is here. Each buyer row leads with their saved designs as the real product, fanned on
+   the store's stage grey, the way the production board's list leads with each order's goods. */
+
+/* ---- Tabs and search on one bar (Polaris index filters) ---- */
+.buyers-bar { display: flex; align-items: center; gap: 16px; padding: 8px 8px 8px 8px; border-bottom: 1px solid var(--p-border-2); }
+.buyers-bar .tabs { padding: 0; border: 0; }
+.buyers-search {
+  margin-left: auto; width: 300px; height: 32px; flex: none;
+  display: flex; align-items: center; gap: 8px; padding: 0 10px;
+  border: 1px solid #8A8A8A; border-radius: 8px; background: var(--p-surface); color: var(--p-icon-2);
+}
+.buyers-search:focus-within { border-color: transparent; outline: 2px solid var(--p-focus); outline-offset: 0; }
+.buyers-search input { flex: 1; min-width: 0; border: 0; outline: none; background: none; color: var(--p-text); font: 450 13px/20px var(--font); }
+.buyers-search input::placeholder { color: #8A8A8A; }
+.admin .buyers-search input:focus-visible { outline: none; }
+.buyers-search input::-webkit-search-cancel-button { cursor: pointer; }
+
+/* ---- The table: airy rows, two short lines per cell at most ---- */
+.btable th { padding-top: 8px; padding-bottom: 8px; border-top: 0; }
+.btable td { padding-top: 14px; padding-bottom: 14px; }
+/* Set column widths, so both tabs line up exactly (desktop, D-42) */
+.btable { table-layout: fixed; }
+.btable .col-goods { width: 160px; padding-right: 4px; }
+.btable .col-name { width: 17%; }
+.btable .col-email { width: 20%; }
+.btable .col-designs { width: 15%; }
+.btable .col-orders { width: 7%; }
+.btable .col-spent { width: 10%; }
+.btable td { overflow: hidden; text-overflow: ellipsis; }
+.buyers-clip { border-radius: 0 0 12px 12px; }
+.admin .buyer-email { color: var(--p-text); text-decoration: none; }
+.admin .buyer-email:hover { text-decoration: underline; }
+
+/* Sortable headings (Polaris index table): the arrow shows on the sorted column, and on hover elsewhere */
+.sort { position: relative; margin: -2px -4px; padding: 2px 4px; border: 0; border-radius: 6px; background: none; color: inherit; font: inherit; cursor: pointer; }
+.sort:hover { background: rgba(0, 0, 0, 0.05); color: var(--p-text); }
+.sort .sort-arrow { position: absolute; top: 3px; left: calc(100% + 1px); width: 14px; height: 14px; opacity: 0; transition: transform 0.15s; }
+.num .sort .sort-arrow { left: auto; right: calc(100% + 1px); }
+.sort:hover .sort-arrow, .is-sorted .sort-arrow { opacity: 1; }
+.sort.is-asc .sort-arrow { transform: rotate(180deg); }
+.is-sorted .sort { color: var(--p-text); }
+
+/* The goods fan: up to three saved designs, newest on top */
+.fan { display: flex; }
+.fan .thumb { position: relative; width: 52px; height: 52px; border-radius: 10px; background: var(--stage-grey); box-shadow: none; }
+.fan .thumb:nth-child(1) { z-index: 3; }
+.fan .thumb:nth-child(2) { z-index: 2; }
+.fan .thumb + .thumb { margin-left: -6px; box-shadow: 0 0 0 2px var(--p-surface); }
+.btable tbody tr[data-href]:hover .fan .thumb + .thumb { box-shadow: 0 0 0 2px var(--p-surface-hover); }
+
+/* Guests: one quieter row under the buyers, set apart by a stronger rule */
+.btable tbody.guests td { border-top: 1px solid var(--p-border); background: #FCFCFC; }
+.btable tbody.guests .row-link { font-weight: 550; }
+.btable tbody.guests .fan .thumb + .thumb { box-shadow: 0 0 0 2px #FCFCFC; }
+
+/* No match for a search */
+.btable .is-empty td { padding: 48px 16px 52px; text-align: center; cursor: default; }
+.btable .is-empty .subdued { margin: 2px 0 14px; }

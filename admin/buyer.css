@@ -1,0 +1,65 @@
+/* UI-58 Buyer detail (spec C-9). Uses admin.css's frame, cards, badges, thumbnails and side cards; only what this page
+   adds is here. Laid out like the order page (UI-52): a main column and a 320px side column. What Chuck can act on,
+   the designs never ordered, is shown large on the store's stage grey; what's done, the ordered ones, stays compact. */
+
+.page.is-buyer { max-width: 1100px; }
+.buyer-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+.buyer-main, .buyer-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.is-buyer .card-title .n, .is-buyer .side-card h2 .n { margin-left: 4px; color: var(--p-text-2); font-weight: 450; font-variant-numeric: tabular-nums; }
+.is-buyer .card-head { padding: 16px 20px 12px; }
+.card-empty { padding: 0 20px 20px; color: var(--p-text-2); }
+
+/* ---- Never ordered: one plate per design, the product large beside its story ---- */
+.lead { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding: 8px 20px 24px; }
+.lead + .lead { padding-top: 24px; border-top: 1px solid var(--p-border-2); }
+.lead-pic { width: 200px; height: 200px; overflow: hidden; border-radius: 16px; background: var(--stage-grey); }
+.lead-pic .picture { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; background: none; box-shadow: none; }
+.lead-pic img.picture { transform: scale(1.14) translate(-3%, -2%); }
+.lead-body { display: flex; flex-direction: column; min-width: 0; padding-top: 4px; }
+.lead-code { font: 650 17px/24px var(--font); font-variant-numeric: tabular-nums; }
+.lead-product { margin-top: 2px; color: var(--p-text-2); }
+.lead-spec { grid-template-columns: 104px minmax(0, 1fr); margin-top: 16px; }
+.lead-spec dd .badge { vertical-align: 1px; }
+.lead-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 20px; }
+.lead-age { color: var(--p-text-2); font-size: 12px; line-height: 16px; white-space: nowrap; }
+
+/* ---- Ordered designs: compact rows ---- */
+.drows { margin: 0; padding: 0 0 6px; list-style: none; }
+.drow { display: grid; grid-template-columns: 56px minmax(0, 1fr) 96px 96px; gap: 16px; align-items: center; padding: 12px 20px; border-top: 1px solid var(--p-border-2); }
+.drow .thumb { width: 56px; height: 56px; border-radius: 10px; background: var(--stage-grey); box-shadow: none; }
+.drow-code { font-weight: 650; font-variant-numeric: tabular-nums; }
+.drow .clip { max-width: none; }
+.drow-saved { color: var(--p-text-2); white-space: nowrap; }
+.admin .drow-order { justify-self: end; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---- Logos: each file as it looks ---- */
+.logos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 4px 20px 24px; list-style: none; }
+.logo-tile { display: flex; align-items: center; justify-content: center; height: 136px; border-radius: 12px; background: var(--stage-grey); }
+.logo-art { display: block; }
+.logo-art.is-jpg { width: 88px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(26, 26, 26, 0.08); }
+.logo-art.is-png { width: 150px; }
+.logo-art.is-svg { height: 92px; }
+.logo-name { margin-top: 10px; font-weight: 550; overflow-wrap: anywhere; }
+.logo-meta { color: var(--p-text-2); font-size: 12px; line-height: 18px; }
+
+/* ---- Side: contact and orders in brief ---- */
+.admin .buyer-mail { overflow-wrap: anywhere; }
+.contact-last { color: var(--p-text-2); font-size: 12px; line-height: 16px; }
+.side-card p + .contact-last { margin-top: 6px; }
+.olist { margin: 0 -8px; padding: 0; list-style: none; }
+.orow { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px; border-radius: 10px; color: var(--p-text); text-decoration: none; }
+.orow:hover { background: var(--p-surface-hover); }
+.orow .thumb { width: 40px; height: 40px; border-radius: 8px; background: var(--stage-grey); box-shadow: none; }
+.orow-no { font-weight: 650; font-variant-numeric: tabular-nums; }
+.orow:hover .orow-no { text-decoration: underline; }
+.orow-end { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.orow-total { font-variant-numeric: tabular-nums; }
+.orders-total { margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--p-border-2); }
+
+/* ---- Not found ---- */
+.empty-card { display: flex; flex-direction: column; align-items: center; padding: 56px 24px 60px; text-align: center; }
+.empty-card .subdued { margin: 2px 0 16px; }
+
+/* ---- Review bar: this page's buyer states after the pages (review only) ---- */
+body.admin .review-switch .review-sep { width: 1px; margin: 6px 4px; background: rgba(255, 255, 255, 0.28); }
+body.admin .review-switch a[aria-current="true"] { background: #fff; color: #111; }

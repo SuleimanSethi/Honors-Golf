@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production board · Honors · Honors Golf Supply · Shopify</title>
+<!-- UI-51 Production board (spec C-7; D-31, D-67): paid orders by stage in two views of the same board, Kanban (default)
+     and List, a one-click move to the next stage with Undo, and Shipped set by a Shopify fulfillment. No audit flags.
+     ?view=kanban|list picks the view; ?stage=received|vendor|production|hold|shipped highlights (Kanban) or filters (List). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Figtree:wght@400;700&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="admin.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin" data-admin-page="board">
+<a class="skip-link" href="#page">Skip to content</a>
+
+<div class="page is-wide" id="page">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">Production board</h1>
+      <p class="page-sub">Paid orders by stage. Fulfilling an order in Shopify moves it to Shipped.</p>
+    </div>
+    <div class="page-head-end">
+      <span class="review-note">Sample orders and buyers</span>
+      <div class="segmented" role="group" aria-label="View" data-out="views"></div>
+    </div>
+  </div>
+  <div data-out="board"></div>
+</div>
+
+<div class="admin-toast" role="status" aria-live="polite" hidden>
+  <span data-toast-text></span>
+  <span><button type="button" data-undo>Undo</button><button type="button" data-toast-close aria-label="Dismiss"></button></span>
+</div>
+<script src="admin.js"></script>
+<script src="board.js"></script>
+</body>
+</html>

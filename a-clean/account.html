@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your account | Honors Golf Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="account.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="look-a acct">
+<a class="skip-link" href="#main">Skip to your account</a>
+<header class="top">
+  <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="home.html">Honors</a>
+  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=accessories">Accessories</a><a href="shop.html?c=apparel">Apparel</a></nav>
+  <div class="top-actions">
+    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a class="cart-link" href="cart.html" data-cart-link aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
+  </div>
+</header>
+
+<!-- Buyer account (UI-40 to UI-44): our pages, served on the store's domain through the app proxy (D-28).
+     The masthead (the club, who's signed in) and the side menu (with Sign out) are the same on every account page (D-77). -->
+<main class="wrap acct-page" id="main">
+  <div class="acct-top">
+    <div class="club">
+      <span class="club-mark" data-club-mark></span>
+      <div class="club-text">
+        <h1 class="club-name">Pinecrest Golf Club</h1>
+        <p class="club-who">Signed in as <strong>Alex Morgan</strong> (alex@pinecrestgolf.example)</p>
+      </div>
+      <a class="btn btn-primary" href="shop.html">Start a new design</a>
+    </div>
+  </div>
+
+  <div class="acct-body">
+    <aside class="side" aria-label="Your account">
+      <nav class="side-nav" aria-label="Account"><a href="account.html" aria-current="page"><span>Overview</span></a><a href="account-designs.html"><span>Designs</span><span class="side-count" data-count="designs">5</span></a><a href="account-logos.html"><span>Logos</span><span class="side-count" data-count="logos">3</span></a><a href="account-orders.html"><span>Orders</span><span class="side-count" data-count="orders">3</span></a></nav>
+      <button type="button" class="side-out" id="sign-out">Sign out</button>
+    </aside>
+    <div class="acct-content">
+    <section class="acct-section" aria-labelledby="orders-title">
+      <div class="sec-head">
+        <h2 id="orders-title">Where your orders are</h2>
+        <span class="review-note">Example prices, until Chuck sets them</span>
+        <div class="sec-links"><a class="text-link" href="account-orders.html">All orders</a></div>
+      </div>
+      <ul class="lanes" data-list="orders"></ul>
+    </section>
+
+    <section class="acct-section" aria-labelledby="designs-title">
+      <div class="sec-head">
+        <h2 id="designs-title">Your designs</h2>
+        <div class="sec-links"><a class="text-link" href="account-designs.html">All designs</a></div>
+      </div>
+      <ul class="shelf" data-list="designs"></ul>
+    </section>
+
+    <section class="acct-section" aria-labelledby="logos-title">
+      <div class="sec-head">
+        <h2 id="logos-title">Your logos</h2>
+        <div class="sec-links"><a class="btn btn-secondary btn-small" href="account-logos.html">Upload a logo</a><a class="text-link" href="account-logos.html">All logos</a></div>
+      </div>
+      <ul class="logos" data-list="logos"></ul>
+    </section>
+    </div>
+  </div>
+</main>
+
+<!-- Footer (UI-01) -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="home.html">Honors</a>
+      <p>Golf supply for clubs, courses and teams.</p>
+      <p class="placeholder">[Contact email and phone from Chuck]</p>
+    </div>
+    <nav aria-label="Shop"><h2>Shop</h2><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=apparel">Apparel</a><a href="shop.html?c=accessories">Accessories</a></nav>
+    <nav aria-label="Custom orders"><h2>Custom orders</h2><a href="home.html#custom">How it works</a><a href="home.html#custom">Try your logo</a><a href="./">Price breaks</a></nav>
+    <nav aria-label="Help"><h2>Help</h2><a href="shipping.html">Shipping and Returns</a><a href="contact.html">Contact</a><a href="home.html#faq-title">Common questions</a></nav>
+    <nav aria-label="Company"><h2>Company</h2><a href="about.html">About</a><a href="#">Privacy policy</a><a href="#">Terms</a></nav>
+  </div>
+  <div class="wrap"><div class="footer-base"><span>&copy; 2026 Honors Golf Supply</span><span>Prices shown are examples.</span></div></div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="../shared/cart.js"></script>
+<script src="account.js"></script>
+</body>
+</html>

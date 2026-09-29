@@ -1,0 +1,131 @@
+/* Home page (UI-02), with Try your logo (UI-28) and the footer (UI-01). Look A's tokens come from style.css.
+   Desktop only for now (D-42): the narrow-window rules below only keep the grids from breaking. */
+
+.home .section { padding-top: 112px; }
+.home .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+.home .section h2, .home .closing h2 { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+.home .section-head p { font-size: 17px; color: var(--muted); }
+.home .is-stage { background: var(--stage); }
+.home .review-switch { bottom: 12px; }
+
+/* 1. Hero: the one bold moment, a big golf photo with the brand line */
+.home .hero { position: relative; margin-top: 20px; }
+.home .hero-img { display: block; width: 100%; height: clamp(500px, calc(100svh - 140px), 720px); object-fit: cover; object-position: 50% 62%; border-radius: var(--radius-l); }
+.home .hero::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 32px; right: 32px; border-radius: var(--radius-l); pointer-events: none;
+  background: linear-gradient(to top, rgba(8, 28, 20, 0.78) 0%, rgba(8, 28, 20, 0.42) 34%, rgba(8, 28, 20, 0) 60%);
+}
+.home .hero-copy { position: absolute; left: 80px; bottom: 64px; z-index: 1; max-width: 780px; color: #fff; }
+.home .hero-copy h1 { font-size: clamp(48px, 5.4vw, 76px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.0; }
+.home .hero-copy p { max-width: 34em; margin-top: 18px; font-size: 20px; line-height: 1.45; color: rgba(255, 255, 255, 0.9); }
+.home .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.home .btn-light { background: #fff; color: var(--ink); border: 0; }
+.home .btn-light:hover { background: #F3F5F4; }
+.home .btn-outline-light { background: transparent; color: #fff; border: 1.5px solid rgba(255, 255, 255, 0.85); }
+.home .btn-outline-light:hover { background: rgba(255, 255, 255, 0.12); }
+
+/* 2. Wholesale strip */
+.home .strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; padding-top: 36px; }
+.home .strip-item { display: grid; grid-template-columns: 22px minmax(0, 1fr); grid-template-rows: auto auto; align-content: start; column-gap: 12px; row-gap: 2px; }
+.home .strip-item svg { grid-row: span 2; margin-top: 1px; color: var(--accent); }
+.home .strip-item h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+.home .strip-item p { font-size: 14px; line-height: 1.45; color: var(--muted); }
+
+/* 3. Shop by category */
+.home .cats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.home .cat, .home .product, .home .try-tile { display: flex; flex-direction: column; gap: 4px; color: var(--ink); text-decoration: none; }
+.home .cat-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; margin-bottom: 14px; overflow: hidden; border-radius: var(--radius-m); background: var(--fill); }
+.home .cat-photo, .home .product-photo { width: 100%; height: 100%; object-fit: cover; }
+.home .cat-hat { width: 104%; max-width: none; }
+.home .cat-ball { width: 84%; }
+.home .cat-name, .home .product-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+.home .cat-note, .home .product-note { font-size: 15px; color: var(--muted); }
+.home .cat:hover .cat-name, .home .product:hover .product-name, .home .try-tile:hover .try-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+/* 4. Brand story */
+.home .story { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 80px; align-items: center; }
+.home .story-img img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 80%; border-radius: var(--radius-l); }
+.home .story-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; max-width: 36em; }
+.home .story-copy p { font-size: 18px; line-height: 1.6; }
+
+/* 5. The lineup */
+.home .lineup { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.home .product-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 1; margin-bottom: 16px; overflow: hidden; border-radius: var(--radius-l); background: var(--fill); }
+.home .product-hat { width: 94%; max-width: none; }
+/* The polo card is a torso crop of the photo (x 240-800, y 440-1000), so the polo is the subject. */
+.home .product-polo { position: relative; display: block; }
+.home .product-polo-photo { position: absolute; left: -42.86%; top: -78.6%; width: 171.4%; max-width: none; }
+.home .product-ball { width: 76%; }
+.home .product-meta { margin-top: 6px; font-size: 15px; font-weight: 600; }
+
+/* 6. Custom orders, with Try your logo (UI-28) */
+.home .custom { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: start; }
+.home .custom .lede { margin-top: 16px; font-size: 18px; line-height: 1.55; color: var(--muted); }
+.home .steps-list { display: flex; flex-direction: column; gap: 22px; margin: 32px 0 0; padding: 0; list-style: none; }
+.home .steps-list li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; }
+.home .step-num { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.home .steps-list h3 { font-size: 18px; font-weight: 700; }
+.home .steps-list p { margin-top: 2px; font-size: 15px; color: var(--muted); }
+.home .custom-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.home .try { padding: 28px; border: 1px solid var(--field-line); border-radius: var(--radius-l); }
+.home .try-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+.home .try-head h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.home .try-head p { max-width: 30em; margin-top: 4px; font-size: 15px; color: var(--muted); }
+.home .try-upload { flex-shrink: 0; cursor: pointer; }
+.home .try-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.home .try-tile { gap: 10px; }
+.home .try-img { position: relative; display: block; aspect-ratio: 1; overflow: hidden; border-radius: var(--radius-m); }
+.home .try-name { font-size: 15px; font-weight: 600; }
+/* The hat is zoomed 1.7x on its patch; the patch sits at 42.75% / 45.6% of the render, 14.5% wide. */
+.home .try-hat { position: absolute; left: -35%; top: -35%; width: 170%; max-width: none; }
+.home .try-patch { position: absolute; left: 37.7%; top: 42.6%; width: 24.6%; height: 24.6%; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; mix-blend-mode: multiply; }
+.home .try-patch img { width: 76%; height: 76%; object-fit: contain; }
+.home .try-ball { display: block; width: 88%; margin: 4% auto 0; }
+/* The polo tile is the torso crop (x 280-760, y 480-960 of the photo); the logo sits on the left chest. */
+.home .try-polo-photo { position: absolute; left: -58.33%; top: -100%; width: 200%; max-width: none; }
+.home .try-chest { position: absolute; left: 61.5%; top: 28%; width: 14.6%; height: 14.6%; display: flex; mix-blend-mode: multiply; }
+.home .try-chest img { width: 100%; height: 100%; object-fit: contain; }
+
+/* 7. Who we outfit */
+.home .who { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.home .who-item img { display: block; width: 100%; aspect-ratio: 4 / 3; margin-bottom: 18px; object-fit: cover; border-radius: var(--radius-m); }
+.home .who-item h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+.home .who-item p { max-width: 32em; margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--muted); }
+
+/* 8. Social proof (sample names and quotes) */
+.home .proof .section-head { justify-content: flex-start; align-items: center; }
+.home .clubs { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin: 0; padding: 28px 0; list-style: none; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); }
+.home .club-serif { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
+.home .club-caps { font-size: 14px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+.home .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
+.home .quote { margin: 0; padding: 32px; border-radius: var(--radius-l); background: var(--stage); }
+.home .quote blockquote { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.4; letter-spacing: -0.015em; }
+.home .quote figcaption { margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+/* 9. Common questions */
+.home .faq { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 64px; align-items: start; }
+.home .faq-head p { margin-top: 12px; font-size: 17px; color: var(--muted); }
+.home .faq-list { border-top: 1px solid var(--line); }
+.home .faq-list details { border-bottom: 1px solid var(--line); }
+.home .faq-list summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 64px; font-size: 18px; font-weight: 600; list-style: none; cursor: pointer; }
+.home .faq-list summary::-webkit-details-marker { display: none; }
+.home .faq-list summary::after { content: ""; flex-shrink: 0; width: 10px; height: 10px; margin-right: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform 0.2s; }
+.home .faq-list details[open] summary::after { transform: translateY(3px) rotate(-135deg); }
+.home .faq-list details p { padding: 0 48px 22px 0; font-size: 16px; line-height: 1.6; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .home .faq-list summary::after { transition: none; } }
+
+/* 10. Closing band */
+.home .closing {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px;
+  max-width: 1216px; margin: 112px auto 0; padding: 64px 72px; overflow: hidden;
+  background: var(--accent); color: #fff; border-radius: var(--radius-l);
+}
+.home .closing p { margin-top: 12px; font-size: 18px; color: rgba(255, 255, 255, 0.86); }
+.home .closing-hat { width: 360px; margin: -48px -24px -72px 0; }
+
+
+@media (max-width: 1100px) {
+  .home .cats, .home .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home .story, .home .custom, .home .faq { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .home .closing-hat { display: none; }
+}

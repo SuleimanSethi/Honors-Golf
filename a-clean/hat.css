@@ -1,0 +1,57 @@
+/* Hat page (UI-11): the 3D stage and the patch controls. The layout, panel, bar and cart come from style.css. */
+
+/* The stage: the still picture first, then the 3D hat fades in over it (D-30). */
+.look-a .hat-studio { overflow: hidden; container-type: size; }
+.look-a .hat-still, .look-a .hat-canvas { position: absolute; inset: 0; }
+.look-a .hat-still { width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); margin: auto; transition: opacity 0.4s; }
+.look-a .hat-canvas { opacity: 0; cursor: grab; touch-action: none; transition: opacity 0.4s; border-radius: inherit; }
+.look-a .hat-canvas canvas { display: block; width: 100%; height: 100%; }
+.look-a .hat-canvas:focus-visible { outline-offset: -3px; }
+.look-a .hat-studio.is-3d .hat-canvas { opacity: 1; }
+.look-a .hat-studio.is-3d .hat-still { opacity: 0; }
+.look-a .hat-studio.is-dragging .hat-canvas { cursor: grabbing; }
+@media (prefers-reduced-motion: reduce) { .look-a .hat-still, .look-a .hat-canvas { transition: none; } }
+
+/* Marks on the stage, on white pills so they stay readable over the hat when it's zoomed in: the accuracy note
+   (top left), the views (top right) and how to turn it (bottom left). */
+.look-a .stage-chip, .look-a .stage-hint {
+  position: absolute; z-index: 1;
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.82); border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+}
+.look-a .stage-chip { top: 20px; left: 20px; padding-left: 10px; }
+.look-a .view-seg { position: absolute; top: 16px; right: 16px; z-index: 1; display: flex; gap: 2px; padding: 4px; background: rgba(255, 255, 255, 0.82); border-radius: 999px; }
+.look-a .view-seg button { height: 34px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font-size: 13px; font-weight: 600; }
+.look-a .view-seg button:hover { background: var(--surface); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+.look-a .hat-studio.is-loading .view-seg, .look-a .hat-studio.is-failed .view-seg { visibility: hidden; }
+.look-a .stage-hint { left: 20px; bottom: 26px; pointer-events: none; }
+.look-a .stage-hint .hint-loading { display: none; }
+.look-a .hat-studio.is-loading .hint-ready { display: none; }
+.look-a .hat-studio.is-loading .hint-loading { display: inline; }
+.look-a .hat-studio.is-failed .stage-hint { display: none; }
+/* When the 3D view can't load (UI-26): the still picture stays, with a calm note on the stage's own white ground under
+   the accuracy note, and the buyer's patch drawn flat in the corner the view buttons leave free. */
+.look-a .stage-msg { position: absolute; top: 64px; left: 20px; z-index: 1; max-width: 330px; padding: 12px 14px; background: rgba(255, 255, 255, 0.9); color: var(--ink); border-radius: var(--radius-m); font-size: 13px; }
+.look-a .stage-msg .ic { color: var(--caution-fg); }
+.look-a .stage-msg strong { display: block; font-weight: 600; }
+.look-a .stage-patch { display: none; position: absolute; top: 12px; right: 20px; z-index: 1; margin: 0; flex-direction: column; align-items: center; gap: 2px; }
+.look-a .hat-studio.is-failed .stage-patch { display: flex; }
+.look-a .stage-patch canvas { width: 156px; height: auto; }
+.look-a .stage-patch figcaption { font-size: 12px; font-weight: 600; color: var(--muted); }
+.look-a .studio-status { z-index: 1; }
+
+/* Patch controls: shape chips with a drawn outline, and material chips with a line of description. */
+.look-a .chips-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.look-a .chips-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.look-a .chip-shape { width: 26px; height: 26px; border: 2px solid currentColor; color: var(--ink); }
+.look-a .chip-shape.is-round { border-radius: 50%; }
+.look-a .chip-shape.is-square { width: 26px; height: 24px; border-radius: 5px; }
+.look-a .chip-shape.is-rect { width: 34px; height: 23px; border-radius: 5px; }
+.look-a .chip-text { height: auto; min-height: 80px; align-items: flex-start; padding: 14px 16px; text-align: left; }
+.look-a .chip-title { font-size: 16px; font-weight: 600; }
+
+/* Logo size: a slider with its value beside the label. */
+.look-a .size-head { display: flex; justify-content: space-between; align-items: baseline; }
+.look-a .size-head output { font-size: 14px; font-weight: 600; color: var(--muted); }
+.look-a .size-field input[type="range"] { width: 100%; height: 28px; margin: 0; accent-color: var(--accent); }

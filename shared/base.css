@@ -1,0 +1,67 @@
+/* Shared basics for every look option: resets, the phone step flow, and the review switcher.
+   Each option's own style.css sets every color, font and shape. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+h1, h2, h3, p { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 16px; top: -80px; z-index: 70;
+  padding: 8px 12px; background: #111; color: #fff; border-radius: 8px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+.ball { aspect-ratio: 1; }
+.ball-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* Phone-only parts start hidden */
+.steps { display: none; }
+#step-back, #step-next { display: none; }
+.menu-btn { display: none !important; }
+
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 104px; z-index: 40; max-width: min(520px, calc(100vw - 32px)); }
+
+/* Review-only switcher between the four options (buyers would never see this) */
+.review-switch {
+  position: fixed; left: 12px; bottom: 12px; z-index: 60;
+  display: flex; gap: 2px; padding: 4px;
+  background: rgba(18, 18, 20, 0.9); border-radius: 10px;
+  font: 600 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+body .review-switch a { color: #fff; text-decoration: none; padding: 8px 10px; border-radius: 7px; }
+body .review-switch a:hover { background: rgba(255, 255, 255, 0.14); }
+body .review-switch a[aria-current="page"] { background: #fff; color: #111; }
+.review-switch .review-all { opacity: 0.8; }
+body.look-a .review-switch, body.look-b .review-switch { bottom: 96px; }
+
+/* Phone: one step per screen, the ball on every step (decision D-30) */
+@media (max-width: 760px) {
+  .menu-btn { display: inline-flex !important; }
+  .hide-phone { display: none !important; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .panel[data-step="1"] [data-block]:not([data-block="1"]),
+  .panel[data-step="2"] [data-block]:not([data-block="2"]),
+  .panel[data-step="3"] [data-block]:not([data-block="3"]) { display: none; }
+  #step-back, #step-next { display: inline-flex; align-items: center; justify-content: center; }
+  body[data-step="1"] #step-back { display: none; }
+  body:not([data-step="3"]) #add-to-cart { display: none; }
+  body[data-step="3"] #step-next { display: none; }
+  body { padding-top: 36px; }
+  body .review-switch, body.look-a .review-switch, body.look-b .review-switch { position: absolute; top: 0; left: 0; right: 0; bottom: auto; justify-content: center; border-radius: 0; padding: 2px; }
+  .toast { bottom: 150px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

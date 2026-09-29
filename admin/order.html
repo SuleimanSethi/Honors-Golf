@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order · Honors · Honors Golf Supply · Shopify</title>
+<!-- UI-52 Order page (spec C-7, C-8; D-31, D-67): one order, opened from the board and the overview with ?order=<number>
+     (#1047 when none is given). Its designs with their pictures and specs, the stage with a one-click move and its
+     history (who and when), notes, and links to the production sheet (UI-53) and the original artwork. No flags (D-67). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Figtree:wght@400;700&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="admin.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin" data-admin-page="board">
+<a class="skip-link" href="#page">Skip to content</a>
+
+<div class="page is-order" id="page">
+  <a class="back-link" href="board.html"><svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 10h-11M9 5.5 4.5 10 9 14.5"/></svg>Production board</a>
+  <div class="page-head">
+    <div>
+      <div class="order-title"><h1 class="page-title" data-out="title"></h1><span data-out="stage-badge"></span></div>
+      <p class="page-sub" data-out="sub"></p>
+    </div>
+    <div class="order-actions pop-anchor" data-out="actions"></div>
+  </div>
+
+  <div class="order-layout">
+    <div class="stack">
+      <section class="card" aria-labelledby="designs-title">
+        <div class="card-head"><h2 class="card-title" id="designs-title" data-out="designs-title">Design</h2>
+          <div class="card-head-end"><span class="review-note">Sample order, example prices</span></div></div>
+        <div data-out="designs"></div>
+      </section>
+
+      <section class="card" aria-labelledby="history-title">
+        <div class="card-head"><h2 class="card-title" id="history-title">History</h2></div>
+        <form class="note-box" data-out="note-form">
+          <span class="avatar avatar-chuck" aria-hidden="true">C</span>
+          <div class="note-field">
+            <label class="visually-hidden" for="note">Note for this order</label>
+            <textarea id="note" rows="2" placeholder="Leave a note for this order"></textarea>
+            <div class="note-row"><span>Only you can see notes.</span><button type="submit" class="btn" disabled>Post note</button></div>
+          </div>
+        </form>
+        <ol class="timeline" data-out="timeline"></ol>
+      </section>
+    </div>
+
+    <aside class="order-side">
+      <section class="card side-card" aria-labelledby="buyer-title" data-out="buyer"></section>
+      <section class="card side-card" aria-labelledby="facts-title" data-out="facts"></section>
+    </aside>
+  </div>
+</div>
+
+<div class="admin-toast" role="status" aria-live="polite" hidden>
+  <span data-toast-text></span>
+  <span><button type="button" data-undo>Undo</button><button type="button" data-toast-close aria-label="Dismiss"></button></span>
+</div>
+<script src="admin.js"></script>
+<script src="order.js"></script>
+</body>
+</html>

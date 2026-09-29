@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your cart | Honors (A. Clean)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="style.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="look-a">
+<a class="skip-link" href="#cart">Skip to your cart</a>
+<header class="top">
+  <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="home.html">Honors</a>
+  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=accessories">Accessories</a><a href="shop.html?c=apparel">Apparel</a></nav>
+  <div class="top-actions">
+    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a class="cart-link" href="cart.html" data-cart-link aria-current="page" aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
+  </div>
+</header>
+<main class="cart-page" id="cart">
+  <div class="cart-head">
+    <h1>Your cart</h1>
+    <p id="cart-sub">2 designs, 18 dozen golf balls</p>
+  </div>
+  <div class="cart-layout" id="cart-layout" data-c="filled">
+    <div class="cart-main">
+      <div class="notice reprice-notice" id="reprice-notice" role="alert" hidden>
+        <svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg>
+        <span>We couldn&rsquo;t update your prices. Please refresh your cart.</span>
+        <button type="button" class="btn btn-secondary btn-small" id="refresh-cart">Refresh cart</button>
+      </div>
+      <ul class="cart-lines" id="cart-lines"></ul>
+    </div>
+    <aside class="summary" aria-label="Cart total">
+      <div class="sum-row"><span class="sum-label">Subtotal</span><span class="sum-value" id="subtotal" data-c="subtotal">$912.00</span></div>
+      <p class="hint">Shipping and tax are added at checkout.</p>
+      <button type="button" class="btn btn-primary btn-block" id="checkout" data-c="checkout" aria-describedby="checkout-note">Check out</button>
+      <p class="checkout-note" id="checkout-note" data-c="checkout-note" hidden></p>
+      <p class="hint pay-note">Shop Pay, Apple Pay and Google Pay are offered at checkout.</p>
+    </aside>
+  </div>
+  <section class="cart-empty" id="cart-empty" data-c="empty" hidden>
+    <h2>Your cart is empty.</h2>
+    <p>Design golf balls with your logo, text or monogram.</p>
+    <a class="btn btn-primary" id="empty-cta" data-c="after-empty" href="./">Design golf balls</a>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="../shared/cart.js"></script>
+</body>
+</html>

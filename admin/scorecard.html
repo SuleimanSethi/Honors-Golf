@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scorecard · Honors · Honors Golf Supply · Shopify</title>
+<!-- UI-59 Scorecard (spec C-12, B-6; D-31, D-32, D-93): three numbers for the last 30 or 90 days (design-to-order rate,
+     sales, Chuck's time per order), no targets (D-32), plus a setup warning that appears only when Shopify's prices or
+     products stop matching our price breaks (the drift check, technical design T-2.2). No order audit or order warnings
+     (D-67). ?period=30|90 picks the window; ?setup=ok shows the page with nothing out of step. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Figtree:wght@400;700&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="scorecard.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin" data-admin-page="scorecard">
+<a class="skip-link" href="#page">Skip to content</a>
+
+<div class="page" id="page">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">Scorecard</h1>
+      <div class="sc-range">
+        <div class="segmented" role="group" aria-label="Period" data-out="periods"></div>
+        <p class="sc-dates" data-out="dates"></p>
+      </div>
+    </div>
+    <span class="review-note">Sample figures and example prices</span>
+  </div>
+
+  <div data-out="setup"></div>
+
+  <section class="card sc-card" aria-label="Scorecard" data-out="card"></section>
+  <div class="sc-tip" role="status" aria-live="polite" hidden></div>
+</div>
+<script src="admin.js"></script>
+<script src="scorecard.js"></script>
+</body>
+</html>

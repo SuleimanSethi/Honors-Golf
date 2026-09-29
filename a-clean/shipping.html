@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shipping and Returns | Honors Golf Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="look-a store-page shipping">
+<a class="skip-link" href="#main">Skip to the page</a>
+<header class="top">
+  <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="home.html">Honors</a>
+  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=accessories">Accessories</a><a href="shop.html?c=apparel">Apparel</a></nav>
+  <div class="top-actions">
+    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a class="cart-link" href="cart.html" data-cart-link aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Shipping and Returns (UI-06). Every fact is Chuck's (production times, where Honors ships, costs and the returns
+       rule are open questions for him), so each stays a [bracket]. At launch the same words go into Shopify's
+       shipping and refund policies, which checkout links to. -->
+  <section class="wrap ship-intro" aria-labelledby="ship-title">
+    <div class="ship-intro-top">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="home.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Shipping and Returns</span></nav>
+      <span class="review-note">Facts in [brackets] come from Chuck. At launch, these words also go into Shopify&rsquo;s shipping and refund policies.</span>
+    </div>
+    <h1 id="ship-title">Shipping and returns</h1>
+    <p class="ship-lede">How long a custom order takes, where we ship, what shipping costs, and what happens if something isn&rsquo;t right.</p>
+    <ul class="ship-jump" aria-label="On this page">
+      <li><a href="#timing">How long will my order take?</a></li>
+      <li><a href="#where">Where do you ship?</a></li>
+      <li><a href="#costs">What does shipping cost?</a></li>
+      <li><a href="#returns">Can I return a custom item?</a></li>
+    </ul>
+  </section>
+
+  <!-- 1. The journey from order to door: the one bold moment -->
+  <section class="journey-band" id="timing" aria-labelledby="timing-title">
+    <div class="wrap">
+      <h2 id="timing-title">How long will my order take?</h2>
+      <ol class="journey">
+        <li class="stop stop-start"><span class="stop-name">Received</span><span class="stop-note">You order and pay online.</span></li>
+        <li class="leg leg-make"><span class="leg-name">In production</span><span class="leg-time">[Production time]</span></li>
+        <li class="stop stop-mid"><span class="stop-name">Shipped</span><span class="stop-note">You get a tracking link by email.</span></li>
+        <li class="leg leg-transit"><span class="leg-name">On its way</span><span class="leg-time">[Delivery time]</span></li>
+        <li class="stop stop-end"><span class="stop-name">Delivered</span><span class="stop-note">At your club&rsquo;s door.</span></li>
+      </ol>
+      <div class="journey-foot">
+        <p><strong>Follow every order.</strong> Each order&rsquo;s stage shows in <a href="account.html">My orders</a>, from Received to Shipped.</p>
+        <p><strong>Have an event date?</strong> [Rush options and fees]. <a href="contact.html">Contact us</a> before you order.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <!-- 2. Where we ship -->
+    <section class="qa" id="where" aria-labelledby="where-title">
+      <h2 id="where-title">Where do you ship?</h2>
+      <div class="qa-body">
+        <p class="qa-answer">[Where Honors ships]</p>
+        <p>Orders ship from [City, State] by [carrier].</p>
+      </div>
+    </section>
+
+    <!-- 3. What shipping costs -->
+    <section class="qa" id="costs" aria-labelledby="costs-title">
+      <h2 id="costs-title">What does shipping cost?</h2>
+      <div class="qa-body">
+        <table class="rates">
+          <thead><tr><th scope="col">Shipping</th><th scope="col">Cost</th><th scope="col">Arrives after it ships</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Standard</th><td>[Cost]</td><td>[Delivery time]</td></tr>
+            <tr><th scope="row">[Rush, if offered]</th><td>[Rush fee]</td><td>[Rush delivery time]</td></tr>
+          </tbody>
+        </table>
+        <p class="rates-note">Checkout shows the exact shipping cost for your address before you pay.</p>
+      </div>
+    </section>
+
+    <!-- 4. Returns: the rule for custom items is an open question for Chuck -->
+    <section class="qa" id="returns" aria-labelledby="returns-title">
+      <h2 id="returns-title">Can I return a custom item?</h2>
+      <div class="qa-body">
+        <p class="qa-answer">[Returns rule for custom items]</p>
+        <span class="review-note">Open question for Chuck: the returns rule for custom items</span>
+        <dl class="returns-notes">
+          <div><dt>Before you order</dt><dd>Every piece is made to your design, so check the preview on the product before you pay.</dd></div>
+          <div><dt>If an order arrives damaged or wrong</dt><dd>[What to do]. <a href="contact.html">Contact us</a> with your order number.</dd></div>
+        </dl>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="home.html">Honors</a>
+      <p>Golf supply for clubs, courses and teams.</p>
+      <p class="placeholder">[Contact email and phone from Chuck]</p>
+    </div>
+    <nav aria-label="Shop"><h2>Shop</h2><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=apparel">Apparel</a><a href="shop.html?c=accessories">Accessories</a></nav>
+    <nav aria-label="Custom orders"><h2>Custom orders</h2><a href="home.html#custom">How it works</a><a href="home.html#custom">Try your logo</a><a href="./">Price breaks</a></nav>
+    <nav aria-label="Help"><h2>Help</h2><a href="shipping.html">Shipping and Returns</a><a href="contact.html">Contact</a><a href="home.html#faq-title">Common questions</a></nav>
+    <nav aria-label="Company"><h2>Company</h2><a href="about.html">About</a><a href="#">Privacy policy</a><a href="#">Terms</a></nav>
+  </div>
+  <div class="wrap"><div class="footer-base"><span>&copy; 2026 Honors Golf Supply</span><span>Prices shown are examples.</span></div></div>
+</footer>
+<script src="../shared/cart.js"></script>
+</body>
+</html>

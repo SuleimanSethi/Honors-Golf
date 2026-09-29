@@ -1,0 +1,42 @@
+/* Accessory page (UI-12): the photo stage with the engraving drawn over it, the engraving-area cards and the logo
+   size. The layout, panel, bar, cart and footer come from style.css. */
+
+/* The stage: the product photo (a square render) with a canvas of the same size over it for the engraving and the
+   area's dashed edge. It sits a little high and a little smaller than the stage, so the base clears the saved pill. */
+.look-a .acc-studio { overflow: hidden; container-type: size; }
+.look-a .acc-view { position: absolute; left: 0; right: 0; top: -2.2cqh; margin: 0 auto; width: min(100cqw, 96cqh); aspect-ratio: 1; }
+.look-a .acc-view img, .look-a .acc-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Marks on the stage, on white pills: what the dashed line is (top left) and the sides (top right). */
+.look-a .stage-chip {
+  position: absolute; top: 20px; left: 20px; z-index: 1;
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 10px;
+  background: rgba(255, 255, 255, 0.82); border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+}
+.look-a .view-seg { position: absolute; top: 16px; right: 16px; z-index: 1; display: flex; gap: 2px; padding: 4px; background: rgba(18, 52, 42, 0.06); border-radius: 999px; }
+.look-a .view-seg[hidden] { display: none; }
+.look-a .view-seg button { height: 34px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; }
+.look-a .view-seg button:hover { color: var(--ink); }
+.look-a .view-seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04); }
+.look-a .acc-studio .studio-status { z-index: 1; }
+
+/* Engraving areas: one card per area, switched on or off, with a tick box so it reads as "choose one or both". */
+.look-a .acc-areas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.look-a .acc-area { height: auto; min-height: 80px; align-items: stretch; justify-content: center; gap: 2px; padding: 14px 16px; text-align: left; }
+.look-a .acc-area-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.look-a .acc-area .chip-title { font-size: 16px; font-weight: 600; color: var(--ink); }
+.look-a .acc-tick { width: 22px; height: 22px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid var(--control-line); border-radius: 7px; color: transparent; }
+.look-a .acc-area[aria-pressed="true"] .acc-tick { background: var(--accent); border-color: var(--accent); color: var(--on-dark); }
+
+/* Logo size: a slider with its value beside the label (as on the hat page). */
+.look-a .size-head { display: flex; justify-content: space-between; align-items: baseline; }
+.look-a .size-head output { font-size: 14px; font-weight: 600; color: var(--muted); }
+.look-a .size-field input[type="range"] { width: 100%; height: 28px; margin: 0; accent-color: var(--accent); }
+
+/* The footer follows the designer here, clear of the floating bar. */
+.look-a.acc .page { padding-bottom: 0; }
+.look-a.acc .footer { padding-bottom: 112px; }
+
+/* Review bar: a divider before this page's own views (review only). */
+.look-a.acc .review-switch .review-sep { width: 1px; margin: 6px 4px; background: rgba(255, 255, 255, 0.28); }

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop all | Honors Golf Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="shop.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="look-a shop">
+<a class="skip-link" href="#products">Skip to the products</a>
+<header class="top">
+  <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="home.html">Honors</a>
+  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats" data-nav="hats">Hats</a><a href="shop.html?c=balls" data-nav="balls">Golf balls</a><a href="shop.html?c=accessories" data-nav="accessories">Accessories</a><a href="shop.html?c=apparel" data-nav="apparel">Apparel</a></nav>
+  <div class="top-actions">
+    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a class="cart-link" href="cart.html" data-cart-link aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="home.html">Home</a><span aria-hidden="true">/</span><span id="crumb-current" aria-current="page">Shop all</span></nav>
+  <div class="shop-head">
+    <div>
+      <h1 id="shop-title">Shop all</h1>
+      <p id="shop-lede">Hats, golf balls, apparel and accessories, all made with your logo.</p>
+    </div>
+    <span class="review-note">Example prices and minimums, until Chuck sets them</span>
+  </div>
+
+  <div class="toolbar">
+    <div class="chips" role="group" aria-label="Show">
+      <button type="button" class="chip-filter" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="chip-filter" data-filter="hats" aria-pressed="false">Hats</button>
+      <button type="button" class="chip-filter" data-filter="balls" aria-pressed="false">Golf balls</button>
+      <button type="button" class="chip-filter" data-filter="apparel" aria-pressed="false">Apparel</button>
+      <button type="button" class="chip-filter" data-filter="accessories" aria-pressed="false">Accessories</button>
+    </div>
+    <div class="toolbar-right">
+      <span class="count" id="count" aria-live="polite">8 products</span>
+      <label class="sort"><span>Sort by</span>
+        <select id="sort">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price, low to high</option>
+          <option value="price-desc">Price, high to low</option>
+          <option value="min-asc">Lowest minimum</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <ul class="grid" id="products" aria-label="Products"></ul>
+
+  <section class="ask" aria-labelledby="ask-title">
+    <div>
+      <h2 id="ask-title">Looking for something else?</h2>
+      <p>Tell us what you need, from umbrellas to headcovers, and we&rsquo;ll let you know if we can make it with your logo.</p>
+    </div>
+    <a class="btn btn-secondary" href="contact.html">Contact us</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="home.html">Honors</a>
+      <p>Golf supply for clubs, courses and teams.</p>
+      <p class="placeholder">[Contact email and phone from Chuck]</p>
+    </div>
+    <nav aria-label="Shop"><h2>Shop</h2><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=apparel">Apparel</a><a href="shop.html?c=accessories">Accessories</a></nav>
+    <nav aria-label="Custom orders"><h2>Custom orders</h2><a href="home.html#custom">How it works</a><a href="home.html#custom">Try your logo</a><a href="./">Price breaks</a></nav>
+    <nav aria-label="Help"><h2>Help</h2><a href="shipping.html">Shipping and Returns</a><a href="contact.html">Contact</a><a href="home.html#faq-title">Common questions</a></nav>
+    <nav aria-label="Company"><h2>Company</h2><a href="about.html">About</a><a href="#">Privacy policy</a><a href="#">Terms</a></nav>
+  </div>
+  <div class="wrap"><div class="footer-base"><span>&copy; 2026 Honors Golf Supply</span><span>Prices shown are examples.</span></div></div>
+</footer>
+<script src="../shared/cart.js"></script>
+<script src="shop.js"></script>
+</body>
+</html>

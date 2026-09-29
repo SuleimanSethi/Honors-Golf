@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buyers · Honors · Honors Golf Supply · Shopify</title>
+<!-- UI-57 Buyers list (spec C-9; D-35, D-67): every signed-in buyer with their email, saved designs, orders and last
+     activity, plus one row for guests (designs saved without signing in, so no email). A row opens UI-58 Buyer detail
+     (buyer.html?buyer=<id>). ?tab=never-ordered shows only buyers with designs they never ordered; ?q= searches;
+     ?sort=last|name|designs|orders|spent with &dir=asc|desc sorts. Sample data only, no flags (D-67). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Figtree:wght@400;700&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="buyers.css">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin" data-admin-page="buyers">
+<a class="skip-link" href="#page">Skip to content</a>
+
+<div class="page is-wide" id="page">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">Buyers</h1>
+      <p class="page-sub">Everyone who signed in to save a design. Open a buyer to see their designs and logos.</p>
+    </div>
+    <span class="review-note">Sample buyers, example prices</span>
+  </div>
+
+  <section class="card" aria-label="Buyers">
+    <div class="buyers-bar">
+      <div class="tabs" role="tablist" aria-label="Which buyers" data-out="tabs"></div>
+      <label class="buyers-search">
+        <svg class="ic" width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.75" cy="8.75" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
+        <span class="visually-hidden">Search buyers</span>
+        <input type="search" id="buyer-search" placeholder="Search by name, club or email" autocomplete="off">
+      </label>
+    </div>
+    <div class="card-clip buyers-clip" data-out="table"></div>
+  </section>
+</div>
+<script src="admin.js"></script>
+<script src="buyers.js"></script>
+</body>
+</html>
