@@ -10,17 +10,43 @@
 <link rel="stylesheet" href="../shared/base.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="account.css">
+<link rel="stylesheet" href="header.css">
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body class="look-a acct">
 <a class="skip-link" href="#main">Skip to your orders</a>
-<header class="top">
+<header class="top hdr" data-header>
   <button type="button" class="icon-btn menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-  <a class="brand" href="home.html">Honors</a>
-  <nav class="nav" aria-label="Products"><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=accessories">Accessories</a><a href="shop.html?c=apparel">Apparel</a></nav>
-  <div class="top-actions">
-    <a class="icon-btn hide-phone" href="search.html" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
-    <a class="icon-btn hide-phone" href="account.html" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+  <a class="hdr-logo" href="home.html"><img src="img/honors-logo-stacked.svg" alt="Honors Golf Supply" width="672" height="169"></a>
+  <nav class="hdr-nav" aria-label="Main">
+   <ul class="hdr-list">
+    <li class="hdr-item" data-menu>
+     <span class="hdr-trigger"><a class="hdr-link" href="shop.html">Shop</a><button type="button" class="hdr-toggle" aria-expanded="false" aria-controls="hdr-shop"><span class="visually-hidden">Shop menu</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button></span>
+     <div class="hdr-panel" id="hdr-shop">
+      <ul class="hdr-rows">
+       <li><a class="hdr-row" href="hat.html" data-preview="hat"><span class="hdr-name">Rope hats</span><span class="hdr-note">Your logo on the patch, designed in 3D</span></a></li>
+       <li><a class="hdr-row" href="./" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Logo, text or monogram, by the dozen</span></a></li>
+       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Laser-engraved, front and back</span></a></li>
+       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Polos</span><span class="hdr-note">Embroidered chest and sleeve, printed back</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=accessories" data-nav="accessories" data-preview="accessories"><span class="hdr-name">Accessories</span><span class="hdr-note">Tees, towels, divot tools and markers</span></a></li>
+      </ul>
+      <p class="hdr-foot"><a href="shop.html" data-nav="all">Shop all products</a><a href="home.html#custom">How custom orders work</a></p>
+      <a class="hdr-stage" href="hat.html" data-preview-stage aria-hidden="true" tabindex="-1">
+       <img data-preview-img="hat" src="img/hat-forest.webp" alt="" style="--z:1.12">
+       <img data-preview-img="ball" src="../shared/ball.webp" alt="" style="--z:0.84">
+       <img data-preview-img="tumbler" src="img/tumbler-forest.webp" alt="" style="--z:1.1">
+       <img data-preview-img="polo" src="img/polo-forest-front.webp" alt="" style="--z:1.05">
+       <img data-preview-img="accessories" src="img/tees.webp" alt="" style="--z:1.5">
+      </a>
+     </div>
+    </li>
+    <li class="hdr-item"><span class="hdr-trigger"><a class="hdr-link" href="about.html">About</a></span></li>
+    <li class="hdr-item"><span class="hdr-trigger"><a class="hdr-link" href="contact.html">Contact</a></span></li>
+   </ul>
+  </nav>
+  <div class="top-actions hdr-actions">
+    <form class="hdr-search hide-phone" action="search.html" role="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" name="q" placeholder="Search" aria-label="Search the store" autocomplete="off"></form>
+    <a class="icon-btn hide-phone" href="account.html" aria-label="Account" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
     <a class="cart-link" href="cart.html" data-cart-link aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-out="cart-count">2</span></a>
   </div>
 </header>
@@ -84,5 +110,6 @@
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <script src="../shared/cart.js"></script>
 <script src="account.js"></script>
+<script src="header.js"></script>
 </body>
 </html>

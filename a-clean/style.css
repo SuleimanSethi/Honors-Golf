@@ -66,7 +66,7 @@
 .look-a .intro p { margin-top: 12px; font-size: 21px; color: var(--muted); letter-spacing: -0.01em; }
 .look-a .layout { display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 72px; align-items: start; }
 
-.look-a .studio-col { position: sticky; top: 76px; }
+.look-a .studio-col { position: sticky; top: 88px; }   /* 24px under the scrolled header (64px, D-106) */
 .look-a .studio {
   position: relative; aspect-ratio: 1 / 1;
   display: flex; align-items: center; justify-content: center;

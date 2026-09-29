@@ -37,6 +37,8 @@
 .home .cat-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; margin-bottom: 14px; overflow: hidden; border-radius: var(--radius-m); background: var(--fill); }
 .home .cat-photo, .home .product-photo { width: 100%; height: 100%; object-fit: cover; }
 .home .cat-hat { width: 104%; max-width: none; }
+.home .cat-polo { width: 102%; max-width: none; }      /* the polo render with the Honors chest mark (owner's note, D-107) */
+.home .cat-tumbler { height: 86%; width: auto; }
 .home .cat-ball { width: 84%; }
 .home .cat-name, .home .product-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
 .home .cat-note, .home .product-note { font-size: 15px; color: var(--muted); }
@@ -52,9 +54,7 @@
 .home .lineup { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .home .product-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 1; margin-bottom: 16px; overflow: hidden; border-radius: var(--radius-l); background: var(--fill); }
 .home .product-hat { width: 94%; max-width: none; }
-/* The polo card is a torso crop of the photo (x 240-800, y 440-1000), so the polo is the subject. */
-.home .product-polo { position: relative; display: block; }
-.home .product-polo-photo { position: absolute; left: -42.86%; top: -78.6%; width: 171.4%; max-width: none; }
+.home .product-polo-render { width: 96%; }   /* the polo render with the Honors chest mark (D-107) */
 .home .product-ball { width: 76%; }
 .home .product-meta { margin-top: 6px; font-size: 15px; font-weight: 600; }
 
@@ -81,9 +81,10 @@
 .home .try-patch { position: absolute; left: 37.7%; top: 42.6%; width: 24.6%; height: 24.6%; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; mix-blend-mode: multiply; }
 .home .try-patch img { width: 76%; height: 76%; object-fit: contain; }
 .home .try-ball { display: block; width: 88%; margin: 4% auto 0; }
-/* The polo tile is the torso crop (x 280-760, y 480-960 of the photo); the logo sits on the left chest. */
-.home .try-polo-photo { position: absolute; left: -58.33%; top: -100%; width: 200%; max-width: none; }
-.home .try-chest { position: absolute; left: 61.5%; top: 28%; width: 14.6%; height: 14.6%; display: flex; mix-blend-mode: multiply; }
+/* The polo tile is a crop of the white polo render (x 355-1255, y 150-1050 of 1600, D-107); the logo sits on the left
+   chest, the apparel designer's chest spot (x 935, y 478). */
+.home .try-polo-photo { position: absolute; left: -39.44%; top: -16.67%; width: 177.78%; max-width: none; }
+.home .try-chest { position: absolute; left: 57.9%; top: 29.9%; width: 13%; height: 13%; display: flex; mix-blend-mode: multiply; }
 .home .try-chest img { width: 100%; height: 100%; object-fit: contain; }
 
 /* 7. Who we outfit */

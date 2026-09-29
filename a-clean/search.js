@@ -35,6 +35,7 @@
     else if (!n) count.textContent = 'No products match ' + quoted(raw) + '.';
     else count.textContent = n + (n === 1 ? ' product' : ' products') + ' for ' + quoted(raw);
     document.title = (raw ? 'Search: ' + raw : 'Search') + ' | Honors Golf Supply';
+    if (headerSearch && headerSearch.value !== raw) headerSearch.value = raw;
     if (push !== false) history.replaceState(null, '', raw ? 'search.html?q=' + encodeURIComponent(raw) : 'search.html');
     document.querySelectorAll('.review-switch [data-q]').forEach(function (a) {
       if (a.getAttribute('data-q') === raw) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
@@ -44,9 +45,10 @@
   input.addEventListener('input', function () { update(); });
   input.form.addEventListener('submit', function (e) { e.preventDefault(); update(); });
   clear.addEventListener('click', function () { input.value = ''; update(); input.focus(); });
-  // On this page the header's search button goes to the search field
-  var headerSearch = document.querySelector('.top button[aria-label="Search"]');
-  if (headerSearch) headerSearch.addEventListener('click', function () { input.focus(); input.select(); });
+  // On this page the header's search field searches here: Enter puts its words into the page's field and runs the
+  // search (no reload), and the field shows the page's current query
+  var headerSearch = document.querySelector('.hdr-search input');
+  if (headerSearch) headerSearch.form.addEventListener('submit', function (e) { e.preventDefault(); input.value = headerSearch.value; update(); input.focus(); input.select(); });
 
   input.value = new URLSearchParams(location.search).get('q') || '';
   update(false);

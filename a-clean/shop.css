@@ -11,7 +11,7 @@
 
 /* Filters and sort stay in reach under the header while the grid scrolls */
 .shop .toolbar {
-  position: sticky; top: 52px; z-index: 20;
+  position: sticky; top: 64px; z-index: 20;   /* flush under the scrolled header's hairline (64px, D-106) */
   display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0;
   background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);

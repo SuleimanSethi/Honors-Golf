@@ -18,4 +18,6 @@ The polo views for the apparel page (UI-13), `polo-{white,navy,forest,black,grey
 | `ball-bag.webp` | Many golf balls net bag | Unknown | [rawpixel](https://www.rawpixel.com/image/6036764/photo-image-public-domain-free-grass) | CC0 |
 | `stitching.webp` | Sewing machine | Unknown | [rawpixel](https://www.rawpixel.com/image/6032464/sewing-machine-free-public-domain-cc0-photo) | CC0 |
 | `tee-shot.webp` | Woman Golfer | Kristin Hardwick | [stocksnap](https://stocksnap.io/photo/woman-golfer-QNXODBH24D) | CC0 |
+| `honors-logo-stacked.svg` | Honors Golf Supply, primary (stacked) logo (D-101) | Lettering rebuilt by us from Chuck's brand board, letters outlined; Chuck's original file replaces it if one comes | Fonts: Archivo Black and Oswald Medium ([Google Fonts](https://fonts.google.com)) | Fonts under the SIL Open Font License (OFL) |
 | `polo-*-front.webp`, `polo-*-back.webp` | EEPISAT Black Polo Shirt (prints removed, recolored) | Mukhayyar | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:EEPISAT_Black_Polo_Shirt.png) | CC0 |
+| `polo-*-honors.webp` | The same polo fronts with a small "Honors / GOLF SUPPLY" left-chest mark (Figtree), for the home and Shop all pictures (D-107) | Mukhayyar (render); mark added by us | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:EEPISAT_Black_Polo_Shirt.png) | CC0 |

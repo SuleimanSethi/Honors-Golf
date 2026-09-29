@@ -1,0 +1,118 @@
+/* Store header (UI-01, D-101, D-106): the top bar of version 2 (a full-width white strip edge to edge with a hairline
+   underneath, the logo at the left, Shop / About / Contact right after it, search, account and cart at the right; 80px
+   that tightens to 64px on scroll) with the board's primary stacked logo, and the Shop menu from version 4.1 (a list of
+   the products and one large render). Scoped to .hdr; the header keeps the .top class, so the sticky strip itself comes
+   from style.css. Desktop only for now (D-42). */
+
+.look-a .hdr {
+  --side: max(24px, calc((100vw - 1280px) / 2 + 32px));   /* the page's side margin (the strip's own padding) */
+  --logo-h: 44px;          /* HONORS caps about 26px, GOLF SUPPLY caps about 8.7px */
+  height: 80px; gap: 0;
+  transition: top 0.2s ease, padding-top 0.2s ease;
+}
+/* Scrolled: the bar shows 64px and the logo tightens a little. The header keeps its 80px box and slides its top 16px out
+   of view, so its place in the page never changes and nothing below moves while it condenses. */
+.look-a .hdr.is-scrolled { --logo-h: 40px; top: -16px; padding-top: 16px; }
+
+/* The logo, as drawn, in its own Pine */
+.look-a .hdr-logo { display: inline-flex; flex: none; margin-right: 56px; border-radius: 6px; }
+.look-a .hdr-logo img { display: block; height: var(--logo-h); width: auto; transition: height 0.2s ease; }
+
+/* Nav: Shop (with its menu), About, Contact, right after the logo */
+.look-a .hdr-nav { display: flex; align-self: stretch; align-items: center; }
+.look-a .hdr-list { display: flex; align-items: center; gap: 30px; margin: 0; padding: 0; list-style: none; }
+.look-a .hdr-item { position: static; display: flex; align-items: center; }   /* static: the Shop panel is placed against the bar */
+.look-a .hdr-trigger { position: relative; display: flex; align-items: center; gap: 5px; }
+.look-a .hdr-trigger::before {    /* the hover pill, drawn behind the word */
+  content: ""; position: absolute; inset: -12px -14px; z-index: -1;
+  border-radius: 999px; background: var(--fill); opacity: 0; transition: opacity 0.15s ease;
+}
+.look-a .hdr-item[data-menu] .hdr-trigger::before { right: -8px; }
+.look-a .hdr-trigger:hover::before, .look-a .hdr-item.is-open .hdr-trigger::before { opacity: 1; }
+.look-a .hdr-link { font-size: 16px; font-weight: 500; line-height: 16px; letter-spacing: -0.005em; color: var(--ink); text-decoration: none; }
+.look-a .hdr-link[aria-current="page"] { font-weight: 650; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; text-decoration-color: var(--accent); }
+.look-a .hdr-toggle {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; padding: 0; background: none; border: 0; border-radius: 6px; color: var(--muted);
+}
+.look-a .hdr-toggle::after { content: ""; position: absolute; inset: -12px -6px; }   /* a larger target, inside the pill */
+.look-a .hdr-toggle:focus-visible { outline-offset: 0; }
+.look-a .hdr-toggle svg { transition: transform 0.2s ease; }
+.look-a .hdr-item.is-open .hdr-toggle { color: var(--ink); }
+.look-a .hdr-item.is-open .hdr-toggle svg { transform: rotate(180deg); }
+
+/* The Shop menu (kept from v4.1, D-106): a white panel the page's content width, 8px under the bar. A plain list of the products on the left; on the right one
+   large render of the product under the pointer (or focus), on the stage grey */
+.look-a .hdr-panel {
+  position: absolute; top: calc(100% + 9px); left: var(--side); right: var(--side); z-index: 5;   /* 8px below the hairline (100% ends inside the border) */
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto auto; column-gap: 40px;
+  padding: 24px 24px 24px 36px;
+  color: var(--ink); background: #fff; border-radius: var(--radius-l);
+  box-shadow: 0 0 0 1px rgba(18, 52, 42, 0.08), 0 30px 70px -24px rgba(18, 52, 42, 0.35);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s linear 0.16s;
+}
+.look-a .hdr-panel::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 44px; }  /* bridges the gap under the nav words, so the menu stays open on the way down */
+.look-a .hdr-item.is-open .hdr-panel { opacity: 1; visibility: visible; transform: none; transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s; }
+.look-a .hdr-rows { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.look-a .hdr-row {
+  display: flex; flex-direction: column; gap: 2px; padding: 11px 16px; margin: 0 -16px;
+  border-radius: 14px; color: var(--ink); text-decoration: none; transition: background 0.15s ease;
+}
+.look-a .hdr-row.is-active { background: var(--fill); }
+.look-a .hdr-name { font-size: 19px; font-weight: 600; letter-spacing: -0.012em; line-height: 1.2; }
+.look-a .hdr-note { font-size: 14px; line-height: 1.35; color: var(--muted); }
+.look-a .hdr-row[aria-current="page"] .hdr-name { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.look-a .hdr-foot {
+  display: flex; flex-wrap: wrap; gap: 6px 28px; align-self: end;
+  margin: 18px 0 0; padding: 18px 0 4px; border-top: 1px solid var(--line);
+  font-size: 15px; font-weight: 600;
+}
+.look-a .hdr-foot a { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.look-a .hdr-foot a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.look-a .hdr-stage {
+  position: relative; grid-column: 2; grid-row: 1 / span 2; display: block; overflow: hidden;
+  border-radius: 20px; background: var(--stage);
+}
+.look-a .hdr-stage img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  opacity: 0; transform: scale(var(--z, 1)); transition: opacity 0.18s ease;   /* --z: per-product zoom, so each fills the stage */
+}
+.look-a .hdr-stage img.is-shown { opacity: 1; }
+
+/* Right side: a search field, then the account and cart icons (the cart's count badge comes from style.css) */
+.look-a .hdr-actions { margin-left: auto; gap: 8px; }
+/* .hdr in the selector so no page's own form rules reach the header's search (Contact's .contact form stacks its fields) */
+.look-a .hdr .hdr-search { position: relative; display: flex; flex-direction: row; align-items: center; gap: 0; margin: 0 6px 0 0; }
+.look-a .hdr-search svg { position: absolute; left: 14px; color: var(--muted); pointer-events: none; }
+.look-a .hdr-search input {
+  width: 196px; height: 40px; padding: 0 16px 0 40px;
+  font: 500 15px/1 inherit; font-family: inherit; color: var(--ink);
+  background: var(--fill); border: 1px solid transparent; border-radius: 999px;
+  -webkit-appearance: none; appearance: none; transition: background 0.15s ease, border-color 0.15s ease;
+}
+.look-a .hdr-search input::placeholder { color: var(--muted); opacity: 1; }
+.look-a .hdr-search input:hover { background: #E9EDEC; }
+.look-a .hdr-search input:focus { background: #fff; border-color: var(--control-line); outline: none; }
+.look-a .hdr-search input:focus-visible { outline: 3px solid color-mix(in srgb, var(--focus) 55%, transparent); outline-offset: 2px; }
+.look-a .hdr-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .look-a .hdr, .look-a .hdr-logo img, .look-a .hdr-panel, .look-a .hdr-toggle svg, .look-a .hdr-trigger::before, .look-a .hdr-stage img { transition: none; }
+}
+
+/* Narrower desktop windows: tighten before anything wraps */
+@media (max-width: 1180px) {
+  .look-a .hdr-logo { margin-right: 32px; }
+  .look-a .hdr-list { gap: 22px; }
+  .look-a .hdr-search input { width: 132px; }
+}
+/* Phones are paused (D-42): keep the old narrow-screen behavior (menu button, logo, cart) and hide the rest */
+@media (max-width: 900px) {
+  .look-a .hdr-nav { display: none; }
+}
+@media (max-width: 760px) {
+  .look-a .hdr, .look-a .hdr.is-scrolled { --logo-h: 32px; height: 56px; top: 0; padding: 0 8px; justify-content: space-between; }
+  .look-a .hdr-logo { margin-right: 0; }
+  .look-a .hdr-actions { margin-left: 0; }
+}
