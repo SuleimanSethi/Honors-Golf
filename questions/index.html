@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Questions for Chuck | Honors Golf Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../a-clean/style.css">
+<link rel="stylesheet" href="../a-clean/header.css">
+<link rel="stylesheet" href="questions.css">
+</head>
+<body class="look-a qf">
+<a class="skip-link" href="#main">Skip to the form</a>
+<header class="top hdr" data-header>
+  <span class="hdr-logo"><img src="../a-clean/img/honors-logo-stacked.svg" alt="Honors Golf Supply" width="672" height="169"></span>
+  <div class="top-actions hdr-actions">
+    <a class="qf-site-link" href="https://suleimansethi.github.io/Honors-Golf/" target="_blank" rel="noopener">See the site<span class="visually-hidden"> (opens in a new tab)</span></a>
+  </div>
+</header>
+
+<!-- Progress: a golf ball travels the line to the flag, one step per question -->
+<div class="qf-progress" data-progress hidden>
+  <div class="qf-track" aria-hidden="true">
+    <span class="qf-track-fill" data-fill></span>
+    <img class="qf-ball" src="../shared/ball.webp" alt="" width="20" height="20" data-ball>
+    <svg class="qf-flag" width="18" height="22" viewBox="0 0 18 22"><path d="M3 1v20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3.6 1.6l11 3.9-11 3.9z" fill="currentColor"/></svg>
+  </div>
+  <p class="qf-count" data-count></p>
+  <button type="button" class="qf-side-toggle" data-side-open aria-expanded="false" aria-controls="qf-side">All questions</button>
+</div>
+
+<main id="main" class="qf-main">
+  <div class="qf-shell">
+  <!-- Side navigation: the four parts and their questions; any one opens with a click -->
+  <aside class="qf-side" id="qf-side" data-side hidden>
+    <div class="qf-side-head"><p>All questions</p><button type="button" class="qf-side-close" data-side-close aria-label="Close the list"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <nav aria-label="Questions">
+      <div class="qf-side-part">
+        <p class="qf-side-part-name">Who Honors is for</p>
+        <ol>
+          <li><a href="#q1" data-side-link="q1"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">1</span><span class="qf-side-label">Who buys from Honors</span></a></li>
+          <li><a href="#q2" data-side-link="q2"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">2</span><span class="qf-side-label">Who the home page speaks to</span></a></li>
+        </ol>
+      </div>
+      <div class="qf-side-part">
+        <p class="qf-side-part-name">Your story</p>
+        <ol>
+          <li><a href="#q4" data-side-link="q4"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">3</span><span class="qf-side-label">What makes Honors different</span></a></li>
+          <li><a href="#q5" data-side-link="q5"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">4</span><span class="qf-side-label">The About page line</span></a></li>
+        </ol>
+      </div>
+      <div class="qf-side-part">
+        <p class="qf-side-part-name">Products and brands</p>
+        <ol>
+          <li><a href="#q6" data-side-link="q6"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">5</span><span class="qf-side-label">Your product categories</span></a></li>
+          <li><a href="#q7" data-side-link="q7"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">6</span><span class="qf-side-label">Your shortlisted brands <span class="qf-side-opt">Optional</span></span></a></li>
+          <li><a href="#q8" data-side-link="q8"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">7</span><span class="qf-side-label">Bundles and event packs</span></a></li>
+          <li><a href="#q9" data-side-link="q9"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">8</span><span class="qf-side-label">Products not on the site</span></a></li>
+        </ol>
+      </div>
+      <div class="qf-side-part">
+        <p class="qf-side-part-name">Suggested AI features <span class="qf-side-part-opt">Optional</span></p>
+        <ol>
+          <li><a href="#qai" data-side-link="qai"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">9</span><span class="qf-side-label">AI features you&rsquo;d like</span></a></li>
+        </ol>
+      </div>
+      <div class="qf-side-part">
+        <p class="qf-side-part-name">Your take on the site <span class="qf-side-part-opt">Optional</span></p>
+        <ol>
+          <li><a href="#q10" data-side-link="q10"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">10</span><span class="qf-side-label">What you like most</span></a></li>
+          <li><a href="#q11" data-side-link="q11"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">11</span><span class="qf-side-label">What feels off</span></a></li>
+          <li><a href="#q12" data-side-link="q12"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">12</span><span class="qf-side-label">What else the site should do</span></a></li>
+          <li><a href="#q13" data-side-link="q13"><span class="qf-side-mark" aria-hidden="true"></span><span class="qf-side-n">13</span><span class="qf-side-label">Sites you like, competitors</span></a></li>
+        </ol>
+      </div>
+      <a class="qf-side-review" href="#review" data-side-link="review">Review and send<span class="qf-side-count" data-side-count></span></a>
+    </nav>
+  </aside>
+  <div class="qf-scrim" data-side-scrim hidden></div>
+  <div class="qf-col">
+  <form id="qf-form" novalidate>
+
+    <!-- Welcome -->
+    <section class="qf-screen qf-welcome" data-screen="welcome" aria-labelledby="welcome-title">
+      <div class="qf-welcome-text">
+        <h1 id="welcome-title" tabindex="-1">Tell us about Honors, Chuck.</h1>
+        <p class="qf-lede">Thirteen short questions about who Honors is for, your story, what you sell, some AI ideas for the site, and what you think of it so far. Answer what you can and skip the rest.</p>
+        <div class="qf-start">
+          <button type="button" class="btn btn-primary qf-start-btn" data-start>Start</button>
+          <p class="qf-start-note" data-resume-note hidden></p>
+        </div>
+        <p class="qf-small">Your answers are kept on this computer as you go, so you can stop and come back. Nothing reaches us until you press Send.</p>
+        <ol class="qf-parts">
+          <li><span class="qf-parts-n">1</span><span class="qf-parts-name">Who Honors is for</span><span class="qf-parts-len">2 questions</span></li>
+          <li><span class="qf-parts-n">2</span><span class="qf-parts-name">Your story</span><span class="qf-parts-len">2 questions</span></li>
+          <li><span class="qf-parts-n">3</span><span class="qf-parts-name">Products and brands</span><span class="qf-parts-len">4 questions</span></li>
+          <li><span class="qf-parts-n">4</span><span class="qf-parts-name">Suggested AI features</span><span class="qf-parts-len">1 question</span></li>
+          <li><span class="qf-parts-n">5</span><span class="qf-parts-name">Your take on the site</span><span class="qf-parts-len">4 questions</span></li>
+        </ol>
+      </div>
+      <div class="qf-lineup" aria-hidden="true">
+        <span class="qf-tile qf-tile-hat"><img src="../a-clean/img/hat-forest.webp" alt=""></span>
+        <span class="qf-tile"><img src="../shared/ball.webp" alt=""></span>
+        <span class="qf-tile"><img src="../a-clean/img/tumbler-forest.webp" alt=""></span>
+        <span class="qf-tile qf-tile-polo"><img src="../a-clean/img/polo-forest-honors.webp" alt=""></span>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="qf-screen" data-screen="q1" data-part="Who Honors is for" hidden>
+      <p class="qf-part">Who Honors is for</p>
+      <h1 class="qf-question" id="q1-title" tabindex="-1">Who buys from Honors?</h1>
+      <p class="qf-hint">Tick all that apply.</p>
+      <div class="qf-answer">
+        <div class="qf-options" role="group" aria-labelledby="q1-title">
+          <label class="qf-opt"><input type="checkbox" name="q1" value="Golf clubs and courses"><span class="qf-opt-box"><span class="qf-opt-name">Golf clubs and courses</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="q1" value="Pro shops"><span class="qf-opt-box"><span class="qf-opt-name">Pro shops</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="q1" value="Companies"><span class="qf-opt-box"><span class="qf-opt-name">Companies</span><span class="qf-opt-note">Client gifts, staff gear</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="q1" value="Event organizers"><span class="qf-opt-box"><span class="qf-opt-name">Event organizers</span><span class="qf-opt-note">Tournaments, outings, charity days</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="q1" value="Schools and teams"><span class="qf-opt-box"><span class="qf-opt-name">Schools and teams</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="q1" value="Other" data-other-toggle><span class="qf-opt-box"><span class="qf-opt-name">Other</span></span></label>
+        </div>
+        <div class="qf-other" data-other hidden>
+          <input type="text" id="q1-other" data-field="q1Other" aria-label="Who else buys from Honors?" placeholder="Who else? For example: golf travel groups" autocomplete="off">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="qf-screen" data-screen="q2" data-part="Who Honors is for" hidden>
+      <p class="qf-part">Who Honors is for</p>
+      <h1 class="qf-question" id="q2-title" tabindex="-1">Which ones should the home page speak to first?</h1>
+      <p class="qf-hint">Pick all that apply, from the buyers you ticked.</p>
+      <div class="qf-answer">
+        <div class="qf-options" role="group" aria-labelledby="q2-title" data-q2-options></div>
+        <div class="qf-empty" data-q2-empty hidden>
+          <p>You haven&rsquo;t ticked any buyers in the last question yet.</p>
+          <button type="button" class="qf-text-btn" data-go="q1">Go back and tick some</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4 -->
+    <section class="qf-screen" data-screen="q4" data-part="Your story" hidden>
+      <p class="qf-part">Your story</p>
+      <h1 class="qf-question" id="q4-title" tabindex="-1">What makes Honors different from other custom golf suppliers?</h1>
+      <div class="qf-answer"><textarea data-field="q4" rows="5" aria-labelledby="q4-title"></textarea></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="qf-screen" data-screen="q5" data-part="Your story" hidden>
+      <p class="qf-part">Your story</p>
+      <p class="qf-lead-in">Our draft About page says:</p>
+      <blockquote class="qf-quote" id="q5-quote"><p>&ldquo;We outfit the clubs, courses and teams behind the game.&rdquo;</p></blockquote>
+      <h1 class="qf-question qf-question-sm" id="q5-title" tabindex="-1">Does that sound like Honors? If not, how would you say it?</h1>
+      <div class="qf-answer">
+        <div class="qf-options qf-options-2 qf-options-wide" role="radiogroup" aria-labelledby="q5-title" aria-describedby="q5-quote">
+          <label class="qf-opt is-radio"><input type="radio" name="q5Choice" value="Keep it"><span class="qf-opt-box"><span class="qf-opt-name">Yes, keep it</span></span></label>
+          <label class="qf-opt is-radio"><input type="radio" name="q5Choice" value="Change it"><span class="qf-opt-box"><span class="qf-opt-name">No, I&rsquo;d say it differently</span></span></label>
+        </div>
+        <div class="qf-follow" data-follow="q5Choice" data-follow-when="Change it" hidden>
+          <label class="qf-follow-label" for="q5-text">How would you say it?</label>
+          <textarea id="q5-text" data-field="q5" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="qf-screen" data-screen="q6" data-part="Products and brands" hidden>
+      <p class="qf-part">Products and brands</p>
+      <h1 class="qf-question" id="q6-title" tabindex="-1">Your product categories</h1>
+      <p class="qf-hint" id="q6-hint">Hats and Golf balls are already on the site. Add any other categories you want to sell.</p>
+      <div class="qf-answer">
+        <ul class="qf-chips" data-chips aria-label="Product categories">
+          <li class="qf-chip is-fixed"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hats</li>
+          <li class="qf-chip is-fixed"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Golf balls</li>
+        </ul>
+        <div class="qf-add-row">
+          <input type="text" data-add-input aria-labelledby="q6-title" aria-describedby="q6-hint" placeholder="A category, for example Tumblers" autocomplete="off">
+          <button type="button" class="btn btn-secondary qf-add-btn" data-add>Add</button>
+        </div>
+        <p class="qf-field-note" data-add-note aria-live="polite"></p>
+        <label class="qf-opt qf-opt-none"><input type="checkbox" data-none><span class="qf-opt-box"><span class="qf-opt-name">No other categories for now</span></span></label>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="qf-screen" data-screen="q7" data-part="Products and brands" hidden>
+      <p class="qf-part">Products and brands <span class="qf-optional">Optional</span></p>
+      <h1 class="qf-question" id="q7-title" tabindex="-1">Your shortlisted brands</h1>
+      <p class="qf-hint" id="q7-hint">For each category, list the brands you&rsquo;ve shortlisted. If you don&rsquo;t have a shortlist yet, skip this question.</p>
+      <div class="qf-answer">
+        <div class="qf-brand-rows" role="group" aria-labelledby="q7-title" aria-describedby="q7-hint" data-brand-rows></div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="qf-screen" data-screen="q8" data-part="Products and brands" hidden>
+      <p class="qf-part">Products and brands</p>
+      <h1 class="qf-question" id="q8-title" tabindex="-1">Bundles and event packs</h1>
+      <p class="qf-hint" id="q8-hint">Would you like to sell ready-made packs? For example balls, a towel and a tumbler together for a tournament.</p>
+      <div class="qf-answer">
+        <div class="qf-options qf-options-3" role="radiogroup" aria-labelledby="q8-title" aria-describedby="q8-hint">
+          <label class="qf-opt is-radio"><input type="radio" name="q8" value="Yes"><span class="qf-opt-box"><span class="qf-opt-name">Yes</span></span></label>
+          <label class="qf-opt is-radio"><input type="radio" name="q8" value="No"><span class="qf-opt-box"><span class="qf-opt-name">No</span></span></label>
+          <label class="qf-opt is-radio"><input type="radio" name="q8" value="Not sure"><span class="qf-opt-box"><span class="qf-opt-name">Not sure</span></span></label>
+        </div>
+        <div class="qf-follow" data-follow="q8" hidden>
+          <label class="qf-follow-label" for="q8-more">Which products go together, and who are they for?</label>
+          <textarea id="q8-more" data-field="q8More" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="qf-screen" data-screen="q9" data-part="Products and brands" hidden>
+      <p class="qf-part">Products and brands</p>
+      <h1 class="qf-question" id="q9-title" tabindex="-1">Products not on the site</h1>
+      <p class="qf-hint" id="q9-hint">If a buyer wants something you don&rsquo;t list, should the site let them send you a request?</p>
+      <div class="qf-answer">
+        <div class="qf-options qf-options-2" role="radiogroup" aria-labelledby="q9-title" aria-describedby="q9-hint">
+          <label class="qf-opt is-radio"><input type="radio" name="q9" value="Yes"><span class="qf-opt-box"><span class="qf-opt-name">Yes</span></span></label>
+          <label class="qf-opt is-radio"><input type="radio" name="q9" value="No"><span class="qf-opt-box"><span class="qf-opt-name">No</span></span></label>
+        </div>
+        <div class="qf-follow" data-follow="q9" hidden>
+          <label class="qf-follow-label" for="q9-more">Are there kinds of products you&rsquo;d especially like requests for?</label>
+          <textarea id="q9-more" data-field="q9More" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Suggested AI features (owner, 2026-10-06): the shortlist from docs/research/2026-10-06-ai-feature-candidates.md, optional, tick all -->
+    <section class="qf-screen" data-screen="qai" data-part="Suggested AI features" hidden>
+      <p class="qf-part">Suggested AI features <span class="qf-optional">Optional</span></p>
+      <h1 class="qf-question" id="qai-title" tabindex="-1">Which of these AI features would you like on the site?</h1>
+      <p class="qf-hint" id="qai-hint">Tick any that sound useful. They&rsquo;re ideas, not promises: we&rsquo;ll talk through the ones you pick.</p>
+      <div class="qf-answer">
+        <div class="qf-options qf-options-ai" role="group" aria-labelledby="qai-title" aria-describedby="qai-hint">
+          <label class="qf-opt"><input type="checkbox" name="qai" value="Logo clean-up"><span class="qf-opt-box"><span class="qf-opt-name">Logo clean-up</span><span class="qf-opt-note">Turns any uploaded logo, even a blurry one, into a sharp, print-ready version. Also flags details too small to stitch, and spelling mistakes.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="Logo from a photo"><span class="qf-opt-box"><span class="qf-opt-name">Logo from a photo</span><span class="qf-opt-note">No logo file? Buyers photograph the logo on an old hat or shirt, and AI redraws it cleanly.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="AI logo maker"><span class="qf-opt-box"><span class="qf-opt-name">AI logo maker</span><span class="qf-opt-note">Buyers without a logo describe what they want and choose from several original logos made to stitch well.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="Design my patch"><span class="qf-opt-box"><span class="qf-opt-name">Design my patch</span><span class="qf-opt-note">AI lays out the whole patch for the buyer: logo, text around the edge, border and thread colors.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="Design it for me"><span class="qf-opt-box"><span class="qf-opt-name">Design it for me</span><span class="qf-opt-note">Buyers describe the hat they want; AI creates the logo and patch and shows the stitched result.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="Embroidery designer"><span class="qf-opt-box"><span class="qf-opt-name">Embroidery designer</span><span class="qf-opt-note">A designer for anything embroidered (hat fronts, patches, towels, bags), using real thread colors and stitch styles.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="True stitched preview"><span class="qf-opt-box"><span class="qf-opt-name">True stitched preview</span><span class="qf-opt-note">Buyers see their design exactly as it will be stitched, thread by thread.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="Stitch file for your vendor"><span class="qf-opt-box"><span class="qf-opt-name">Stitch file for your vendor</span><span class="qf-opt-note">AI makes the embroidery machine file from the buyer&rsquo;s logo, ready to send to your patch maker.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="See it at your event"><span class="qf-opt-box"><span class="qf-opt-name">See it at your event</span><span class="qf-opt-note">An AI picture of the buyer&rsquo;s design in use, like their hat on a golfer at their own course.</span></span></label>
+          <label class="qf-opt"><input type="checkbox" name="qai" value="AI chat assistant"><span class="qf-opt-box"><span class="qf-opt-name">AI chat assistant</span><span class="qf-opt-note">Answers buyers&rsquo; questions, helps with their logo, tells them where their order is, and passes anything else to you with a summary.</span></span></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="qf-screen" data-screen="q10" data-part="Your take on the site" hidden>
+      <p class="qf-part">Your take on the site <span class="qf-optional">Optional</span></p>
+      <h1 class="qf-question" id="q10-title" tabindex="-1">What do you like most so far?</h1>
+      <p class="qf-hint" id="q10-hint">Have a look around the site first. <a class="text-link" href="https://suleimansethi.github.io/Honors-Golf/" target="_blank" rel="noopener">Open the site<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+      <div class="qf-answer"><textarea data-field="q10" rows="4" aria-labelledby="q10-title"></textarea></div>
+    </section>
+
+    <!-- 11 -->
+    <section class="qf-screen" data-screen="q11" data-part="Your take on the site" hidden>
+      <p class="qf-part">Your take on the site <span class="qf-optional">Optional</span></p>
+      <h1 class="qf-question" id="q11-title" tabindex="-1">What feels off, or what would you change?</h1>
+      <div class="qf-answer"><textarea data-field="q11" rows="4" aria-labelledby="q11-title"></textarea></div>
+    </section>
+
+    <!-- 12 -->
+    <section class="qf-screen" data-screen="q12" data-part="Your take on the site" hidden>
+      <p class="qf-part">Your take on the site <span class="qf-optional">Optional</span></p>
+      <h1 class="qf-question" id="q12-title" tabindex="-1">What else should the site be able to do?</h1>
+      <p class="qf-hint" id="q12-hint">Anything at all, big or small. For example: get a quote for a large order, order a sample first, ship one order to several addresses, or pick the date you need it by.</p>
+      <div class="qf-answer"><textarea data-field="q12" rows="4" aria-labelledby="q12-title" aria-describedby="q12-hint"></textarea></div>
+    </section>
+
+    <!-- 13 -->
+    <section class="qf-screen" data-screen="q13" data-part="Your take on the site" hidden>
+      <p class="qf-part">Your take on the site <span class="qf-optional">Optional</span></p>
+      <h1 class="qf-question" id="q13-title" tabindex="-1">Which websites do you like the look of? Are there competitors you want Honors to stand apart from?</h1>
+      <p class="qf-hint" id="q13-hint">Links are fine.</p>
+      <div class="qf-answer"><textarea data-field="q13" rows="4" aria-labelledby="q13-title" aria-describedby="q13-hint"></textarea></div>
+    </section>
+
+    <!-- Review -->
+    <section class="qf-screen qf-review" data-screen="review" hidden>
+      <h1 class="qf-question" id="review-title" tabindex="-1">Check your answers</h1>
+      <p class="qf-hint">Change anything you like, then send them to Suleiman.</p>
+      <div class="qf-missing" data-missing tabindex="-1" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>
+        <div><p data-missing-text></p><button type="button" class="qf-text-btn" data-first-missing>Answer the first one</button></div>
+      </div>
+      <div class="qf-review-list" data-review></div>
+      <div class="qf-send-error" data-send-error role="alert" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg>
+        <p><strong>Your answers didn&rsquo;t send.</strong> Check your internet connection, then press Try again. Everything you wrote is still here.</p>
+      </div>
+    </section>
+
+    <!-- Sent -->
+    <section class="qf-screen qf-sent" data-screen="sent" hidden>
+      <span class="qf-sent-mark" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      <h1 class="qf-question" id="sent-title" tabindex="-1">Sent. Thanks, Chuck.</h1>
+      <p class="qf-hint" data-sent-when></p>
+      <div class="qf-sent-actions"><button type="button" class="btn btn-secondary qf-btn-lg" data-go="review">Change an answer</button></div>
+    </section>
+
+  </form>
+
+  <!-- One set of controls for every question -->
+  <nav class="qf-nav" data-nav aria-label="Form" hidden>
+    <button type="button" class="qf-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Back</button>
+    <div class="qf-nav-right">
+      <p class="qf-saved" data-saved aria-live="polite"></p>
+      <button type="button" class="btn qf-next" data-next>Next</button>
+    </div>
+  </nav>
+  </div>
+  </div>
+</main>
+<p class="visually-hidden" aria-live="polite" data-announce></p>
+
+<script src="../a-clean/header.js"></script>
+<script src="questions.js"></script>
+</body>
+</html>
