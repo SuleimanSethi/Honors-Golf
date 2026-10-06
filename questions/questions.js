@@ -24,7 +24,7 @@
   var QS = ['q1', 'q2', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'qai', 'q10', 'q11', 'q12', 'q13'];
   var OPTIONAL = ['q7', 'qai', 'q10', 'q11', 'q12', 'q13'];   // the owner's choice (2026-10-06): brands, AI features and Your take are optional; every other question needs an answer
   var ORDER = ['welcome'].concat(QS, ['review', 'sent']);
-  var FIXED = ['Golf balls', 'Apparel'];   // brands boxes in question 7 that are always there (Hats take none)
+  var FIXED = ['Golf balls'];   // the brands box in question 7 that is always there (Hats take none; Apparel only if he adds it, owner 2026-10-07)
   var SET = ['Hats', 'Golf balls'];        // question 6's fixed chips (owner took Apparel out, 2026-10-06)
   var PARTS = [
     { name: 'Who Honors is for', qs: ['q1', 'q2'] },
@@ -73,7 +73,7 @@
     return t.toDateString() === now.toDateString() ? 'today at ' + time : t.toLocaleDateString([], { month: 'long', day: 'numeric' }) + ' at ' + time;
   }
   function same(a, b) { return a.toLowerCase() === b.toLowerCase(); }
-  // Question 7's boxes: the fixed ones, then his own categories (one box only if he adds e.g. Apparel himself)
+  // Question 7's boxes: Golf balls, then his own categories from question 6 in the order he added them
   function brandCategories() { return FIXED.concat(d.added.filter(function (n) { return !FIXED.some(function (f) { return same(f, n); }); })); }
   function buyerLabel(v) { return v === 'Other' ? (d.q1Other.trim() || 'Other') : v; }
   function isRequired(q) { return OPTIONAL.indexOf(q) === -1; }
@@ -207,7 +207,7 @@
     if (!x) return;
     var name = x.getAttribute('data-remove');
     d.added = d.added.filter(function (n) { return n !== name; });
-    if (!FIXED.some(function (f) { return same(f, name); })) delete d.brands[name];   // Apparel's brands box stays in question 7
+    if (!FIXED.some(function (f) { return same(f, name); })) delete d.brands[name];   // removing a category clears its brands
     x.closest('li').remove();
     addNote.textContent = name + ' removed.'; addInput.focus();
     changed();
