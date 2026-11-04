@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../shared/base.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="hat.css">
+<link rel="stylesheet" href="../shared/embroidery.css">
 <link rel="stylesheet" href="header.css">
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
 <meta name="robots" content="noindex, nofollow">
@@ -25,11 +26,13 @@
      <span class="hdr-trigger"><a class="hdr-link" href="shop.html" aria-current="page">Shop</a><button type="button" class="hdr-toggle" aria-expanded="false" aria-controls="hdr-shop"><span class="visually-hidden">Shop menu</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button></span>
      <div class="hdr-panel" id="hdr-shop">
       <ul class="hdr-rows">
-       <li><a class="hdr-row" href="hat.html" aria-current="page" data-preview="hat"><span class="hdr-name">Rope hats</span><span class="hdr-note">Your logo on the patch, designed in 3D</span></a></li>
-       <li><a class="hdr-row" href="./" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Logo, text or monogram, by the dozen</span></a></li>
-       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Laser-engraved, front and back</span></a></li>
-       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Polos</span><span class="hdr-note">Embroidered chest and sleeve, printed back</span></a></li>
-       <li><a class="hdr-row" href="shop.html?c=accessories" data-nav="accessories" data-preview="accessories"><span class="hdr-name">Accessories</span><span class="hdr-note">Tees, towels, divot tools and markers</span></a></li>
+       <li><a class="hdr-row" href="hat.html" aria-current="page" data-preview="hat"><span class="hdr-name">Hats</span><span class="hdr-note">Four styles, with your patch or embroidery</span></a></li>
+       <li><a class="hdr-row" href="./" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Titleist or Callaway, by the dozen</span></a></li>
+       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Brawn &amp; Fox, Stanley or Corkcicle, laser-engraved</span></a></li>
+       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Apparel</span><span class="hdr-note">Brand polos with your logo, priced by quote</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=towels" data-nav="towels" data-preview="towel"><span class="hdr-name">Towels</span><span class="hdr-note">Golf towels with your logo</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=caddy-kit" data-nav="caddy-kit" data-preview="caddy-kit"><span class="hdr-name">Caddy Kit</span><span class="hdr-note">Bag essentials with your logo</span></a></li>
+       <li><a class="hdr-row" href="packs.html" data-packs-link data-preview="packs"><span class="hdr-name">Event packs</span><span class="hdr-note">A ready-made mix for every player in the field</span></a></li>
       </ul>
       <p class="hdr-foot"><a href="shop.html" data-nav="all">Shop all products</a><a href="home.html#custom">How custom orders work</a></p>
       <a class="hdr-stage" href="hat.html" data-preview-stage aria-hidden="true" tabindex="-1">
@@ -37,7 +40,9 @@
        <img data-preview-img="ball" src="../shared/ball.webp" alt="" style="--z:0.84">
        <img data-preview-img="tumbler" src="img/tumbler-forest.webp" alt="" style="--z:1.1">
        <img data-preview-img="polo" src="img/polo-forest-front.webp" alt="" style="--z:1.05">
-       <img data-preview-img="accessories" src="img/tees.webp" alt="" style="--z:1.5">
+       <img data-preview-img="towel" src="img/towel-forest.webp" alt="" style="--z:1.1">
+       <img data-preview-img="caddy-kit" src="img/caddy-kit.webp" alt="" style="--z:1.05">
+       <img data-preview-img="packs" src="img/event-pack.webp" alt="" style="--z:1">
       </a>
      </div>
     </li>
@@ -55,30 +60,47 @@
   <div class="layout">
     <div class="studio-col">
       <div class="studio hat-studio is-loading" data-hat-stage>
-        <img class="hat-still" src="img/hat-3d-still.webp" alt="" data-hat-still>
+        <img class="hat-still" src="img/hat-3d-still-001.webp" alt="" data-hat-still>
+        <canvas class="hat-decor" width="2048" height="2048" data-hat-decor aria-hidden="true"></canvas>
         <div class="hat-canvas" data-hat-canvas tabindex="0" role="img" aria-label="Preview of your hat"></div>
-        <p class="stage-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg>Preview approximates the finished patch</p>
+        <img class="hat-photo" alt="" data-hat-photo>
+        <p class="photo-chip">Photo of the hat, before your decoration</p>
+        <p class="stage-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Preview approximates the finished <span data-deco-noun>patch</span></span></p>
         <div class="view-seg" role="group" aria-label="Views"><button type="button" data-view="front">Front</button><button type="button" data-view="side">Side</button><button type="button" data-view="back">Back</button></div>
         <p class="stage-hint"><span class="hint-ready">Drag to turn. Scroll to zoom.</span><span class="hint-loading">Loading the 3D hat&hellip;</span></p>
-        <p class="notice stage-msg" data-hat-msg role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span><strong>The 3D view couldn&rsquo;t load.</strong> Your patch is shown on the right instead. Keep designing and order as normal.</span></p>
-        <figure class="stage-patch" data-hat-patch aria-hidden="true"><canvas width="264" height="264"></canvas><figcaption>Your patch</figcaption></figure>
+        <p class="notice stage-msg" data-hat-msg role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span><strong>The 3D view couldn&rsquo;t load.</strong> Your <span data-deco-noun>patch</span> is shown on the right instead. Keep designing and order as normal.</span></p>
+        <figure class="stage-patch" data-hat-patch aria-hidden="true"><canvas width="264" height="264"></canvas><figcaption>Your <span data-deco-noun>patch</span></figcaption></figure>
         <div class="studio-status"><span class="status-dot" data-out="status-dot"></span><span data-out="status-main">Not saved yet</span></div>
       </div>
-      <p class="studio-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Your design number stays the same as you make changes, until you order.</span></p>
+      <div class="hat-views" role="group" aria-label="Pictures of the hat" data-hat-views hidden></div>
     </div>
     <form class="panel" id="panel" novalidate>
       <div class="panel-head">
-        <h1>Custom rope hats</h1>
-        <p class="lede">The Honors rope hat in Forest, with your own patch.</p>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="home.html">Home</a><span aria-hidden="true">/</span><a href="shop.html?c=hats">Hats</a><span aria-hidden="true">/</span><span aria-current="page" data-style-name>The Origin</span></nav>
+        <h1 data-style-name>The Origin</h1>
+        <p class="lede" data-style-lede>A structured 5-panel rope hat in 29 colorways.</p>
+        <div class="field colorway"><span class="label" id="colorway-label">Colorway: <span id="colorway-name">001 Slate / White Rope</span></span>
+          <div class="swatches" role="group" aria-labelledby="colorway-label" data-colorways></div>
+        </div>
       </div>
       <ol class="steps" aria-label="Steps">
   <li data-step-marker="1"><span class="step-bar"></span><span class="step-name">1. Artwork</span></li>
-  <li data-step-marker="2"><span class="step-bar"></span><span class="step-name">2. Patch</span></li>
+  <li data-step-marker="2"><span class="step-bar"></span><span class="step-name">2. Decoration</span></li>
   <li data-step-marker="3"><span class="step-bar"></span><span class="step-name">3. Quantity</span></li>
 </ol>
-      <section class="block" data-block="1" id="block-1" aria-labelledby="h-1">
-<h2 id="h-1">Artwork. <span>What goes on the patch?</span></h2>
-<div class="seg" role="group" aria-label="What goes on the patch">
+      <!-- Decoration comes first (D-140): nothing is picked when the page opens, and Artwork and the details wait for it. -->
+<section class="block" data-block="1" id="block-deco" aria-labelledby="h-deco">
+<h2 id="h-deco">Decoration. <span>A patch, or stitched straight onto the hat.</span></h2>
+<div class="chips chips-3" role="group" aria-label="How the front is decorated">
+  <button type="button" class="chip chip-text" data-deco="patch" data-material="fabric" aria-pressed="false"><span class="chip-title">Fabric patch</span><span class="chip-name">Soft and flat, sewn on</span></button>
+  <button type="button" class="chip chip-text" data-deco="patch" data-material="pvc" aria-pressed="false"><span class="chip-title">Rubber (PVC) patch</span><span class="chip-name">Molded, raised and glossy</span></button>
+  <button type="button" class="chip chip-text" data-deco="embroidery" aria-pressed="false"><span class="chip-title">Embroidered on the hat</span><span class="chip-name">Stitched straight in, no patch</span></button>
+</div>
+<p class="field-error" id="deco-error" role="alert" hidden>Pick how to decorate your hat first.</p>
+</section>
+<section class="block" data-block="1" id="block-1" aria-labelledby="h-1" hidden>
+<h2 id="h-1">Artwork. <span id="artwork-q">What goes on the patch?</span></h2>
+<div class="seg" role="group" aria-label="What goes on the front" data-artwork-tabs>
   <button type="button" data-tab="logo" aria-pressed="true"><svg class="seg-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 16l-5-5L6 19.5"/></svg><span>Logo</span></button>
   <button type="button" data-tab="text" aria-pressed="false"><svg class="seg-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6.5V5h14v1.5M12 5v14M9 19h6"/></svg><span>Text</span></button>
   <button type="button" data-tab="monogram" aria-pressed="false"><svg class="seg-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 15V9l3.5 4 3.5-4v6"/></svg><span>Monogram</span></button>
@@ -101,10 +123,10 @@
   <div class="field size-field">
     <div class="size-head"><label for="logo-size">Logo size</label><output id="logo-size-out" for="logo-size">85%</output></div>
     <input type="range" id="logo-size" min="40" max="100" step="1" value="85">
-    <span class="hint">At 100% your logo fills the patch up to its safe edge, never past it.</span>
+    <span class="hint" id="size-hint">At 100% your logo fills the patch up to its safe edge, never past it.</span>
   </div>
   <div class="notice" id="colors-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span id="colors-text"></span></div>
-  <div class="notice" id="lowres-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span>This logo is low-resolution for the patch, so fine details may be lost. A larger file or a PDF works better. You can still use it.</span></div>
+  <div class="notice" id="lowres-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span>This logo is low-resolution for the <span data-deco-noun>patch</span>, so fine details may be lost. A larger file or a PDF works better. You can still use it.</span></div>
   <label class="tick"><input type="checkbox" id="rights" checked><span>I own this logo or have permission to use it. <a href="#">Read the terms</a></span></label>
   <p class="field-error" id="rights-error" hidden>Tick the box to confirm you can use this logo.</p>
 </div>
@@ -113,26 +135,20 @@
     <div class="field"><label for="line1">Line 1</label><input id="line1" type="text" maxlength="20" autocomplete="off" value="Pinecrest"><span class="hint count" id="count1">9 of 20 characters</span></div>
     <div class="field"><label for="line2">Line 2 (optional)</label><input id="line2" type="text" maxlength="20" autocomplete="off" value="Golf Club"><span class="hint count" id="count2">9 of 20 characters</span></div>
   </div>
-  <div class="notice" id="small-text-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span>Long lines come out small on a patch, and small letters are hard to stitch cleanly. Shorter lines read better. You can still order it this way.</span></div>
+  <div class="notice" id="small-text-notice" role="status" hidden><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></svg><span>Long lines come out small on <span data-deco-small>a patch</span>, and small letters are hard to stitch cleanly. Shorter lines read better. You can still order it this way.</span></div>
 </div>
 <div class="pane" data-pane="monogram" hidden>
   <div class="field"><label for="mono">Letters (1 to 3)</label><input id="mono" class="mono-input" type="text" maxlength="3" autocomplete="off" value="PGC"></div>
 </div>
 </section>
-<section class="block" data-block="2" id="block-2" aria-labelledby="h-2">
-<h2 id="h-2">Patch. <span>Choose how it&rsquo;s made.</span></h2>
-<span class="review-note">Example colors and color limits, until the patch maker sets them</span>
+<section class="block" data-block="2" id="block-2" aria-labelledby="h-2" hidden>
+<h2 id="h-2">Your patch. <span id="details-q">Shape and colors.</span></h2>
+<div class="deco-group" data-deco-pane="patch">
 <div class="field"><span class="label" id="shape-label">Shape</span>
   <div class="chips chips-3" role="group" aria-labelledby="shape-label">
     <button type="button" class="chip" data-shape="round" aria-pressed="true"><span class="chip-shape is-round" aria-hidden="true"></span><span class="chip-name">Round</span></button>
     <button type="button" class="chip" data-shape="square" aria-pressed="false"><span class="chip-shape is-square" aria-hidden="true"></span><span class="chip-name">Square</span></button>
     <button type="button" class="chip" data-shape="rect" aria-pressed="false"><span class="chip-shape is-rect" aria-hidden="true"></span><span class="chip-name">Rectangle</span></button>
-  </div>
-</div>
-<div class="field"><span class="label" id="material-label">Material</span>
-  <div class="chips chips-2" role="group" aria-labelledby="material-label">
-    <button type="button" class="chip chip-text" data-material="embroidered" aria-pressed="true"><span class="chip-title">Embroidered</span><span class="chip-name">Stitched thread, soft and matte</span></button>
-    <button type="button" class="chip chip-text" data-material="pvc" aria-pressed="false"><span class="chip-title">Rubber (PVC)</span><span class="chip-name">Molded, raised and glossy</span></button>
   </div>
 </div>
 <div class="field"><span class="label" id="patch-label">Patch color: <span id="patch-name">Off-white</span></span>
@@ -155,6 +171,10 @@
       <button type="button" class="swatch" data-edge="grey" aria-label="Grey" aria-pressed="false"><span style="background:#A3A6A8"></span></button>
     </div>
   </div>
+</div>
+<div class="deco-group" data-deco-pane="embroidery" hidden>
+  <div class="field"><span class="label">Embroidery area</span><span class="hint" id="emb-area">Up to 4 &times; 2&frac14; in, centred on the front.</span></div>
+</div>
 <div class="lettering" id="lettering">
   <div class="field"><span class="label" id="lettering-label">Lettering</span>
     <div class="chips" role="group" aria-labelledby="lettering-label">
@@ -163,8 +183,10 @@
       <button type="button" class="chip" data-font="script" aria-pressed="false"><span class="chip-sample" style="font-family:'Pinyon Script',cursive">Aa</span><span class="chip-name">Script</span></button>
       <button type="button" class="chip" data-font="clean" aria-pressed="false"><span class="chip-sample" style="font-family:'Figtree',sans-serif">Aa</span><span class="chip-name">Clean</span></button>
     </div>
+    <span class="hint" id="emb-letter-hint" hidden></span>
   </div>
-  <div class="field"><span class="label" id="color-label"><span id="color-kind">Thread color</span>: <span id="color-name">Forest</span></span>
+</div>
+  <div class="field" id="thread-field"><span class="label" id="color-label"><span id="color-kind">Thread color</span>: <span id="color-name">Forest</span></span>
     <div class="swatches" role="group" aria-labelledby="color-label">
       <button type="button" class="swatch" data-color="white" aria-label="White" aria-pressed="false"><span style="background:#F4F2EC"></span></button>
       <button type="button" class="swatch" data-color="black" aria-label="Black" aria-pressed="false"><span style="background:#1A1B1F"></span></button>
@@ -174,12 +196,13 @@
       <button type="button" class="swatch" data-color="red" aria-label="Red" aria-pressed="false"><span style="background:#C8262B"></span></button>
     </div>
   </div>
-</div>
 <p class="hint" id="logo-color-note">Logos are stitched in their own colors, up to 8.</p>
+<!-- The embroidery designer and stitched preview (UI-36, UI-37; shared/embroidery.js): for direct embroidery and the
+     embroidered patch. -->
+<div class="emb-designer" data-embroidery-designer hidden></div>
 </section>
 <section class="block" data-block="3" id="block-3" aria-labelledby="h-3">
 <h2 id="h-3">Quantity. <span>The more you order, the less each hat costs.</span></h2>
-<span class="review-note">Example prices, until Chuck sets them</span>
 <div class="tiers" role="group" aria-label="Price breaks">
   <button type="button" class="tier" data-tier="0" aria-pressed="false"><span class="tier-range">24 to 47 hats</span><span class="tier-price">$22</span><span class="tier-unit">each</span></button>
   <button type="button" class="tier" data-tier="1" aria-pressed="true"><span class="tier-range">48 to 143 hats</span><span class="tier-price">$20</span><span class="tier-unit">each</span></button>
@@ -204,7 +227,6 @@
   <section class="recent" id="recent-designs" aria-labelledby="recent-h" hidden>
     <h2 id="recent-h">Your recent designs</h2>
     <p class="recent-lede">Saved on this browser. Sign in to keep them in your account.</p>
-    <span class="review-note">Sample: the two designs in the sample cart, plus any you save here</span>
     <ul class="recent-list" data-recent-list></ul>
   </section>
 </main>
@@ -222,6 +244,8 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <script src="../shared/cart.js"></script>
+<script src="../shared/hat-colorways.js"></script>
+<script src="../shared/embroidery.js"></script>
 <script src="../shared/hat.js"></script>
 <script src="../shared/designer.js"></script>
 <script type="module" src="../shared/hat3d.js"></script>

@@ -141,6 +141,6 @@
     '</section>';
 
   root.innerHTML = '<div class="page-head"><div><h1 class="page-title">' + esc(x.name) + '</h1><p class="page-sub">' + esc(x.club) + '</p></div>' +
-    '<span class="review-note">' + (guest ? 'Sample data, example prices' : 'Sample buyer, example prices') + '</span></div>' +
+    '<span class="review-note">' + (guest ? 'Sample data' : 'Sample buyer') + '</span></div>' +
     '<div class="buyer-layout"><div class="buyer-main">' + main + '</div><aside class="buyer-side">' + side + '</aside></div>';
 })();

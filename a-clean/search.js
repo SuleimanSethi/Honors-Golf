@@ -1,12 +1,12 @@
 // Search results (UI-07): find products by name in the sample catalog.
 // shop.js (loaded first, unchanged) renders every product as its approved Shop all tile into #products and keeps
 // each tile's product on li._p; this script only shows the tiles that match the query, live as the buyer types.
-// A query matches when each of its words starts a word in the product's name or its category.
+// A query matches when each of its words starts a word in the product's name, its build (a hat's "rope hat") or its category.
 // Review views: ?q=ball (results) and ?q=umbrella (no match). With no query, every product shows.
 (function () {
   'use strict';
 
-  var CATEGORY = { hats: 'Hats', balls: 'Golf balls', apparel: 'Apparel', accessories: 'Accessories' };  // the header's names
+  var CATEGORY = { hats: 'Hats', balls: 'Golf balls', tumblers: 'Tumblers', apparel: 'Apparel', towels: 'Towels', 'caddy-kit': 'Caddy Kit' };  // the header's names (D-115)
   var input = document.getElementById('q');
   var clear = document.querySelector('[data-clear]');
   var count = document.getElementById('search-count');
@@ -17,7 +17,10 @@
     return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter(Boolean)
       .map(function (w) { return w.length > 3 ? w.replace(/s$/, '') : w; });   // "hats" finds "hat", "tees" finds "tee"
   }
-  tiles.forEach(function (li) { li._words = words(li._p.name + ' ' + CATEGORY[li._p.cat]); });
+  tiles.forEach(function (li) {
+    var kind = (li._p.kind || '').replace(/\[[^\]]*\]/g, '');   // a placeholder for Chuck isn't something to search for
+    li._words = words(li._p.name + ' ' + kind + ' ' + CATEGORY[li._p.cat]);
+  });
 
   function matches(li, q) {
     return q.every(function (w) { return li._words.some(function (v) { return v.indexOf(w) === 0; }); });

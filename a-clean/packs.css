@@ -1,0 +1,38 @@
+/* Event packs (UI-16, PK-1, D-125): the players count, then a card per sample pack with its products on the grey stage,
+   what each player gets, the price per player and the order's total. The header, footer and type come from style.css. */
+.packs .packs-intro { padding-top: 28px; }
+.packs .packs-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-top: 18px; }
+.packs .packs-head h1 { margin: 0; font-size: 48px; letter-spacing: -0.02em; }
+.packs .packs-head .lede { max-width: 620px; margin: 10px 0 14px; font-size: 18px; color: var(--muted); }
+.packs .players { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.packs .players .stepper { display: inline-flex; align-items: center; }
+.packs .players input { width: 76px; height: 44px; text-align: center; font: 700 20px/1 inherit; font-family: inherit; font-variant-numeric: tabular-nums; border: 0; background: transparent; color: var(--ink); }
+.packs .players-short { color: var(--danger, #A1361F); }
+
+.packs .packs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
+.packs .pack { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; background: var(--surface); }
+/* The pack's products side by side, standing on the stage's floor, each at a size that reads well together. */
+.packs .pack-stage { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 260px; padding: 28px 20px 30px; background: var(--stage); }
+.packs .pack-item { display: block; height: auto; max-height: 100%; object-fit: contain; }
+.packs .pack-item.is-towel { height: calc(96% * var(--k, 1)); }
+.packs .pack-item.is-caddy { height: calc(74% * var(--k, 1)); }
+.packs .pack-item.is-tumbler { height: calc(62% * var(--k, 1)); }
+.packs .pack-item.is-hat { height: calc(46% * var(--k, 1)); }
+.packs .pack-item.is-balls { height: calc(24% * var(--k, 1)); }
+/* Five products: smaller, closer together, so they all fit the card. */
+.packs .pack[data-pack="full-bag"] .pack-stage { --k: 0.62; gap: 6px; padding-left: 12px; padding-right: 12px; }
+.packs .pack-body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+.packs .pack h2 { margin: 0; font-size: 24px; letter-spacing: -0.01em; }
+.packs .pack-sub { margin: 6px 0 16px; color: var(--muted); }
+.packs .pack-per { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.packs .pack-items { display: flex; flex-direction: column; gap: 8px; margin: 0 0 20px; padding: 0; list-style: none; }
+.packs .pack-items li { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 12px; align-items: center; }
+.packs .pack-items img { grid-row: span 2; width: 40px; height: 40px; object-fit: contain; padding: 4px; box-sizing: border-box; background: var(--stage); border-radius: 10px; }
+.packs .pack-item-name { font-weight: 600; }
+.packs .pack-item-note { font-size: 13px; color: var(--muted); }
+.packs .pack-price { display: flex; align-items: baseline; gap: 8px; margin-top: auto; }
+.packs .pack-each { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+.packs .pack-unit { color: var(--muted); }
+.packs .pack-total { margin: 4px 0 16px; color: var(--muted); }
+.packs .pack-cta { align-self: stretch; justify-content: center; }
+.packs .packs-note { margin-top: 20px; margin-bottom: 64px; color: var(--muted); }

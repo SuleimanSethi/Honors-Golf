@@ -2,12 +2,14 @@
 // The garment is data (APPAREL below): a photo for each color and view, the named logo spots placed on the photo with
 // their size in inches and decoration method, the allowed styles, the sizes and the tier ladder. Another garment is
 // another APPAREL plus its photos; the drawing code below stays as it is.
-// Shown with one garment: the performance polo. Its spots, sizes and methods are examples until Chuck confirms them
-// (OQ-9); its prices are examples until he sets them (OQ-3).
+// Shown with one garment, the polo, from the brand the buyer clicked (D-119, D-137). Its spots, sizes and methods are
+// examples until Chuck confirms them (OQ-9).
 // Each spot is switched on or off and carries its own artwork (A-3). The designer's artwork controls edit the spot
-// that's selected; its artwork is copied into that spot on every change. Embroidered and printed spots both show the
-// artwork flat, with the polo's own shading (A-4; the stitched look was cut, D-35). The buyer enters a quantity per
-// size; the minimum and the price break apply to the total across sizes (A-2).
+// that's selected; its artwork is copied into that spot on every change. Printed spots show the artwork flat, with the
+// polo's own shading; embroidered spots go through the shared embroidery designer and stitched preview (A-4, AI-3,
+// AI-4; embroidery.js, D-128, D-139), a thread for each part, with the polo's shading over the stitches. The buyer
+// enters a quantity per size; the minimum applies to the total across sizes (A-2). Apparel is priced by quote: the
+// page shows no prices, and its last button is Request a quote, not Add to cart (A-5, D-119; owner, session 14).
 (function () {
   'use strict';
 
@@ -51,6 +53,45 @@
       }
     }
   };
+  // The brand the buyer clicked on Shop all (D-119, D-137): ?brand=straight-down, redvanly, peter-millar or
+  // holderness-and-bourne, one polo per brand; a saved design (?design=) opens on its own brand; none or unknown opens
+  // the first, Straight Down. The page has no brand switch. Each brand offers the colors its Shop all tile shows, and
+  // opens on the first of them. The polo picture is our drawn polo, a placeholder until Chuck sends photography
+  // (owner, session 14: "just add placeholder images and we'll ask chuck for photograpy"; talking points item 7).
+  var DRAWN = APPAREL.colors;
+  function drawn(keys) {
+    var out = {};
+    keys.forEach(function (k) { out[k] = Object.assign({}, DRAWN[k], { photos: { front: 'img/polo-' + k + '-front.webp', back: 'img/polo-' + k + '-back.webp' } }); });
+    return out;
+  }
+  var BRANDS = {
+    'straight-down': { name: 'Straight Down', colors: drawn(['white', 'navy', 'grey']) },
+    redvanly: { name: 'Redvanly', colors: drawn(['navy', 'white', 'black']) },
+    'peter-millar': { name: 'Peter Millar', colors: drawn(['forest', 'white', 'navy']) },
+    'holderness-and-bourne': { name: 'Holderness & Bourne', colors: drawn(['black', 'white', 'grey']) }
+  };
+  var brand = (function () {
+    var q = new URLSearchParams(location.search), b = q.get('brand'), code = q.get('design'), d = null;
+    try { d = code && (JSON.parse(localStorage.getItem('honors-recent-designs') || '[]') || []).filter(function (x) { return x.code === code; })[0]; } catch (e) { d = null; }
+    if (d && d.product === APPAREL.product && BRANDS[d.brand]) b = d.brand;
+    return BRANDS[b] ? b : 'straight-down';
+  })();
+  var BRAND = BRANDS[brand], TITLE = BRAND.name + ' polo', FIRST = Object.keys(BRAND.colors)[0];
+  APPAREL.colors = BRAND.colors;
+  APPAREL.start.color = FIRST;
+  APPAREL.name = TITLE;
+  document.title = TITLE + ' | Honors (A. Clean)';
+  // The brand's colors as swatches, before the designer wires them up.
+  (function () {
+    var root = document.querySelector('.swatches'); if (!root) return;
+    root.innerHTML = Object.keys(BRAND.colors).map(function (k) {
+      var c = BRAND.colors[k];
+      return '<button type="button" class="swatch" data-color="' + k + '" aria-label="' + c.name + '" aria-pressed="' + (k === FIRST) + '"><span style="background:' + c.hex + '"></span></button>';
+    }).join('');
+    var name = document.getElementById('color-name'); if (name) name.textContent = BRAND.colors[FIRST].name;
+  })();
+  var REVIEW_STATE = new URLSearchParams(location.search).get('state') || '';
+
   // Decoration methods, as the buyer reads them.
   var METHODS = { embroidery: { name: 'embroidered', minCap: 0.25 }, print: { name: 'printed', minCap: 0.15 } };
   var THREAD = { light: '#12342A', dark: '#FFFFFF' };   // text and monograms: Pine on light polos, white on dark ones
@@ -66,7 +107,15 @@
   function byId(id) { return document.getElementById(id); }
   function $$(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
   function spotById(id) { return A.spots.filter(function (s) { return s.id === id; })[0]; }
-  function photoUrl(color, view) { return A.photo.replace('{color}', color).replace('{view}', view); }
+  function photoUrl(color, view) { return A.colors[color].photos[view]; }
+  // Each color's pictures are framed their own way: put its spot positions on the spots (the drawing code reads them).
+  var placedFor = null;
+  function placeSpots(color) {
+    if (placedFor === color) return; placedFor = color;
+    var own = A.colors[color].spots || {};
+    A.spots.forEach(function (sp) { var o = own[sp.id] || {}; ['x', 'y', 'ppi', 'turn', 'squeeze'].forEach(function (k) { if (o[k] != null) sp[k] = o[k]; }); });
+  }
+  function ppiOf(sp) { return sp.ppi || A.pxPerIn; }
   function total(sizes) { return A.sizes.reduce(function (n, k) { return n + (sizes[k] || 0); }, 0); }
   function lower(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
 
@@ -103,7 +152,7 @@
 
   // ---- A spot's place on the photo: its corners and the box of pixels it covers ----
   function corners(spot) {
-    var w = spot.width * A.pxPerIn * (spot.squeeze || 1) / 2, h = spot.height * A.pxPerIn / 2, t = (spot.turn || 0) * Math.PI / 180;
+    var w = spot.width * ppiOf(spot) * (spot.squeeze || 1) / 2, h = spot.height * ppiOf(spot) / 2, t = (spot.turn || 0) * Math.PI / 180;
     var c = Math.cos(t), s = Math.sin(t);
     return [[-w, -h], [w, -h], [w, h], [-w, h]].map(function (p) { return [spot.x + p[0] * c - p[1] * s, spot.y + p[0] * s + p[1] * c]; });
   }
@@ -155,11 +204,12 @@
   function spacing(g, px) { if ('letterSpacing' in g) g.letterSpacing = px + 'px'; }
 
   // Paints one spot's artwork into its own canvas; answers whether its lettering comes out too small.
-  function paintArt(art, spot, color) {
-    var W = Math.round(spot.width * A.pxPerIn * Q), H = Math.round(spot.height * A.pxPerIn * Q);
+  function paintArt(art, spot, color, ppiOverride) {
+    var ppi = ppiOverride || ppiOf(spot) * Q, cap = 0, twoLines = false;
+    var W = Math.round(spot.width * ppi), H = Math.round(spot.height * ppi);
     var c = document.createElement('canvas'); c.width = W; c.height = H;
     var g = c.getContext('2d'), m = 0.05 * Math.min(W, H), sw = W - 2 * m, sh = H - 2 * m, cx = W / 2, cy = H / 2;
-    var fam = FONTS[art.font] || FONTS.classic, small = false, ppi = A.pxPerIn * Q;
+    var fam = FONTS[art.font] || FONTS.classic, small = false;
     g.fillStyle = A.colors[color].light ? THREAD.light : THREAD.dark;
     g.textAlign = 'center'; g.textBaseline = 'alphabetic'; spacing(g, 0);
     if (art.tab === 'logo') {
@@ -182,7 +232,8 @@
         var km = Math.min(sw / mw, sh * 0.62 / mh);
         g.font = Math.round(100 * km) + 'px ' + fam; spacing(g, Math.round(6 * km));
         g.fillText(letters, cx + (mm.actualBoundingBoxLeft - mm.actualBoundingBoxRight) * km / 2, cy + (mm.actualBoundingBoxAscent - mm.actualBoundingBoxDescent) * km / 2);
-        if (mh * km / ppi < METHODS[spot.method].minCap) small = true;
+        cap = mh * km / ppi;
+        if (cap < METHODS[spot.method].minCap) small = true;
       }
     } else {
       // Two lines, the second at 72% of the first; as wide as the spot allows, and at most 64% as tall.
@@ -199,11 +250,36 @@
           g.font = px + 'px ' + fam;
           g.fillText(t, cx, y + ms[i].actualBoundingBoxAscent * kk);
           y += hs[i] * kk + gap * kk;
+          if (i === 0) cap = px * 0.7 / ppi;
           if (px * 0.7 / ppi < METHODS[spot.method].minCap) small = true;
         });
+        twoLines = lines.length > 1;
       }
     }
-    return { canvas: c, small: small };
+    return { canvas: c, small: small, cap: cap, twoLines: twoLines };
+  }
+
+  // ---- Embroidered spots (A-4, UI-36, UI-37): the artwork, painted finer, goes through the shared embroidery designer,
+  // which splits it into parts, gives each a thread (the buyer's pick, or one that shows on the polo) and stitches it
+  // the standard way (D-141). Each spot keeps its result until its artwork, threads or the polo's color change. ----
+  var EMB = window.HonorsEmbroidery, EMB_PPI = 160, EMB_LIMIT = 8, stitchMemo = {};
+  function embroidered(spot) { return spot.method === 'embroidery' && !!EMB; }
+  function stitchedFor(spot, art, color) {
+    var sig = JSON.stringify([ART.map(function (k) { return k === 'logo' ? [art.logo && art.logo.name, art.logo && art.logo.bgRemoved, art.logo && !!art.logo.url] : art[k]; }),
+      color, art.emb || {}, REVIEW_STATE === 'stitch-failed', !!(art.logo && art.logo.url && logoImage(art.logo.url))]);
+    var memo = stitchMemo[spot.id];
+    if (memo && memo.sig === sig) return memo;
+    var painted = paintArt(art, spot, color, EMB_PPI), W = painted.canvas.width, H = painted.canvas.height;
+    var result = EMB.stitch({
+      art: painted.canvas, kind: art.tab, area: { x: 0, y: 0, w: W, h: H }, inches: { w: spot.width, h: spot.height },
+      pxPerInch: EMB_PPI, base: A.colors[color].hex, ground: 'polo', choices: art.emb || {}, limit: EMB_LIMIT,
+      letters: art.tab === 'logo' ? null : { font: art.font, capInches: painted.cap, twoLines: painted.twoLines },
+      logoSize: art.tab === 'logo' ? art.logoSize : null, fail: REVIEW_STATE === 'stitch-failed'
+    });
+    var col = document.createElement('canvas'), hgt = document.createElement('canvas');
+    col.width = hgt.width = W; col.height = hgt.height = H;
+    EMB.paint(result, col, hgt);
+    return (stitchMemo[spot.id] = { sig: sig, canvas: col, small: false, result: result });
   }
 
   // ---- A spot on the polo: the artwork placed on the photo, then given the fabric's shading ----
@@ -213,14 +289,19 @@
   function layerFor(spot, art, color) {
     var b = boxOf(spot), fabric = pixelsUnder(color, spot.view, b);
     if (!fabric) return null;
-    var painted = paintArt(art, spot, color);
+    var painted = embroidered(spot) ? stitchedFor(spot, art, color) : paintArt(art, spot, color);
     var c = document.createElement('canvas'); c.width = b.w; c.height = b.h;
     var g = c.getContext('2d', { willReadFrequently: true });
-    var w = spot.width * A.pxPerIn * (spot.squeeze || 1), h = spot.height * A.pxPerIn;
+    var w = spot.width * ppiOf(spot) * (spot.squeeze || 1), h = spot.height * ppiOf(spot);
     g.translate(spot.x - b.x, spot.y - b.y); g.rotate((spot.turn || 0) * Math.PI / 180);
+    g.imageSmoothingQuality = 'high';
     g.drawImage(painted.canvas, -w / 2, -h / 2, w, h);
     var data = g.getImageData(0, 0, b.w, b.h), d = data.data;
-    var lit = hexLum(A.colors[color].lit || A.colors[color].hex) / INK;
+    // The fabric's lit tone, read from the photo under the spot (its brighter cloth, not the folds' shadows).
+    var tones = [];
+    for (var q = 0; q < fabric.length; q += 16) if (fabric[q + 3] > 200) tones.push(0.2126 * LIN[fabric[q]] + 0.7152 * LIN[fabric[q + 1]] + 0.0722 * LIN[fabric[q + 2]]);
+    tones.sort(function (m, n) { return m - n; });
+    var lit = (tones.length ? tones[Math.floor(tones.length * 0.85)] : hexLum(A.colors[color].hex)) / INK;
     for (var p = 0; p < d.length; p += 4) {
       if (!d[p + 3]) continue;
       var s = (0.2126 * LIN[fabric[p]] + 0.7152 * LIN[fabric[p + 1]] + 0.0722 * LIN[fabric[p + 2]]) / lit;
@@ -230,11 +311,11 @@
     }
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.putImageData(data, 0, 0);
-    return { canvas: c, box: b, small: painted.small };
+    return { canvas: c, box: b, small: painted.small, stitched: painted.result || null };
   }
 
   // ---- Drawing: the stage, the close-up of the spot being edited, and each spot's picture in the list ----
-  var view = null, layers = {};
+  var view = null, layers = {}, ui = null, quoteTimer = null;
   function outline(g, spot, light, alpha, k) {
     g.save(); g.beginPath();
     corners(spot).forEach(function (p, i) { g[i ? 'lineTo' : 'moveTo'](p[0] * k.s + k.x, p[1] * k.s + k.y); });
@@ -251,11 +332,18 @@
     g.drawImage(img, x0 * f, y0 * f, side * f, side * f, 0, 0, canvas.width, canvas.height);
     A.spots.forEach(function (sp) {
       var l = layers[sp.id];
-      if (sp.view === v && l) g.drawImage(l.canvas, (l.box.x - x0) * k, (l.box.y - y0) * k, l.box.w * k, l.box.h * k);
+      if (sp.view !== v || !l) return;
+      var memo = l.stitched && stitchMemo[sp.id];
+      if (memo) {
+        // An embroidered spot from its stitches at full resolution, so the thread shows close up (UI-37).
+        g.save(); g.translate((sp.x - x0) * k, (sp.y - y0) * k); g.rotate((sp.turn || 0) * Math.PI / 180);
+        var w = sp.width * ppiOf(sp) * (sp.squeeze || 1) * k, h = sp.height * ppiOf(sp) * k;
+        g.imageSmoothingQuality = 'high'; g.drawImage(memo.canvas, -w / 2, -h / 2, w, h); g.restore();
+      } else g.drawImage(l.canvas, (l.box.x - x0) * k, (l.box.y - y0) * k, l.box.w * k, l.box.h * k);
     });
     if (dashed) outline(g, dashed, !!A.colors[state.color].light, 0.55, { s: k, x: -x0 * k, y: -y0 * k, d: Math.max(0.5, k * 0.9) });
   }
-  function cropSide(spot) { return Math.max(spot.width * (spot.squeeze || 1), spot.height) * A.pxPerIn * 1.7 + 40; }
+  function cropSide(spot) { return Math.max(spot.width * (spot.squeeze || 1), spot.height) * ppiOf(spot) * 1.7 + 40; }
 
   function drawStage(state) {
     var st = document.querySelector('[data-app-stage]'); if (!st) return;
@@ -279,7 +367,8 @@
     // The close-up of the spot being edited, on whichever side it is.
     var close = st.querySelector('[data-app-closeup]');
     if (close) {
-      crop(close, state, active.view, active.x, active.y, cropSide(active), null);
+      // An embroidered spot is framed tighter, so its stitches are big enough to see.
+      crop(close, state, active.view, active.x, active.y, embroidered(active) && state.spots[active.id].on ? Math.max(active.width * (active.squeeze || 1), active.height) * ppiOf(active) * 1.15 + 12 : cropSide(active), null);
       st.querySelector('[data-app-closeup-name]').textContent = active.name;
     }
   }
@@ -368,16 +457,21 @@
     var short = state.qty < A.min, note = byId('size-min');
     note.hidden = !short; byId('size-min-hint').hidden = short;
     if (short) byId('size-min-text').textContent = 'The minimum is ' + A.min + ' polos per design, across sizes. Add ' + (A.min - state.qty) + ' more to any size.';
-    byId('add-to-cart').disabled = short;
+    byId('add-to-cart').disabled = short;   // Request a quote (A-5)
+    // No prices (priced by quote): the bar shows how many polos.
+    $$('[data-app-qty]').forEach(function (e) { e.textContent = state.qty + (state.qty === 1 ? ' polo' : ' polos'); });
   }
 
   function syncControls(state) {
     byId('logo-size').value = String(state.logoSize);
     byId('logo-size-out').textContent = state.logoSize + '%';
-    var active = spotById(state.spot);
+    var active = spotById(state.spot), sewn = embroidered(active);
     byId('logo-color-note').textContent = 'Your logo is ' + METHODS[active.method].name + ' in its own colors, and shows flat here.';
     byId('thread-note').textContent = 'Lettering is ' + METHODS[active.method].name + ' in ' +
       (A.colors[state.color].light ? 'Pine on a light polo.' : 'white on a dark polo.');
+    // An embroidered spot picks its threads in the embroidery designer instead.
+    // (designer.js shows or hides the logo note by tab after this runs, so it's kept out of view with display.)
+    byId('logo-color-note').style.display = sewn ? 'none' : ''; byId('thread-note').style.display = sewn ? 'none' : '';
   }
   // Review links: mark the one that matches this address (once the designer has tidied it, on the first draw).
   var marked = false;
@@ -406,7 +500,7 @@
     var by = {};
     A.spots.forEach(function (sp) { (by[sp.method] = by[sp.method] || []).push(lower(sp.name)); });
     var said = Object.keys(by).map(function (m) { var n = by[m]; return (n.length > 1 ? n.slice(0, -1).join(', ') + ' and ' + n[n.length - 1] : n[0]) + (n.length > 1 ? ' are ' : ' is ') + METHODS[m].name; });
-    byId('spots-hint').textContent = said.join('; the ').replace(/^./, function (c) { return 'The ' + c; }) + '. Every spot you turn on is in the price per polo.';
+    byId('spots-hint').textContent = said.join('; the ').replace(/^./, function (c) { return 'The ' + c; }) + '.';
     var views = document.querySelector('[data-app-views]'), keys = Object.keys(A.views);
     if (views) {
       views.innerHTML = keys.map(function (v) { return '<button type="button" data-view="' + v + '" aria-pressed="false">' + A.views[v] + '</button>'; }).join('');
@@ -416,7 +510,7 @@
 
   window.HonorsProduct = {
     product: A.product, name: A.name, noun: A.noun, page: A.page,
-    keep: ['spots', 'spot', 'sizes', 'logoSize'],
+    keep: ['spots', 'spot', 'sizes', 'logoSize', 'brand'],
     colors: A.colors,
     tiers: A.tiers,
     min: A.min,
@@ -428,12 +522,13 @@
       best: 'You’re getting the best price per polo.'
     },
     state: {
-      code: A.code, tab: A.start.tab, color: A.start.color, font: A.start.font, logoSize: A.start.logoSize,
+      code: A.code, brand: brand, tab: A.start.tab, color: A.start.color, font: A.start.font, logoSize: A.start.logoSize,
       line1: A.start.line1, line2: A.start.line2, mono: A.start.mono,
       sizes: Object.assign({}, A.start.sizes), qty: total(A.start.sizes), spot: 'chest'
     },
     draw: function (state) {
       if (!A.colors[state.color]) state.color = Object.keys(A.colors)[0];
+      placeSpots(state.color);
       if (!state.spots || !state.spots[A.spots[0].id]) state.spots = startSpots(state);
       if (!spotById(state.spot)) state.spot = A.spots[0].id;
       syncActive(state);
@@ -449,20 +544,57 @@
       });
       drawStage(state);
       drawSpotList(state);
+      var active = spotById(state.spot), hook = document.querySelector('[data-embroidery-designer]');
+      if (hook) {
+        var res = embroidered(active) && layers[active.id] ? layers[active.id].stitched : null;
+        hook.hidden = !res;
+        if (res && ui) ui.update(res);
+      }
       return small;
     },
     design: function (d, state) {
       syncActive(state);
       var shot = snapshot(state);
       var spots = JSON.parse(JSON.stringify(state.spots));
-      Object.keys(spots).forEach(function (k) { if (spots[k].logo && !spots[k].logo.sample) spots[k].logo.url = null; });
-      Object.assign(d, { product: A.product, sizes: Object.assign({}, state.sizes), spots: spots, spot: state.spot, logoSize: state.logoSize,
+      Object.keys(spots).forEach(function (k) {
+        if (spots[k].logo && !spots[k].logo.sample) spots[k].logo.url = null;
+        var memo = stitchMemo[k], sp = spotById(k);
+        if (spots[k].on && sp && embroidered(sp) && memo) spots[k].stitch = EMB.file(memo.result, state.code);
+      });
+      Object.assign(d, { product: A.product, brand: brand, sizes: Object.assign({}, state.sizes), spots: spots, spot: state.spot, logoSize: state.logoSize,
         summary: describe(state), preview: shot, noPreview: !shot });
     },
     init: function (a) {
       api = a;
       a.state.spots = startSpots(a.state);
       buildSpots();
+      $$('[data-app-brand]').forEach(function (e) { e.textContent = BRAND.name; });
+      $$('[data-app-name]').forEach(function (e) { e.textContent = TITLE; });
+      // The embroidery designer (UI-36) for the embroidered spot being edited: a part's thread changes that spot; a fix
+      // it offers for the artwork itself (the logo's size, the lettering, one line) is applied to the designer.
+      var hook = document.querySelector('[data-embroidery-designer]');
+      if (hook && EMB) ui = EMB.designer(hook, {
+        plain: true,   // as on the hat page: no example label, parts hint or stitch-file line (D-142, D-149)
+        onChange: function (choices) { a.state.spots[a.state.spot].emb = choices; a.set({ spots: a.state.spots }); },
+        onFix: function (fix) { if (fix.line2 === '') byId('line2').value = ''; a.set(fix); }
+      });
+      // Request a quote (A-5, C-14): the designer's last button, which here never adds to the cart. The design is saved
+      // with its code (A-5) and the request goes to Chuck; the quote form itself comes with task 29 (UI-18).
+      window.addEventListener('honors:add-to-cart', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var t = byId('toast');
+        if (t) { t.textContent = 'Design ' + a.state.code + ' saved. The quote request form opens here (next step, task 29).'; t.hidden = false; clearTimeout(quoteTimer); quoteTimer = setTimeout(function () { t.hidden = true; }, 4500); }
+      }, true);
+      // A recent design of another brand opens on its own brand's page rather than in this one.
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest && e.target.closest('[data-recent-code]'), code = link && link.dataset.recentCode, r = null;
+        if (!code) return;
+        try { r = (JSON.parse(localStorage.getItem('honors-recent-designs') || '[]') || []).filter(function (x) { return x.code === code; })[0]; } catch (err) { r = null; }
+        if (r && r.product === A.product && BRANDS[r.brand] && r.brand !== brand) {
+          e.preventDefault(); e.stopPropagation();
+          location.href = A.page + '?brand=' + r.brand + '&design=' + encodeURIComponent(code);
+        }
+      }, true);
       // Only the allowed styles are offered.
       $$('button[data-tab]').forEach(function (b) { if (A.styles.indexOf(b.dataset.tab) === -1) b.hidden = true; });
       // Load every photo now, so a color or side changes at once.

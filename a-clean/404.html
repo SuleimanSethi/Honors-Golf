@@ -24,11 +24,13 @@
      <span class="hdr-trigger"><a class="hdr-link" href="shop.html">Shop</a><button type="button" class="hdr-toggle" aria-expanded="false" aria-controls="hdr-shop"><span class="visually-hidden">Shop menu</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button></span>
      <div class="hdr-panel" id="hdr-shop">
       <ul class="hdr-rows">
-       <li><a class="hdr-row" href="hat.html" data-preview="hat"><span class="hdr-name">Rope hats</span><span class="hdr-note">Your logo on the patch, designed in 3D</span></a></li>
-       <li><a class="hdr-row" href="./" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Logo, text or monogram, by the dozen</span></a></li>
-       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Laser-engraved, front and back</span></a></li>
-       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Polos</span><span class="hdr-note">Embroidered chest and sleeve, printed back</span></a></li>
-       <li><a class="hdr-row" href="shop.html?c=accessories" data-nav="accessories" data-preview="accessories"><span class="hdr-name">Accessories</span><span class="hdr-note">Tees, towels, divot tools and markers</span></a></li>
+       <li><a class="hdr-row" href="hat.html" data-preview="hat"><span class="hdr-name">Hats</span><span class="hdr-note">Four styles, with your patch or embroidery</span></a></li>
+       <li><a class="hdr-row" href="./" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Titleist or Callaway, by the dozen</span></a></li>
+       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Brawn &amp; Fox, Stanley or Corkcicle, laser-engraved</span></a></li>
+       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Apparel</span><span class="hdr-note">Brand polos with your logo, priced by quote</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=towels" data-nav="towels" data-preview="towel"><span class="hdr-name">Towels</span><span class="hdr-note">Golf towels with your logo</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=caddy-kit" data-nav="caddy-kit" data-preview="caddy-kit"><span class="hdr-name">Caddy Kit</span><span class="hdr-note">Bag essentials with your logo</span></a></li>
+       <li><a class="hdr-row" href="packs.html" data-packs-link data-preview="packs"><span class="hdr-name">Event packs</span><span class="hdr-note">A ready-made mix for every player in the field</span></a></li>
       </ul>
       <p class="hdr-foot"><a href="shop.html" data-nav="all">Shop all products</a><a href="home.html#custom">How custom orders work</a></p>
       <a class="hdr-stage" href="hat.html" data-preview-stage aria-hidden="true" tabindex="-1">
@@ -36,7 +38,9 @@
        <img data-preview-img="ball" src="../shared/ball.webp" alt="" style="--z:0.84">
        <img data-preview-img="tumbler" src="img/tumbler-forest.webp" alt="" style="--z:1.1">
        <img data-preview-img="polo" src="img/polo-forest-front.webp" alt="" style="--z:1.05">
-       <img data-preview-img="accessories" src="img/tees.webp" alt="" style="--z:1.5">
+       <img data-preview-img="towel" src="img/towel-forest.webp" alt="" style="--z:1.1">
+       <img data-preview-img="caddy-kit" src="img/caddy-kit.webp" alt="" style="--z:1.05">
+       <img data-preview-img="packs" src="img/event-pack.webp" alt="" style="--z:1">
       </a>
      </div>
     </li>
@@ -66,26 +70,28 @@
       <h2 id="range-title">Shop the range</h2>
       <a class="text-link" href="shop.html">Shop all</a>
     </div>
-    <ul class="nf-cats">
+    <ul class="nf-cats" style="grid-template-columns: repeat(6, minmax(0, 1fr))">   <!-- six categories (D-115) in one row, as on home -->
       <li><a class="nf-cat" href="shop.html?c=hats"><span class="nf-cat-img"><img class="nf-hat" src="img/hat-forest.webp" alt=""></span><span class="nf-cat-name">Hats</span></a></li>
-      <li><a class="nf-cat" href="shop.html?c=balls"><span class="nf-cat-img"><svg viewBox="0 0 400 400" aria-hidden="true"><image href="../shared/ball.webp" width="400" height="400"/><g style="mix-blend-mode:multiply" fill="#1F4A36" text-anchor="middle" font-family="Figtree, sans-serif"><text x="200" y="206" font-size="44" font-weight="800" letter-spacing="-1">Honors</text></g></svg></span><span class="nf-cat-name">Golf balls</span></a></li>
+      <li><a class="nf-cat" href="shop.html?c=balls"><span class="nf-cat-img"><svg viewBox="0 0 400 400" aria-hidden="true"><image href="../shared/ball.webp" width="400" height="400"/><g style="mix-blend-mode:multiply" fill="#1F4A36" text-anchor="middle" font-family="Figtree, sans-serif"><text x="200" y="212" font-size="34" font-weight="800" letter-spacing="1.5">YOUR LOGO</text></g></svg></span><span class="nf-cat-name">Golf balls</span></a></li>
+      <li><a class="nf-cat" href="shop.html?c=tumblers"><span class="nf-cat-img"><svg viewBox="0 0 400 400" aria-hidden="true"><image href="img/tumbler-forest.webp" width="400" height="400"/></svg></span><span class="nf-cat-name">Tumblers</span></a></li>
       <li><a class="nf-cat" href="shop.html?c=apparel"><span class="nf-cat-img"><img class="nf-photo" src="img/golfer-polo.webp" alt="" style="object-position: 62% 40%"></span><span class="nf-cat-name">Apparel</span></a></li>
-      <li><a class="nf-cat" href="shop.html?c=accessories"><span class="nf-cat-img"><img class="nf-photo" src="img/golf-bag.webp" alt="" style="object-position: 62% 50%"></span><span class="nf-cat-name">Accessories</span></a></li>
+      <li><a class="nf-cat" href="shop.html?c=towels"><span class="nf-cat-img"><svg viewBox="0 0 400 400" aria-hidden="true"><image href="img/towel-forest.webp" width="400" height="400"/></svg></span><span class="nf-cat-name">Towels</span></a></li>
+      <li><a class="nf-cat" href="shop.html?c=caddy-kit"><span class="nf-cat-img"><svg viewBox="0 0 400 400" aria-hidden="true"><image href="img/caddy-kit.webp" width="400" height="400"/></svg></span><span class="nf-cat-name">Caddy Kit</span></a></li>
     </ul>
   </section>
 
-  <p class="nf-more">Still can&rsquo;t find it? <a href="contact.html">Contact us</a>.</p>
+  <p class="nf-more">Still can&rsquo;t find it? <a href="#" data-request-link>Request a product</a> and tell us what you need, or <a href="contact.html">contact us</a>.</p>
 </main>
 
 <footer class="footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
       <a class="brand" href="home.html">Honors</a>
-      <p>Golf supply for clubs, courses and teams.</p>
+      <p>Custom golf goods for events and companies.</p>
       <p class="placeholder">[Contact email and phone from Chuck]</p>
     </div>
-    <nav aria-label="Shop"><h2>Shop</h2><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=apparel">Apparel</a><a href="shop.html?c=accessories">Accessories</a></nav>
-    <nav aria-label="Custom orders"><h2>Custom orders</h2><a href="home.html#custom">How it works</a><a href="home.html#custom">Try your logo</a><a href="./">Price breaks</a></nav>
+    <nav aria-label="Shop"><h2>Shop</h2><a href="shop.html?c=hats">Hats</a><a href="shop.html?c=balls">Golf balls</a><a href="shop.html?c=tumblers">Tumblers</a><a href="shop.html?c=apparel">Apparel</a><a href="shop.html?c=towels">Towels</a><a href="shop.html?c=caddy-kit">Caddy Kit</a><a href="packs.html" data-packs-link>Event packs</a></nav>
+    <nav aria-label="Custom orders"><h2>Custom orders</h2><a href="home.html#custom">How it works</a><a href="home.html#custom">Try your logo</a><a href="./">Price breaks</a><a href="#" data-request-link>Request a product</a></nav>
     <nav aria-label="Help"><h2>Help</h2><a href="shipping.html">Shipping and Returns</a><a href="contact.html">Contact</a><a href="home.html#faq-title">Common questions</a></nav>
     <nav aria-label="Company"><h2>Company</h2><a href="about.html">About</a><a href="#">Privacy policy</a><a href="#">Terms</a></nav>
   </div>

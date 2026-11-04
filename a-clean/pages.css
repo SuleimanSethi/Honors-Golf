@@ -74,6 +74,19 @@
 .about .tile-acc .acc-tumbler { width: 37%; margin-top: -4%; }
 .about .tile-acc .acc-markers { width: 31%; margin-right: -1%; }
 .about .tile-acc .acc-tees { margin-left: -1%; }
+/* Six categories after the lock (D-115, UI-04): the hat tile stays large on the left; golf balls, tumblers, apparel and
+   towels make a two-by-two beside it; the caddy kit, several pieces laid out, takes a wide row of its own, words on the
+   left. Same tiles, stage grey and type as above; only placement and each render's size are new. (.tile-acc is unused.) */
+.about .bento { grid-template-rows: 340px 340px 300px; }
+.about .tile-balls { grid-column: 7 / 10; grid-row: 1; }
+.about .tile-tumblers { grid-column: 10 / 13; grid-row: 1; }
+.about .tile-apparel { grid-column: 7 / 10; grid-row: 2; }
+.about .tile-towels { grid-column: 10 / 13; grid-row: 2; }
+.about .tile-kit { grid-column: 1 / 13; grid-row: 3; flex-direction: row; }
+.about .tile-kit .tile-copy { flex: 0 0 34%; padding: 28px; }
+.about .tile-tumblers .tile-media img { height: 92%; width: auto; }
+.about .tile-towels .tile-media img { width: 96%; max-width: none; margin-top: -6px; }
+.about .tile-kit .tile-media img { height: 116%; width: auto; max-width: none; }
 
 /* 6. How we work */
 .about .values-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }

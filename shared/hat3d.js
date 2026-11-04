@@ -8,11 +8,20 @@
 // above, so the buyer can turn the hat over and look underneath. Drag, scroll or pinch, arrow keys, or
 // Front / Side / Back. The still picture shows until the model is ready (D-30); if 3D can't load, the picture stays
 // with a message (UI-26). The patch comes from hat.js.
+// After the lock (D-130, H-9) the model is The Origin, drawn in the colorway the buyer picks (hat-colorways.js):
+// the same recipe, with each colorway's own colors on the crown, brim and button (two-tone hats give the brim and
+// button their own), the rope in its color, and, where the real hat has them, a camo print on the crown and brim
+// or a dash, twist or stripe pattern on the rope. Those prints are painted in the browser on the parts' own copy of
+// the model's texture, in the same convention (the hex read as linear), so the file itself never changes (D-56).
+// Direct embroidery (D-121) is projected straight onto the front of the crown, like the patch; the styles without a
+// model show their photo instead (D-138, hat.js), so this view doesn't start for them.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
-const MODEL = '../tools/hat.glb', LIGHTING = '../tools/studio.hdr';
+const LIGHTING = '../tools/studio.hdr';
+// The model: hat.glb, or a 3D-session preview (?glb=, local only; hat.js checks it and puts it on the style).
+const MODEL = (window.HonorsHat && typeof window.HonorsHat.style?.model === 'string') ? window.HonorsHat.style.model : '../tools/hat.glb';
 // Angle3D-style colors. HAT is measured so the crown comes out Honors Forest #1F4A36 (31, 73, 55 against 31, 74, 54;
 // Angle3D's nearest hat color is Green 193, #06180f); ROPE is Angle3D's "White 3".
 const HAT = '#06130c', ROPE = '#ffffff';
@@ -22,7 +31,7 @@ const HAT = '#06130c', ROPE = '#ffffff';
 const PATCH_LEVEL = 1.8;
 const VIEWS = { front: [0, 80], side: [-90, 80], back: [180, 80] };   // [around, down from straight above], degrees
 const START = { theta: -28, phi: 80, zoom: 0.8 };                   // the three-quarter view of the still picture
-const LIMITS = { phi: [22.5, 157.5], zoom: [0.45, 1.05] };          // <model-viewer>'s own range
+const LIMITS = { phi: [22.5, 157.5], zoom: [0.3, 1.05] };           // closer than <model-viewer>'s 0.45, to read small lettering (session 12)
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // A color the way Angle3D applies it: the hex digits used directly as linear values.
@@ -84,6 +93,71 @@ export function honorsLabelTexture(texture) {
   return t;
 }
 
+// ---- Colorways (H-9): prints painted on a part's own copy of the model's texture ----
+// A color in Angle3D's convention (hex digits as linear) as the sRGB pixel that decodes to the same linear value, so
+// a print multiplied into the texture comes out as that color would on a plain part.
+function a3dPixel(hex) {
+  const n = parseInt(hex.slice(1), 16), enc = (v) => (v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055);
+  return 'rgb(' + [16, 8, 0].map((s) => Math.round(enc(((n >> s) & 255) / 255) * 255)).join(',') + ')';
+}
+// The print laid over the model's texture (its fabric, stitching and perforations stay), keeping the texture's own
+// transparency (the perforations are cut-outs).
+function printTexture(texture, drawPrint) {
+  const src = texture.image, w = src.width, h = src.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  drawPrint(g, w, h);
+  g.globalCompositeOperation = 'multiply'; g.drawImage(src, 0, 0);
+  g.globalCompositeOperation = 'destination-in'; g.drawImage(src, 0, 0);
+  const t = new THREE.CanvasTexture(c);
+  Object.assign(t, { flipY: false, colorSpace: texture.colorSpace, wrapS: texture.wrapS, wrapT: texture.wrapT,
+    magFilter: texture.magFilter, minFilter: texture.minFilter, anisotropy: texture.anisotropy, channel: texture.channel });
+  return t;
+}
+// Camo: the base color, then soft-edged blotches of the other colors, the same scatter every time.
+function camoPrint(colors) {
+  return (g, w, h) => {
+    g.fillStyle = a3dPixel(colors[0]); g.fillRect(0, 0, w, h);
+    let seed = 7;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const k = w / 2048;
+    for (let layer = 1; layer < colors.length; layer++) {
+      g.fillStyle = a3dPixel(colors[layer]);
+      const count = Math.round(170 / layer);
+      for (let i = 0; i < count; i++) {
+        const cx = rnd() * w, cy = rnd() * h, r = (34 + rnd() * 70) * k / Math.sqrt(layer), pts = 9, sx = 0.7 + rnd() * 0.9;
+        g.beginPath();
+        const ring = [];
+        for (let j = 0; j < pts; j++) { const a = j / pts * Math.PI * 2, rr = r * (0.55 + rnd() * 0.75); ring.push([cx + Math.cos(a) * rr * sx, cy + Math.sin(a) * rr]); }
+        for (let j = 0; j <= pts; j++) {
+          const p = ring[j % pts], q = ring[(j + 1) % pts], mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2;
+          if (j === 0) g.moveTo(mx, my); else g.quadraticCurveTo(p[0], p[1], mx, my);
+        }
+        g.fill();
+      }
+    }
+  };
+}
+// The rope's strip of the texture runs along its length (u) and round it (v); a dash, twist or stripe pattern is laid
+// along it in slanted bands, as the strands of a twisted cord show.
+const ROPE_STRIP = { u: [0.02, 0.955], v: [0, 0.16] }, ROPE_SLANT = 0.45;
+function ropePrint(rope) {
+  return (g, w, h) => {
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+    const x0 = ROPE_STRIP.u[0] * w, x1 = ROPE_STRIP.u[1] * w, y0 = ROPE_STRIP.v[0] * h, y1 = ROPE_STRIP.v[1] * h, k = w / 2048;
+    g.save(); g.beginPath(); g.rect(x0, y0, x1 - x0, y1 - y0); g.clip();
+    g.fillStyle = a3dPixel(rope.colors[0]); g.fillRect(x0, y0, x1 - x0, y1 - y0);
+    g.transform(1, 0, ROPE_SLANT, 1, 0, 0);
+    const period = (rope.kind === 'twist' ? 34 : rope.kind === 'stripes' ? 88 : 58) * k;
+    let n = 0;
+    for (let x = x0 - (y1 * ROPE_SLANT) - period; x < x1 + period; x += period, n++) {
+      if (rope.kind === 'twist') { g.fillStyle = a3dPixel(rope.colors[1]); g.fillRect(x, y0, period / 2, y1 - y0); }
+      else if (rope.kind === 'dash') { g.fillStyle = a3dPixel(rope.colors[1]); g.fillRect(x, y0, period * 0.2, y1 - y0); }
+      else { const seq = rope.colors; for (let i = 0; i < seq.length; i++) { g.fillStyle = a3dPixel(seq[i]); g.fillRect(x + i * period / seq.length, y0, period / seq.length + 0.5, y1 - y0); } }
+    }
+    g.restore();
+  };
+}
+
 // A flat, front-facing second UV set on a patch: artwork is projected straight on, centred and never stretched.
 function planarUV(mesh) {
   mesh.updateWorldMatrix(true, false);
@@ -98,7 +172,8 @@ function planarUV(mesh) {
 }
 
 const stage = document.querySelector('[data-hat-stage]');
-if (stage) start();
+const STYLE = window.HonorsHat && window.HonorsHat.style;
+if (stage && (!STYLE || STYLE.model)) start();
 
 function start() {
   const mount = stage.querySelector('[data-hat-canvas]'), msg = stage.querySelector('[data-hat-msg]');
@@ -114,10 +189,75 @@ function start() {
   const now = { ...START }, goal = { ...START };
   let model = null, radius = 1, badges = {}, fronts = [], edges = [], colorTex = null, heightTex = null, dirty = true, frame = 0;
 
-  // ---- The patch from hat.js ----
+  // ---- The colorway: colors in Angle3D's convention, and the prints (camo, patterned ropes), cached per colorway ----
+  const parts = { head: [], visor: [], button: [], strap: [], rope: [] }, prints = {};
+  let base = null, painted = null;
+  function paintColorway(cw) {
+    const key = cw.num, paint = cw.paint || { crown: HAT, rope: ROPE };
+    if (painted === key) return;
+    painted = key;
+    const camo = paint.camo, crown = camo ? '#ffffff' : paint.crown, brim = camo ? '#ffffff' : paint.brim || crown;
+    const button = paint.button || paint.brim || (camo ? camo[0] : crown);
+    const camoMap = camo && base ? (prints['camo' + camo.join()] = prints['camo' + camo.join()] || printTexture(base, camoPrint(camo))) : null;
+    const set = (list, hex, map) => list.forEach((m) => { m.color.copy(a3dColor(hex)); m.map = map || m.userData.baseMap; m.needsUpdate = true; });
+    set(parts.head, crown, camoMap); set(parts.visor, brim, camoMap); set(parts.strap, crown, camoMap);
+    set(parts.button, button, null);
+    const rope = paint.rope;
+    if (typeof rope === 'string' || !base) set(parts.rope, typeof rope === 'string' ? rope : ROPE, null);
+    else set(parts.rope, '#ffffff', prints['rope' + rope.kind + rope.colors.join()] = prints['rope' + rope.kind + rope.colors.join()] || printTexture(base, ropePrint(rope)));
+    request();
+  }
+
+  // ---- Direct embroidery: a thin skin over the front of the crown, made by casting rays straight in from the front
+  // over the area, so the artwork (the same canvases as the patch) lies on the fabric, projected straight on ----
+  let decal = null, decalMat = null;
+  function buildDecal() {
+    const round = (badges.Round || []).find((m) => /Front/.test(m.name));
+    if (!round || !parts.head.length) return null;
+    const heads = []; model.traverse((o) => { if (o.isMesh && /^head/i.test(o.name)) heads.push(o); });
+    model.updateMatrixWorld(true);
+    const c = new THREE.Box3().setFromObject(round).getCenter(new THREE.Vector3());
+    const H = window.HonorsHat, A = H.AREA, side = A.inches * 0.0254, wide = side / 2, tall = side * A.h / 2;
+    const nx = 34, ny = 20, ray = new THREE.Raycaster(), pos = [], uv = [], idx = [], grid = [];
+    const dir = new THREE.Vector3(0, 0, -1), nrm = new THREE.Vector3();
+    for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
+      const x = c.x - wide * 1.02 + (2.04 * wide) * i / nx, y = c.y + tall * 1.06 - (2.12 * tall) * j / ny;
+      ray.set(new THREE.Vector3(x, y, c.z + 0.3), dir);
+      const hit = ray.intersectObjects(heads, false)[0];
+      if (!hit) { grid.push(-1); continue; }
+      nrm.copy(hit.face.normal).transformDirection(hit.object.matrixWorld);
+      if (nrm.z < 0) nrm.negate();
+      const p = hit.point.clone().addScaledVector(nrm, 0.0007);
+      grid.push(pos.length / 3); pos.push(p.x, p.y, p.z);
+      uv.push((x - c.x) / side + 0.5, 0.5 - (y - c.y) / side);
+    }
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+      const a = grid[j * (nx + 1) + i], b = grid[j * (nx + 1) + i + 1], d = grid[(j + 1) * (nx + 1) + i], e = grid[(j + 1) * (nx + 1) + i + 1];
+      if (a < 0 || b < 0 || d < 0 || e < 0) continue;
+      idx.push(a, d, b, b, d, e);
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setAttribute('uv1', new THREE.Float32BufferAttribute(uv, 2));
+    geo.setIndex(idx); geo.computeVertexNormals();
+    // Thread, like the embroidered patch's: out of the ACES treatment at the patch's level so the thread color stays true.
+    decalMat = new THREE.MeshPhysicalMaterial({ map: colorTex, bumpMap: heightTex, bumpScale: 3, transparent: true, alphaTest: 0.04,
+      depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, roughness: 0.95, sheen: 0.35, sheenRoughness: 0.7, toneMapped: false });
+    decalMat.color.setScalar(PATCH_LEVEL);
+    const mesh = new THREE.Mesh(geo, decalMat); mesh.name = 'Embroidery'; mesh.renderOrder = 2;
+    // The model's root was moved to centre it; the skin is in the scene's own space, so it sits beside the model.
+    scene.add(mesh);
+    return mesh;
+  }
+
+  // ---- The patch or embroidery from hat.js ----
   function applyPatch(p) {
     if (!model || !p) return;
-    Object.entries(badges).forEach(([name, meshes]) => meshes.forEach((m) => { m.visible = name === p.mesh; }));
+    if (p.colorway) paintColorway(p.colorway);
+    const emb = p.deco === 'embroidery';
+    if (emb && !decal) decal = buildDecal();
+    if (decal) decal.visible = emb;
+    Object.entries(badges).forEach(([name, meshes]) => meshes.forEach((m) => { m.visible = !emb && name === p.mesh; }));
     const pvc = p.material === 'pvc';
     edges.forEach((m) => {
       m.material.color.set(p.edge).multiplyScalar(PATCH_LEVEL); m.material.toneMapped = false;
@@ -210,12 +350,14 @@ function start() {
     colorTex = new THREE.CanvasTexture(H.latest.color); heightTex = new THREE.CanvasTexture(H.latest.height);
     for (const t of [colorTex, heightTex]) { t.flipY = false; t.channel = 1; t.anisotropy = maxAniso; }
     colorTex.colorSpace = THREE.SRGBColorSpace;
-    let base = null; const labels = [];
+    const labels = [];
     root.traverse((o) => {
       if (!o.isMesh) return;
       for (const t of ['map', 'normalMap', 'roughnessMap', 'metalnessMap']) if (o.material[t]) o.material[t].anisotropy = maxAniso;
       base = base || o.material.map;
-      const m = o.material.clone(); o.material = m;
+      const m = o.material.clone(); o.material = m; m.userData.baseMap = m.map;
+      const part = /^head/i.test(o.name) ? 'head' : /^visor/i.test(o.name) ? 'visor' : /^button/i.test(o.name) ? 'button' : PARTS.strap.test(o.name) ? 'strap' : PARTS.rope.test(o.name) ? 'rope' : null;
+      if (part) parts[part].push(m);
       const b = o.name.match(/^Badge_(Round|Square|Rectangular)_(Front|Outline)/);
       if (b) {
         (badges[b[1]] = badges[b[1]] || []).push(o);
@@ -225,7 +367,8 @@ function start() {
         } else edges.push(o);
       } else if (/^Label/.test(o.name)) labels.push(m);
     });
-    paintParts(root, { hat: HAT, strap: HAT, rope: ROPE });
+    // The colorway the buyer opened on (Angle3D's recipe, in that hat's colors); Forest with a white rope without one.
+    paintColorway(H.latest.colorway || { num: 'forest', paint: { crown: HAT, rope: ROPE } });
     if (base && labels.length) { const t = honorsLabelTexture(base); labels.forEach((m) => { m.map = t; }); }
     const box = new THREE.Box3().setFromObject(root), size = box.getSize(new THREE.Vector3()), center = box.getCenter(new THREE.Vector3());
     root.position.sub(center); scene.add(root);
@@ -234,6 +377,12 @@ function start() {
     H.listen = applyPatch; applyPatch(H.latest);
     draw();
     stage.classList.remove('is-loading'); stage.classList.add('is-3d');
-    window.HonorsHat3D = { snapshot, view: () => ({ ...now }) };
+    // inspect() reports what's drawn, for the page's checks: each part's color as its Angle3D hex, whether a print is
+    // on it, and which decoration shows.
+    const hexOf = (m) => '#' + m.color.getHexString(THREE.LinearSRGBColorSpace);
+    const inspect = () => ({ colorway: painted, crown: hexOf(parts.head[0]), brim: hexOf(parts.visor[0]), button: hexOf(parts.button[0]), rope: hexOf(parts.rope[0]),
+      camo: parts.head[0].map !== parts.head[0].userData.baseMap, ropePrint: parts.rope[0].map !== parts.rope[0].userData.baseMap,
+      patch: Object.values(badges).flat().some((m) => m.visible), embroidery: !!(decal && decal.visible) });
+    window.HonorsHat3D = { snapshot, view: () => ({ ...now }), inspect };
   }).catch(fail);
 }

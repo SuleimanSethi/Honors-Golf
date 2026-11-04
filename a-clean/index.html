@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Custom golf balls | Honors (A. Clean)</title>
+<title>Golf balls | Honors (A. Clean)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Marcellus&family=Alfa+Slab+One&family=Pinyon+Script&family=Figtree:wght@400;500;600;700;800&display=swap">
@@ -23,11 +23,13 @@
      <span class="hdr-trigger"><a class="hdr-link" href="shop.html" aria-current="page">Shop</a><button type="button" class="hdr-toggle" aria-expanded="false" aria-controls="hdr-shop"><span class="visually-hidden">Shop menu</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button></span>
      <div class="hdr-panel" id="hdr-shop">
       <ul class="hdr-rows">
-       <li><a class="hdr-row" href="hat.html" data-preview="hat"><span class="hdr-name">Rope hats</span><span class="hdr-note">Your logo on the patch, designed in 3D</span></a></li>
-       <li><a class="hdr-row" href="./" aria-current="page" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Logo, text or monogram, by the dozen</span></a></li>
-       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Laser-engraved, front and back</span></a></li>
-       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Polos</span><span class="hdr-note">Embroidered chest and sleeve, printed back</span></a></li>
-       <li><a class="hdr-row" href="shop.html?c=accessories" data-nav="accessories" data-preview="accessories"><span class="hdr-name">Accessories</span><span class="hdr-note">Tees, towels, divot tools and markers</span></a></li>
+       <li><a class="hdr-row" href="hat.html" data-preview="hat"><span class="hdr-name">Hats</span><span class="hdr-note">Four styles, with your patch or embroidery</span></a></li>
+       <li><a class="hdr-row" href="./" aria-current="page" data-preview="ball"><span class="hdr-name">Golf balls</span><span class="hdr-note">Titleist or Callaway, by the dozen</span></a></li>
+       <li><a class="hdr-row" href="accessory.html" data-preview="tumbler"><span class="hdr-name">Tumblers</span><span class="hdr-note">Brawn &amp; Fox, Stanley or Corkcicle, laser-engraved</span></a></li>
+       <li><a class="hdr-row" href="apparel.html" data-preview="polo"><span class="hdr-name">Apparel</span><span class="hdr-note">Brand polos with your logo, priced by quote</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=towels" data-nav="towels" data-preview="towel"><span class="hdr-name">Towels</span><span class="hdr-note">Golf towels with your logo</span></a></li>
+       <li><a class="hdr-row" href="shop.html?c=caddy-kit" data-nav="caddy-kit" data-preview="caddy-kit"><span class="hdr-name">Caddy Kit</span><span class="hdr-note">Bag essentials with your logo</span></a></li>
+       <li><a class="hdr-row" href="packs.html" data-packs-link data-preview="packs"><span class="hdr-name">Event packs</span><span class="hdr-note">A ready-made mix for every player in the field</span></a></li>
       </ul>
       <p class="hdr-foot"><a href="shop.html" data-nav="all">Shop all products</a><a href="home.html#custom">How custom orders work</a></p>
       <a class="hdr-stage" href="hat.html" data-preview-stage aria-hidden="true" tabindex="-1">
@@ -35,7 +37,9 @@
        <img data-preview-img="ball" src="../shared/ball.webp" alt="" style="--z:0.84">
        <img data-preview-img="tumbler" src="img/tumbler-forest.webp" alt="" style="--z:1.1">
        <img data-preview-img="polo" src="img/polo-forest-front.webp" alt="" style="--z:1.05">
-       <img data-preview-img="accessories" src="img/tees.webp" alt="" style="--z:1.5">
+       <img data-preview-img="towel" src="img/towel-forest.webp" alt="" style="--z:1.1">
+       <img data-preview-img="caddy-kit" src="img/caddy-kit.webp" alt="" style="--z:1.05">
+       <img data-preview-img="packs" src="img/event-pack.webp" alt="" style="--z:1">
       </a>
      </div>
     </li>
@@ -60,12 +64,14 @@
     </div>
     <form class="panel" id="panel" novalidate>
       <div class="panel-head">
-        <h1>Custom golf balls</h1>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="home.html">Home</a><span aria-hidden="true">/</span><a href="shop.html?c=balls">Golf balls</a><span aria-hidden="true">/</span><span aria-current="page" data-ball-brand>Titleist</span></nav>
+        <h1 data-ball-name>Titleist golf balls</h1>
         <p class="lede">Printed with your logo, text or monogram.</p>
+        <span class="review-note" data-ball-note>The ball picture is a stand-in until Chuck sends his photo of the Titleist ball</span>
       </div>
       <ol class="steps" aria-label="Steps">
   <li data-step-marker="1"><span class="step-bar"></span><span class="step-name">1. Artwork</span></li>
-  <li data-step-marker="2"><span class="step-bar"></span><span class="step-name">2. Ball and color</span></li>
+  <li data-step-marker="2"><span class="step-bar"></span><span class="step-name">2. Lettering and color</span></li>
   <li data-step-marker="3"><span class="step-bar"></span><span class="step-name">3. Quantity</span></li>
 </ol>
       <section class="block" data-block="1" id="block-1" aria-labelledby="h-1">
@@ -106,9 +112,7 @@
 </div>
 </section>
 <section class="block" data-block="2" id="block-2" aria-labelledby="h-2">
-<h2 id="h-2">Ball and color. <span>Choose how it looks.</span></h2>
-<div class="field"><label for="ball-model">Ball</label>
-  <select id="ball-model"><option>[Ball model from Chuck's lineup]</option></select></div>
+<h2 id="h-2">Lettering and color. <span>Choose how it looks.</span></h2>
 <div class="lettering" id="lettering">
   <div class="field"><span class="label" id="lettering-label">Lettering</span>
     <div class="chips" role="group" aria-labelledby="lettering-label">
@@ -174,6 +178,33 @@
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+// The ball the buyer clicked on Shop all (D-116, D-137): ?brand=titleist or callaway, one ball per brand; a saved design
+// (?design=) opens on its own brand; none or unknown opens the first, Titleist. The page has no brand switch.
+(function () {
+  var BRANDS = { titleist: 'Titleist', callaway: 'Callaway' }, KEY = 'honors-recent-designs';
+  var q = new URLSearchParams(location.search), b = q.get('brand');
+  function saved(code) { try { return (JSON.parse(localStorage.getItem(KEY) || '[]') || []).filter(function (x) { return x.code === code; })[0] || null; } catch (e) { return null; } }
+  var d = q.get('design') && saved(q.get('design'));
+  if (d && BRANDS[d.brand]) b = d.brand;
+  if (!BRANDS[b]) b = 'titleist';
+  var name = BRANDS[b] + ' golf balls';
+  window.HonorsProduct = { keep: ['brand'], state: { brand: b }, design: function (design) { design.brand = b; } };
+  document.title = name + ' | Honors (A. Clean)';
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-ball-brand]').forEach(function (e) { e.textContent = BRANDS[b]; });
+    document.querySelectorAll('[data-ball-name]').forEach(function (e) { e.textContent = name; });
+    var NOTES = { titleist: 'Ball photo from Titleist\u2019s website, a stand-in until Chuck sends his', callaway: 'Ball photo from Callaway\u2019s website, a stand-in until Chuck sends his' };
+    document.querySelectorAll('[data-ball-note]').forEach(function (e) { e.textContent = NOTES[b]; });
+  });
+  // A recent design of the other brand opens on its own page rather than in this one.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-recent-code]'); if (!a) return;
+    var r = saved(a.dataset.recentCode);
+    if (r && (r.product || 'ball') === 'ball' && BRANDS[r.brand] && r.brand !== b) { e.preventDefault(); e.stopPropagation(); location.href = './?brand=' + r.brand + '&design=' + encodeURIComponent(r.code); }
+  }, true);
+})();
+</script>
 <script src="../shared/cart.js"></script>
 <script src="../shared/designer.js"></script>
 <script src="header.js"></script>

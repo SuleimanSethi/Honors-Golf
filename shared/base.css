@@ -44,6 +44,16 @@ body .review-switch a:hover { background: rgba(255, 255, 255, 0.14); }
 body .review-switch a[aria-current="page"] { background: #fff; color: #111; }
 .review-switch .review-all { opacity: 0.8; }
 body.look-a .review-switch, body.look-b .review-switch { bottom: 96px; }
+/* Desktop (owner, session 15: the open bar covered the designs): the bar folds to a small "Pages" tab in the page's
+   left margin and opens when pointed at or tabbed into. Folded, its links are hidden from sight but can still take
+   the keyboard's focus, which opens it. */
+@media (min-width: 761px) {
+  .review-switch:not(:hover):not(:focus-within) > :not(:first-child) {
+    position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .review-switch:not(:hover):not(:focus-within) > .review-all:first-child::after { content: " \25B8"; }
+  .review-switch:not(:hover):not(:focus-within) > .review-all:first-child { opacity: 1; cursor: default; }
+}
 
 /* Phone: one step per screen, the ball on every step (decision D-30) */
 @media (max-width: 760px) {

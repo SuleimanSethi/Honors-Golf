@@ -1,0 +1,48 @@
+/* The embroidery designer (UI-36), shared by every embroidered product (embroidery.js). It uses the page's own pieces
+   (.field, .label, .hint, .swatch, .chips, .chip, .notice, .review-note) and the look's tokens, with fallbacks so it
+   reads the same on any look A page. */
+.emb { display: flex; flex-direction: column; gap: 16px; }
+.emb[hidden] { display: none; }
+.emb-head { display: flex; flex-direction: column; gap: 8px; }
+.emb-head .hint { margin: 0; }
+
+/* Things to check: a flag per problem, with the fix to accept and a way to keep it as it is. */
+.emb-flags { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.emb-flag-body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.emb-flag-body p { margin: 0; }
+.emb-flag-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.emb-fix {
+  min-height: 36px; padding: 0 16px; border: 0; border-radius: 999px;
+  background: var(--accent, #1F4A36); color: var(--on-dark, #FFFFFF); font: inherit; font-size: 14px; font-weight: 600;
+}
+.emb-fix:hover { background: color-mix(in srgb, var(--accent, #1F4A36) 88%, #000); }
+.emb-keep { min-height: 36px; padding: 0 4px; border: 0; background: transparent; color: var(--caution-fg, #6B4700); font: inherit; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.emb-failed a { color: inherit; font-weight: 600; }
+
+/* The parts: one row each, with the part itself stitched on the product's color; one opens at a time. */
+.emb-parts { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border: 1px solid var(--field-line, #D0D7D5); border-radius: var(--radius-m, 16px); }
+.emb-part + .emb-part { border-top: 1px solid var(--field-line, #D0D7D5); }
+.emb-part-head {
+  width: 100%; display: grid; grid-template-columns: 56px minmax(0, 1fr) 18px; align-items: center; gap: 14px;
+  padding: 12px 16px 12px 12px; border: 0; background: transparent; color: var(--ink, #12342A); text-align: left; font: inherit;
+  border-radius: var(--radius-m, 16px);
+}
+.emb-part-head:hover { background: var(--fill, #F3F5F4); }
+.emb-thumb { width: 56px; height: 56px; border-radius: var(--radius-s, 12px); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); background: var(--stage, #F2F2F5); }
+.emb-part-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.emb-part-name { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; }
+.emb-part-sub { font-size: 13px; color: var(--muted, #4B655D); }
+.emb-dot { width: 8px; height: 8px; border-radius: 50%; background: #B7791F; }
+.emb-chev { color: var(--muted, #4B655D); transition: transform 0.2s; }
+.emb-part.is-open .emb-chev { transform: rotate(180deg); }
+.emb-part-body { display: flex; flex-direction: column; gap: 18px; padding: 4px 16px 18px; }
+.emb-part-body[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .emb-chev { transition: none; } }
+
+/* The thread chart: the page's swatches, a little tighter so eight fit a row. */
+.emb .emb-chart { gap: 4px 6px; }
+
+/* The stitch file. */
+.emb-file { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 15px; font-weight: 600; color: var(--ink, #12342A); }
+.emb-file svg { flex-shrink: 0; color: var(--ok, #1F9D55); }
+.emb-file-note { margin: -8px 0 0; }

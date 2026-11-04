@@ -10,6 +10,8 @@
   var $ = function (sel) { return document.querySelector(sel); };
   var $$ = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
   var P = window.HonorsProduct || {};
+  // A ball's picture by brand (cart.js's list; session 12); a ball without a brand is Titleist, the ball page's default.
+  function ballImage(brand) { var m = window.HonorsBallImages || {}; return m[brand] || m.titleist || '../shared/ball.webp'; }
 
   var FONTS = {
     classic: "'Marcellus', Georgia, serif",
@@ -51,7 +53,7 @@
     '<svg class="ball-svg" viewBox="0 0 400 400" role="img" aria-labelledby="ball-title">' +
     '<title id="ball-title">Preview of your golf ball</title>' +
     '<defs><clipPath id="ballClip"><circle cx="200" cy="196" r="174"/></clipPath></defs>' +
-    '<image href="../shared/ball.webp" width="400" height="400"/>' +
+    '<image href="' + ballImage(P.state && P.state.brand) + '" width="400" height="400"/>' +
     '<g clip-path="url(#ballClip)" style="mix-blend-mode: multiply">' +
     '<g id="art-text" text-anchor="middle"><text id="t-line1" x="200" y="190"></text><text id="t-line2" x="200" y="230"></text></g>' +
     '<g id="art-mono" text-anchor="middle"><text id="t-mono" x="200" y="228" font-size="92" letter-spacing="4"></text></g>' +
@@ -494,7 +496,7 @@
         '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 16l-5-5L6 19.5"/></svg>Preview unavailable</span>';
     }
     if (d.product === 'hat' || d.page) return '<img class="recent-hat" src="' + esc(d.preview) + '" alt="">';
-    return '<span class="ball"><svg class="ball-svg" viewBox="0 0 400 400" aria-hidden="true"><image href="../shared/ball.webp" width="400" height="400"/>' +
+    return '<span class="ball"><svg class="ball-svg" viewBox="0 0 400 400" aria-hidden="true"><image href="' + ballImage(d.brand) + '" width="400" height="400"/>' +
       '<g style="mix-blend-mode: multiply">' + ballPrint(d) + '</g></svg></span>';
   }
   // One design on the shelf: the product, its code and when it was saved (or that it's the one open now).

@@ -31,6 +31,18 @@
       { min: 12, price: 38, name: '12–23 polos' },
       { min: 24, price: 34, name: '24–47 polos' },
       { min: 48, price: 30, name: '48 polos or more' }
+    ] },
+    // Towels (UI-14) are counted one by one, from Brawn & Fox (D-118). Example prices, the same as towel.js.
+    towel: { min: 24, own: { name: 'Brawn & Fox golf towel', one: 'towel', many: 'towels', page: 'towel.html' }, tiers: [
+      { min: 24, price: 14, name: '24–71 towels' },
+      { min: 72, price: 12, name: '72–143 towels' },
+      { min: 144, price: 11, name: '144 towels or more' }
+    ] },
+    // Caddy kits (UI-15): Brawn & Fox's hard zip case, counted one by one (D-118). Example prices, the same as caddy.js.
+    'caddy-kit': { min: 24, own: { name: 'Brawn & Fox caddy kit', one: 'caddy kit', many: 'caddy kits', page: 'caddy.html' }, tiers: [
+      { min: 24, price: 32, name: '24–71 caddy kits' },
+      { min: 72, price: 29, name: '72–143 caddy kits' },
+      { min: 144, price: 27, name: '144 caddy kits or more' }
     ] }
   };
   var TIERS = PRODUCTS.ball.tiers;
@@ -59,9 +71,16 @@
     return { lines: [line].concat(lines.filter(function (l) { return l !== found; })), merged: !!found };
   }
   function money(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  // The need-by date (C-17, D-123): one per order, the earliest 7 days after today, and checkout waits for it. Dates are
+  // the date field's own YYYY-MM-DD, so they compare as text. Kept apart from canCheckout, which stays the minimums rule.
+  var LEAD_DAYS = 7;
+  function isoDay(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function earliestNeedBy(today) { return isoDay(new Date(today.getFullYear(), today.getMonth(), today.getDate() + LEAD_DAYS)); }
+  function needByOk(value, today) { return /^\d{4}-\d{2}-\d{2}$/.test(value || '') && value >= earliestNeedBy(today); }
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { PRODUCTS: PRODUCTS, TIERS: TIERS, MIN_DOZEN: MIN_DOZEN, tierFor: tierFor, lineTotal: lineTotal, subtotal: subtotal, stepQty: stepQty, canCheckout: canCheckout, addLine: addLine, money: money };
+    module.exports = { PRODUCTS: PRODUCTS, TIERS: TIERS, MIN_DOZEN: MIN_DOZEN, tierFor: tierFor, lineTotal: lineTotal, subtotal: subtotal, stepQty: stepQty, canCheckout: canCheckout, addLine: addLine, money: money,
+      LEAD_DAYS: LEAD_DAYS, earliestNeedBy: earliestNeedBy, needByOk: needByOk };
     return;
   }
 
@@ -112,6 +131,22 @@
     try { sessionStorage.setItem(KEY, JSON.stringify(out)); } catch (e) { /* storage blocked: the cart lasts for this page */ }
   }
 
+  // The need-by date (UI-32): one for the whole cart, shared by the cart page and the drawer like the lines are.
+  var NEED_KEY = 'honors-need-by', TODAY = new Date(), EARLIEST = earliestNeedBy(TODAY), needBy = '';
+  if (!state) { try { needBy = sessionStorage.getItem(NEED_KEY) || ''; } catch (e) { /* storage blocked */ } }
+  if (!needByOk(needBy, TODAY)) needBy = '';   // a date saved on an earlier day can be too soon now
+  function saveNeedBy() {
+    if (state) return;
+    try { if (needBy) sessionStorage.setItem(NEED_KEY, needBy); else sessionStorage.removeItem(NEED_KEY); } catch (e) { /* storage blocked */ }
+  }
+  function longDay(iso) { var p = iso.split('-'); return new Date(+p[0], p[1] - 1, +p[2]).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
+  function needByHtml(id) {
+    return '<div class="need-by"><label class="label" for="' + id + '">Need it by</label>' +
+      '<input type="date" id="' + id + '" data-c="need-by-input" min="' + EARLIEST + '" aria-describedby="' + id + '-hint">' +
+      '<p class="hint need-by-hint" id="' + id + '-hint" data-c="need-by-hint" aria-live="polite"></p></div>';
+  }
+  var QUOTE_BTN = '<button type="button" class="btn btn-secondary btn-block" data-c="quote">Request a quote</button>';
+
   // The same print layout as the ball designer, on the same rendered ball (D-46).
   function fitSize(text, max) { var len = Math.max(text.length, 1); return Math.round(Math.min(max, 250 / (len * 0.56))); }
   function printSvg(line) {
@@ -140,7 +175,7 @@
     }
     if (ownPicture(line)) return '<img class="hat-thumb" src="' + esc(line.preview) + '" alt="">';
     return '<div class="ball"><svg class="ball-svg" viewBox="0 0 400 400" aria-hidden="true">' +
-      '<image href="../shared/ball.webp" width="400" height="400"/>' +
+      '<image href="' + BALL_IMAGES[ballBrand(line)] + '" width="400" height="400"/>' +
       '<g style="mix-blend-mode: multiply">' + printSvg(line) + '</g></svg></div>';
   }
   function describe(line) {
@@ -151,11 +186,31 @@
     return '“' + esc(line.line1 || '') + (line.line2 ? ' / ' + esc(line.line2) : '') + '” in ' + ink + ', ' + font + ' lettering.';
   }
   function editHref(line) {
-    var page = line.product === 'hat' ? 'hat.html' : words(line) ? words(line).page : './';
-    return line.kind === 'logo' ? page + '?tab=logo' : line.kind === 'monogram' ? page + '?tab=monogram' : page;
+    // A hat goes back to its own style and colorway: the hat page can't switch style (D-137).
+    var page = isHat(line) ? 'hat.html?style=' + hatStyle(line) + (line.colorway ? '&colorway=' + encodeURIComponent(line.colorway) : '')
+      : line.product === 'tumbler' ? 'accessory.html?brand=' + tumblerBrand(line)   // a tumbler goes back to its own brand
+      : words(line) ? words(line).page : './?brand=' + ballBrand(line);   // a ball goes back to its own brand (D-137)
+    var join = page.indexOf('?') < 0 ? '?' : '&';
+    return line.kind === 'logo' ? page + join + 'tab=logo' : line.kind === 'monogram' ? page + join + 'tab=monogram' : page;
   }
   // How a product's quantity reads: golf balls in dozens, hats and accessories one by one, each in its own words.
   function isHat(line) { return line.product === 'hat'; }
+  // A hat line is named by its style (D-130); lines saved before styles existed are The Origin, the hat page's default.
+  var HAT_STYLES = { 'the-origin': 'The Origin', 'the-local': 'The Local', 'the-axis': 'The Axis', 'the-performance-dad': 'The Performance Dad' };
+  function hatStyle(line) { return HAT_STYLES[line.style] ? line.style : 'the-origin'; }
+  // A ball line is named by its brand (D-116); lines saved before brands existed are Titleist, the ball page's default.
+  var BALL_BRANDS = { titleist: 'Titleist', callaway: 'Callaway' };
+  // Each brand's ball picture (session 12): the brand's own white ball photo as a stand-in until Chuck's (D-146, OQ-2);
+  // our render where there's none yet. Shared with designer.js and shop.js.
+  var BALL_IMAGES = window.HonorsBallImages = { titleist: '../shared/ball-titleist.webp', callaway: '../shared/ball-callaway.webp' };
+  function ballBrand(line) { return BALL_BRANDS[line.brand] ? line.brand : 'titleist'; }
+  // A tumbler line is named by its brand (D-117); lines saved before brands existed are Brawn & Fox, the page's default.
+  var TUMBLER_BRANDS = { 'brawn-and-fox': 'Brawn & Fox', stanley: 'Stanley', corkcicle: 'Corkcicle' };
+  function tumblerBrand(line) { return TUMBLER_BRANDS[line.brand] ? line.brand : 'brawn-and-fox'; }
+  function lineName(line) {
+    if (line.product === 'tumbler') return TUMBLER_BRANDS[tumblerBrand(line)] + ' tumbler';
+    return words(line) ? words(line).name : isHat(line) ? HAT_STYLES[hatStyle(line)] : BALL_BRANDS[ballBrand(line)] + ' golf balls';
+  }
   function words(line) { var p = PRODUCTS[line.product]; return p && p.own ? p.own : null; }
   function ownPicture(line) { return isHat(line) || !!words(line); }
   function unitName(line, n) { var w = words(line); return w ? (n === 1 ? w.one : w.many) : n === 1 ? 'hat' : 'hats'; }
@@ -170,7 +225,7 @@
     var heading = compact ? 'h3' : 'h2', one = ownPicture(line) ? 'One ' + unitName(line, 1) : 'One dozen';
     return '<li class="cart-line' + (compact ? ' is-compact' : '') + '" data-code="' + line.code + '">' + thumb +
       '<div class="line-body">' +
-        '<div class="line-top"><div><' + heading + ' class="line-name">' + (words(line) ? words(line).name : isHat(line) ? 'Custom rope hats' : 'Custom golf balls') + '</' + heading + '><p class="line-code">Design ' + line.code + '</p></div>' +
+        '<div class="line-top"><div><' + heading + ' class="line-name">' + esc(lineName(line)) + '</' + heading + '><p class="line-code">Design ' + line.code + '</p></div>' +
           '<p class="line-total" data-f="total"></p></div>' +
         (compact ? '' : '<p class="line-desc">' + describe(line) + '</p>') +
         '<div class="line-qty">' +
@@ -210,14 +265,20 @@
   }
   function updateView(view) {
     var c = function (name) { return view.root.querySelector('[data-c="' + name + '"]'); };
-    var ok = canCheckout(lines, repriceFailed), note = c('checkout-note');
+    var dateOk = needByOk(needBy, TODAY), ok = canCheckout(lines, repriceFailed) && dateOk, note = c('checkout-note');
     c('subtotal').textContent = money(subtotal(lines));
     c('checkout').disabled = !ok;
     note.hidden = ok;
     var short = lines.filter(function (l) { return l.qty < product(l.product).min; });
     var oneKind = short.length && short.every(function (l) { return count(1, l) === count(1, short[0]); });
     note.textContent = repriceFailed ? 'Refresh your cart to check out.'
-      : 'Bring every design up to ' + (oneKind ? count(product(short[0].product).min, short[0]) : 'its minimum') + ' to check out.';
+      : short.length ? 'Bring every design up to ' + (oneKind ? count(product(short[0].product).min, short[0]) : 'its minimum') + ' to check out.'
+      : 'Pick the date you need it by to check out.';
+    // The date field: the other view follows (never the one being typed in); a date before the earliest says so.
+    var input = c('need-by-input'), hint = c('need-by-hint'), early = !!needBy && !dateOk;
+    if (input !== document.activeElement) input.value = needBy;
+    hint.classList.toggle('is-error', early);
+    hint.textContent = early ? 'Pick a date from ' + longDay(EARLIEST) + ' on.' : 'The earliest is ' + longDay(EARLIEST) + '. We confirm the date with you.';
     c('filled').hidden = !lines.length;
     c('empty').hidden = lines.length > 0;
     if (view.onUpdate) view.onUpdate();
@@ -260,11 +321,22 @@
     view.root.querySelector('[data-c="checkout"]').addEventListener('click', function () {
       showToast('In the real store, this opens Shopify’s checkout.');
     });
+    var dateInput = view.root.querySelector('[data-c="need-by-input"]');
+    var onDate = function () { needBy = dateInput.value; saveNeedBy(); updateAll(); };
+    dateInput.addEventListener('input', onDate);
+    dateInput.addEventListener('change', onDate);
+    // Request a quote (C-14, D-122): for any cart, with no minimum and no date needed first. The form itself (UI-18)
+    // comes with task 29; it will carry the cart's designs, quantities and date.
+    view.root.querySelector('[data-c="quote"]').addEventListener('click', function () {
+      showToast('The quote request form opens here, with your designs and date (next step, task 29).');
+    });
   }
 
   // The cart page (UI-31).
   if (cartPage) {
     var page = byId('cart');
+    byId('checkout').insertAdjacentHTML('beforebegin', needByHtml('need-by-page'));
+    byId('checkout-note').insertAdjacentHTML('afterend', QUOTE_BTN);
     addView({
       root: page, list: byId('cart-lines'), compact: false,
       onUpdate: function () {
@@ -303,9 +375,10 @@
         '<div class="drawer-foot" data-c="filled">' +
           '<div class="sum-row"><span class="sum-label">Subtotal</span><span class="sum-value" data-c="subtotal"></span></div>' +
           '<p class="hint">Shipping and tax are added at checkout.</p>' +
+          needByHtml('need-by-drawer') +
           '<button type="button" class="btn btn-primary btn-block" data-c="checkout" aria-describedby="drawer-checkout-note">Check out</button>' +
           '<p class="checkout-note" id="drawer-checkout-note" data-c="checkout-note" hidden></p>' +
-          '<a class="btn btn-secondary btn-block" href="cart.html">View cart</a>' +
+          '<div class="drawer-pair">' + QUOTE_BTN + '<a class="btn btn-secondary btn-block" href="cart.html">View cart</a></div>' +
           '<p class="hint pay-note">Shop Pay, Apple Pay and Google Pay are offered at checkout.</p>' +
         '</div>' +
       '</aside>';

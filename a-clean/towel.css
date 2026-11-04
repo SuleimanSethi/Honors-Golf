@@ -1,0 +1,50 @@
+/* Towel page (UI-14): the stage, close-up and marks come from apparel.css. The design picture is the towel hanging from
+   its clip, 3 : 2, shown whole on the stage (its background is clear, so the stage's grey shows round it); the close-up
+   sits bottom right. */
+.look-a .towel-studio .app-view {
+  top: 50%; left: 50%; right: auto; margin: 0;
+  width: min(100cqw, 150cqh); aspect-ratio: 3 / 2; transform: translate(-50%, -50%);
+}
+.look-a .towel-studio .closeup { left: auto; right: 20px; }
+/* The camo swatches show their pattern, not one flat color. */
+.look-a .swatch[data-color$="camo"] span { background-size: 100% 100%; }
+/* The color sits under the towel's name, before the artwork, as the hat page's colorway does. */
+.look-a .panel-head .colorway { margin-top: 18px; }
+
+/* Real photos beside the stage, as on the hat page (D-148; owner, session 15): a column of thumbnails left of the stage,
+   your design first, then Brawn & Fox's other photos of the color picked (towel.js). A photo covers the stage, plain,
+   with its own note. */
+.look-a .towel-real, .look-a .towel-studio .photo-chip { display: none; }
+.look-a .towel-studio.is-real .towel-real {
+  display: block; position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
+  object-fit: cover; border-radius: inherit; background: var(--stage);
+}
+.look-a .towel-studio.is-real .photo-chip {
+  display: inline-flex; position: absolute; top: 20px; left: 20px; z-index: 3; margin: 0; padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.82); border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--muted);
+}
+.look-a .towel-studio.is-real .stage-chip, .look-a .towel-studio.is-real .closeup { display: none; }
+.look-a .towel-studio .studio-status { z-index: 3; }
+.look-a .towel-views { display: flex; gap: 10px; margin-top: 12px; }
+.look-a .towel-views[hidden] { display: none; }
+.look-a .towel-view {
+  position: relative; width: 68px; height: 68px; padding: 0; overflow: hidden;
+  background: var(--stage); border: 2px solid transparent; border-radius: var(--radius-s); cursor: pointer;
+}
+.look-a .towel-view img { width: 100%; height: 100%; object-fit: cover; }
+.look-a .towel-view:hover { border-color: var(--line); }
+.look-a .towel-view[aria-pressed="true"] { border-color: var(--accent); }
+.look-a .towel-view .view-tag {
+  position: absolute; left: 4px; right: 4px; bottom: 4px; padding: 2px 0; border-radius: 6px;
+  background: rgba(255, 255, 255, 0.88); color: var(--ink); font-size: 11px; font-weight: 600; text-align: center;
+}
+/* Desktop: the thumbnails stand in a column left of the stage, so the stage keeps its height above the bottom bar. */
+@media (min-width: 761px) {
+  .look-a .studio-col.has-views { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 12px; align-items: start; }
+  .look-a .studio-col.has-views .towel-views { order: -1; flex-direction: column; margin-top: 0; }
+  .look-a .studio-col.has-views .studio-note { grid-column: 2; }
+}
+/* The caddy kit page (it shares this file): the saved-or-not tag sits bottom left, clear of the upright case, and the
+   photos beside the stage are shown whole, not cropped to fill it (owner, session 15: "why have you zoomed in this image"). */
+.look-a .caddy-studio .studio-status { left: 20px; transform: none; }
+.look-a .caddy-studio.is-real .towel-real { object-fit: contain; padding: 24px 24px 64px; box-sizing: border-box; }

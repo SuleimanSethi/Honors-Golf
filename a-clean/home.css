@@ -32,7 +32,7 @@
 .home .strip-item p { font-size: 14px; line-height: 1.45; color: var(--muted); }
 
 /* 3. Shop by category */
-.home .cats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.home .cats { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }   /* six categories (D-115) */
 .home .cat, .home .product, .home .try-tile { display: flex; flex-direction: column; gap: 4px; color: var(--ink); text-decoration: none; }
 .home .cat-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; margin-bottom: 14px; overflow: hidden; border-radius: var(--radius-m); background: var(--fill); }
 .home .cat-photo, .home .product-photo { width: 100%; height: 100%; object-fit: cover; }
@@ -40,6 +40,17 @@
 .home .cat-polo { width: 102%; max-width: none; }      /* the polo render with the Honors chest mark (owner's note, D-107) */
 .home .cat-tumbler { height: 86%; width: auto; }
 .home .cat-ball { width: 84%; }
+.home .cat-towel { width: 112%; max-width: none; }
+.home .cat-kit { width: 100%; }     /* caddy kit stand-in, composed from our renders (OQ-19) */
+/* The way into Event packs (UI-16, D-125): one quiet row under the categories, on the stage grey like the quotes. */
+.home .packs { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 40px; margin-top: 28px; padding: 24px 32px; border-radius: var(--radius-l); background: var(--stage); }
+.home .packs h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+.home .packs p { max-width: 36em; margin-top: 4px; font-size: 15px; color: var(--muted); }
+.home .packs-img { display: flex; align-items: center; height: 128px; }
+.home .packs-img img { height: 100%; width: auto; }
+.home .packs-towel { margin-right: -34px; }
+.home .packs-img .packs-ball { height: 66%; position: relative; z-index: 1; }
+.home .packs-tumbler { margin-left: -18px; }
 .home .cat-name, .home .product-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
 .home .cat-note, .home .product-note { font-size: 15px; color: var(--muted); }
 .home .cat:hover .cat-name, .home .product:hover .product-name, .home .try-tile:hover .try-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }

@@ -11,7 +11,7 @@
     { code: 'HGS-10431', product: 'hat', created: '2026-09-26', order: '1047', preview: 'img/hat-hgs-10431.webp', logo: 'pinecrest-script.png',
       summary: 'Forest hat, white rope. Rectangle rubber (PVC) patch with pinecrest-script.png.' },
     { code: 'HGS-10423', product: 'hat', created: '2026-09-16', order: '1042', preview: 'img/hat-3d-still.webp', logo: 'pinecrest-logo.jpg',
-      summary: 'Forest hat, white rope. Round embroidered patch with pinecrest-logo.jpg.' },
+      summary: 'Forest hat, white rope. Round fabric patch with pinecrest-logo.jpg.' },
     { code: 'HGS-10412', product: 'ball', kind: 'text', line1: 'Pinecrest Club', line2: 'Club Championship', font: 'classic', color: 'navy', created: '2026-09-15' },
     { code: 'HGS-10398', product: 'ball', kind: 'logo', logo: 'pinecrest-logo.jpg', created: '2026-09-12' },
     { code: 'HGS-10377', product: 'ball', kind: 'monogram', mono: 'PGC', font: 'classic', color: 'navy', order: '1036' }
@@ -283,7 +283,7 @@
           '<p class="ro-desc" data-ro="desc"></p>' +
           '<p class="ro-last" data-ro="last"></p>' +
           '<div class="ro-order" data-ro="order">' +
-            '<div class="ro-head"><label class="ro-label" for="ro-qty">How many?</label><span class="review-note">Example prices, until Chuck sets them</span></div>' +
+            '<div class="ro-head"><label class="ro-label" for="ro-qty">How many?</label></div>' +
             '<div class="ro-qty-row"><div class="stepper ro-stepper" role="group" aria-label="Quantity">' +
               '<button type="button" data-ro="dec">&minus;</button>' +
               '<input id="ro-qty" type="number" inputmode="numeric" min="1" max="9999" step="1" data-ro="qty" aria-describedby="ro-min">' +

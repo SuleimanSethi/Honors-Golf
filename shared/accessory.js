@@ -1,48 +1,97 @@
-// The accessory page (UI-12; spec A-1, A-4): describes an accessory to the shared designer (designer.js) and draws it.
-// The accessory is data (ACCESSORY below): a photo for each color and view, how those photos were taken, the named
-// print areas placed on the photo with their size in inches and decoration method, the allowed styles and the tier
-// ladder. Another accessory is another ACCESSORY plus its photos; the drawing code below stays as it is.
-// Shown with one accessory: the stainless tumbler, laser engraved. Its print areas and method are examples until
-// Chuck confirms them (OQ-9); its prices are examples until he sets them (OQ-3).
+// The accessory page (UI-12; spec A-1, A-4, A-6): describes an accessory to the shared designer (designer.js) and draws it.
+// The accessory is data (ACCESSORY below, with each brand's part in BRANDS): a photo for each color, how those photos
+// were taken, the named print areas placed on the photo with their size in inches and decoration method, the allowed
+// styles and the tier ladder. Another accessory is another ACCESSORY plus its photos; the drawing code stays as it is.
+// Shown with the tumbler, laser engraved, from three brands. Its print areas and method are examples until Chuck
+// confirms them (OQ-9); its prices are examples until he sets them (OQ-3).
 // Engraved areas show the artwork flat, with the product's shading (A-4): the laser takes the coating off, so the
-// artwork shows the bare steel, taken from the stainless photo at the same spot, curve and highlights included.
+// artwork shows the bare steel, taken from a picture of the same tumbler in bare steel at the same spot, curve and
+// highlights included.
 (function () {
   'use strict';
 
   var ACCESSORY = {
     product: 'tumbler',
-    name: 'Custom tumblers',            // as the cart and the recent-design cards name it
+    name: 'Custom tumblers',            // as the cart and the recent-design cards name it (set by brand below)
     noun: 'tumbler',
     page: 'accessory.html',
     code: 'HGS-10452',                  // the next free sample design code (ball HGS-10450, hat HGS-10451)
     styles: ['logo', 'text', 'monogram'],
     min: 24,
     tiers: [{ min: 24, price: 19 }, { min: 72, price: 17 }, { min: 144, price: 15 }],   // examples, the same as cart.js
-    // Our own renders (render_goods.html, see img/CREDITS.md). `bare` = uncoated steel, engraved darker.
-    colors: {
-      forest: { name: 'Forest', hex: '#1F4A36' },
-      white: { name: 'White', hex: '#EFEDE8' },
-      black: { name: 'Black', hex: '#262626' },
-      steel: { name: 'Stainless', hex: '#C9CCCF', bare: true }
-    },
-    photo: 'img/tumbler-{color}-{view}.webp',
     views: { front: 'Front', back: 'Back' },
-    // How the photos were taken, so artwork can follow the body: its shape in inches (a cone, narrower at the base,
-    // standing on the floor with its axis at 0, 0) and the camera, in the same inches, for a photo `size` pixels square.
-    body: { shape: 'cone', height: 6.496, rBottom: 1.417, rTop: 1.772 },
-    camera: { size: 1600, fov: 24, eye: [0, 8.118, 21.014], target: [0, 3.652, 0] },
     // The print areas: each faces the camera in its own view, `width` measured around the body and `height` up it,
-    // centred `center` inches above the base.
+    // centred `center` inches above the base (each brand sets its own centre).
     areas: [
-      { id: 'front', name: 'Front', note: 'Under the lid’s opening', view: 'front', width: 2.75, height: 3, center: 3.4, method: 'laser' },
-      { id: 'back', name: 'Back', note: 'Opposite the opening', view: 'back', width: 2.75, height: 3, center: 3.4, method: 'laser' }
+      { id: 'front', name: 'Front', note: 'The side facing you', view: 'front', width: 2.75, height: 3, center: 3.4, method: 'laser' },
+      { id: 'back', name: 'Back', note: 'The opposite side', view: 'back', width: 2.75, height: 3, center: 3.4, method: 'laser' }
     ],
-    start: { tab: 'logo', color: 'forest', areas: ['front'], qty: 48, font: 'classic', logoSize: 85,
+    start: { tab: 'logo', color: 'white', areas: ['front'], qty: 48, font: 'classic', logoSize: 85,
       line1: 'Pinecrest', line2: 'Golf Club' }
   };
   // Decoration methods, as the buyer reads them. This page draws laser engraving; printing (flat color with the
   // product's shading) and embroidery come with the first accessory that uses them.
   var METHODS = { laser: { name: 'laser engraved', verb: 'engraved' } };
+
+  // The brand the buyer clicked on Shop all (D-117, D-137): ?brand=brawn-and-fox, stanley or corkcicle, one tumbler per
+  // brand; a saved design (?design=) opens on its own brand; none or unknown opens the first, Brawn & Fox. The page has no
+  // brand switch; the buyer changes the color. Each brand opens on the color its Shop all tile shows first.
+  // The pictures are each brand's own product photos, logos painted out, as stand-ins until Chuck chooses the tumbler
+  // and sends his photos (session 14; tools/tumblers/, img/CREDITS.md): Brawn & Fox's white tumbler (brawnandfox.com,
+  // the Azalea Tumbler with its print removed), Stanley's Everyday Tumbler 20 oz (stanley1913.com), Corkcicle's Classic
+  // Tumbler 16 oz (corkcicle.com). Only front photos exist, so the back view shows the same picture. `light` colors take
+  // a dark dashed edge; `bare` = uncoated steel, engraved darker. `body` and `camera` say how the photos were taken, so
+  // artwork follows the body: its shape in inches (a cone, narrower at the base, standing on the floor with its axis at
+  // 0, 0) and the camera, in the same inches, for a photo `size` pixels square (straight on, from far away), as
+  // measured by tools/tumblers/make.py.
+  var BRANDS = {
+    'brawn-and-fox': { name: 'Brawn & Fox', color: 'white',
+      colors: { white: { name: 'White', hex: '#F2F2F0', light: true } },
+      photo: 'img/tumbler-brawn-and-fox-{color}.webp', steel: 'img/tumbler-brawn-and-fox-bare.webp', center: 3.0,
+      body: { shape: 'cone', height: 5.814, rBottom: 1.322, rTop: 1.772 },
+      camera: { size: 1600, fov: 1.6557, eye: [0, 3.777, 300], target: [0, 3.777, 0] } },
+    stanley: { name: 'Stanley', color: 'steel',
+      colors: {
+        steel: { name: 'Stainless Steel Ash', hex: '#B9BCBE', light: true, bare: true },
+        white: { name: 'Frost', hex: '#ECECE8', light: true },
+        black: { name: 'Black', hex: '#232323' },
+        green: { name: 'Dried Pine', hex: '#7E8F6E' }
+      },
+      photo: 'img/tumbler-stanley-{color}.webp', steel: 'img/tumbler-stanley-bare.webp', center: 3.3,
+      body: { shape: 'cone', height: 6.353, rBottom: 1.3, rTop: 1.772 },
+      camera: { size: 1600, fov: 1.8108, eye: [0, 4.131, 300], target: [0, 4.131, 0] } },
+    corkcicle: { name: 'Corkcicle', color: 'white',
+      colors: {
+        white: { name: 'Gloss White', hex: '#F3F3F1', light: true },
+        black: { name: 'Matte Black', hex: '#3A3B3D' },
+        navy: { name: 'Gloss Midnight Navy', hex: '#1C2550' },
+        oat: { name: 'Oat Milk', hex: '#E8E3D8', light: true }
+      },
+      photo: 'img/tumbler-corkcicle-{color}.webp', steel: 'img/tumbler-corkcicle-bare.webp', center: 3.2,
+      body: { shape: 'cone', height: 6.106, rBottom: 1.35, rTop: 1.772 },
+      camera: { size: 1600, fov: 1.7421, eye: [0, 3.974, 300], target: [0, 3.974, 0] } }
+  };
+  var brand = (function () {
+    var q = new URLSearchParams(location.search), b = q.get('brand'), code = q.get('design'), d = null;
+    try { d = code && (JSON.parse(localStorage.getItem('honors-recent-designs') || '[]') || []).filter(function (x) { return x.code === code; })[0]; } catch (e) { d = null; }
+    if (d && d.product === ACCESSORY.product && BRANDS[d.brand]) b = d.brand;
+    return BRANDS[b] ? b : 'brawn-and-fox';
+  })();
+  var BRAND = BRANDS[brand], TITLE = BRAND.name + ' tumbler';
+  ['colors', 'photo', 'steel', 'body', 'camera'].forEach(function (k) { ACCESSORY[k] = BRAND[k]; });
+  ACCESSORY.areas.forEach(function (a) { a.center = BRAND.center; });
+  ACCESSORY.name = TITLE;
+  ACCESSORY.start.color = BRAND.color;
+  document.title = TITLE + ' | Honors (A. Clean)';
+  // The brand's colors as swatches, before the designer wires them up.
+  (function () {
+    var root = document.querySelector('.swatches'); if (!root) return;
+    root.innerHTML = Object.keys(BRAND.colors).map(function (k) {
+      var c = BRAND.colors[k];
+      return '<button type="button" class="swatch" data-color="' + k + '" aria-label="' + c.name + '" aria-pressed="' + (k === BRAND.color) + '"><span style="background:' + c.hex + '"></span></button>';
+    }).join('');
+    var name = document.getElementById('color-name'); if (name) name.textContent = BRAND.colors[BRAND.color].name;
+  })();
 
   var A = ACCESSORY, PX_PER_IN = 200, SAFE = 0.06;
   var FONTS = {
@@ -57,6 +106,7 @@
   function areaById(id) { return A.areas.filter(function (a) { return a.id === id; })[0]; }
   function areasOn(state) { return A.areas.filter(function (a) { return state.areas.indexOf(a.id) !== -1; }); }
   function photoUrl(color, view) { return A.photo.replace('{color}', color).replace('{view}', view); }
+  function steelUrl(view) { return A.steel.replace('{view}', view); }
 
   // ---- The camera: where a point on the body lands in the photo, and which point of the body a pixel shows ----
   var cam = (function (c) {
@@ -93,23 +143,23 @@
     return (geometry[area.id] = { outline: pts, x: x, y: y, w: w, h: h });
   }
 
-  // ---- Photos: every color and view loaded once; the stainless ones also give the bare steel's pixels ----
+  // ---- Photos: every color and view loaded once; the brand's bare-steel picture gives the steel's pixels ----
   var photos = {}, steel = {}, api = null;
-  function photo(color, view) {
-    var key = color + '/' + view;
-    if (!photos[key]) {
+  function load(url) {
+    if (!photos[url]) {
       var img = new Image();
-      photos[key] = img;
+      photos[url] = img;
       img.onload = function () { if (api) api.render(); };
-      img.src = photoUrl(color, view);
+      img.src = url;
     }
-    return photos[key].complete && photos[key].naturalWidth ? photos[key] : null;
+    return photos[url].complete && photos[url].naturalWidth ? photos[url] : null;
   }
-  // The steel under an area, from the stainless photo of that area's view (only the area's own box is kept).
+  function photo(color, view) { return load(photoUrl(color, view)); }
+  // The steel under an area, from the bare-steel picture of that area's view (only the area's own box is kept).
   function steelUnder(area) {
     var key = area.id;
     if (steel[key]) return steel[key];
-    var img = photo('steel', area.view);
+    var img = load(steelUrl(area.view));
     if (!img) return null;
     var g = geo(area), c = document.createElement('canvas'); c.width = g.w; c.height = g.h;
     var ctx = c.getContext('2d', { willReadFrequently: true });
@@ -271,7 +321,7 @@
       g.drawImage(layerOf(res), res.g.x, res.g.y);
     }
     // The area's edge, dashed: light on the dark colors, Pine on the light ones.
-    var light = state.color === 'white' || state.color === 'steel';
+    var light = !!A.colors[state.color].light;
     g.save(); g.beginPath();
     geo(area).outline.forEach(function (p, i) { g[i ? 'lineTo' : 'moveTo'](p[0], p[1]); });
     g.closePath(); g.setLineDash([12, 9]); g.lineWidth = 3;
@@ -350,7 +400,7 @@
 
   window.HonorsProduct = {
     product: A.product, name: A.name, noun: A.noun, page: A.page,
-    keep: ['areas', 'logoSize'],
+    keep: ['areas', 'logoSize', 'brand'],
     colors: A.colors,
     tiers: A.tiers,
     min: A.min,
@@ -361,7 +411,7 @@
       each: function (price) { return '$' + price + ' each'; },
       best: 'You’re getting the best price per tumbler.'
     },
-    state: Object.assign({ code: A.code }, A.start),
+    state: Object.assign({ code: A.code, brand: brand }, A.start),
     draw: function (state) {
       if (!A.colors[state.color]) state.color = Object.keys(A.colors)[0];
       if (!Array.isArray(state.areas) || !areasOn(state).length) state.areas = [A.areas[0].id];
@@ -371,15 +421,27 @@
     },
     design: function (d, state) {
       var shot = snapshot(state);
-      Object.assign(d, { product: A.product, areas: state.areas.slice(), logoSize: state.logoSize, summary: describe(state), preview: shot, noPreview: !shot });
+      Object.assign(d, { product: A.product, brand: brand, areas: state.areas.slice(), logoSize: state.logoSize, summary: describe(state), preview: shot, noPreview: !shot });
     },
     init: function (a) {
       api = a;
       buildAreas();
+      $$('[data-acc-brand]').forEach(function (e) { e.textContent = BRAND.name; });
+      $$('[data-acc-name]').forEach(function (e) { e.textContent = TITLE; });
+      // A recent design of another brand opens on its own brand's page rather than in this one.
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest && e.target.closest('[data-recent-code]'), code = link && link.dataset.recentCode, r = null;
+        if (!code) return;
+        try { r = (JSON.parse(localStorage.getItem('honors-recent-designs') || '[]') || []).filter(function (x) { return x.code === code; })[0]; } catch (err) { r = null; }
+        if (r && r.product === A.product && BRANDS[r.brand] && r.brand !== brand) {
+          e.preventDefault(); e.stopPropagation();
+          location.href = A.page + '?brand=' + r.brand + '&design=' + encodeURIComponent(code);
+        }
+      }, true);
       // Only the allowed styles are offered.
       $$('button[data-tab]').forEach(function (b) { if (A.styles.indexOf(b.dataset.tab) === -1) b.hidden = true; });
       // Load every photo now, so a color or side changes at once.
-      Object.keys(A.colors).forEach(function (c) { Object.keys(A.views).forEach(function (v) { photo(c, v); }); });
+      Object.keys(A.colors).forEach(function (c) { Object.keys(A.views).forEach(function (v) { photo(c, v); load(steelUrl(v)); }); });
       $$('[data-area]').forEach(function (b) {
         b.addEventListener('click', function () {
           var id = b.dataset.area, on = a.state.areas.indexOf(id) !== -1;

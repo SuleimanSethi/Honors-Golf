@@ -8,7 +8,7 @@
   var SAMPLE = {
     topic: 'An order I’ve placed', order: '1042',
     name: 'Alex Morgan', email: 'alex@pinecrestgolf.example', club: 'Pinecrest Golf Club', phone: '',
-    message: 'Hi, our member-guest hats (48 Forest rope hats, design HGS-10423) are in production. Our event is on October 12. Could they reach us by October 9? If that’s tight, we’re happy to take 24 early and the rest after. Thanks, Alex'
+    message: 'Hi, our tournament hats (48 Forest rope hats, design HGS-10423) are in production. Our event is on October 12. Could they reach us by October 9? If that’s tight, we’re happy to take 24 early and the rest after. Thanks, Alex'
   };
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,6 +18,7 @@
   var form = $('contact-form');
   var sent = document.querySelector('[data-sent-view]');
   var orderField = document.querySelector('[data-order-field]');
+  var requestField = document.querySelector('[data-request-field]');   // "A product you don't list" points to Request a product (UI-09)
   var topics = form.querySelectorAll('input[name="topic"]');
   var attach = $('attach'), attachFile = document.querySelector('[data-attach-file]');
 
@@ -25,6 +26,7 @@
   function syncOrderField() {
     var t = pickedTopic();
     orderField.hidden = !(t && t.hasAttribute('data-needs-order'));
+    requestField.hidden = !(t && t.hasAttribute('data-suggests-request'));
   }
 
   function syncAttach() {
